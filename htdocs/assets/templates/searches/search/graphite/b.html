@@ -1,0 +1,12 @@
+  <div class="col-lg-4 col-md-6 col-xs-12 form-group filter-group">
+    <label for="filter_type">Threshold</label>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <span><input type="radio" name="filter_type" value="0" /> Greater than</span>
+      </span>
+      <span class="input-group-addon">
+        <span><input type="radio" name="filter_type" value="1" /> Less than</span>
+      </span>
+      <input class="form-control" type="number" name="filter_threshold" value="{{ query_data.filter_threshold }}" />
+    </div>
+  </div>

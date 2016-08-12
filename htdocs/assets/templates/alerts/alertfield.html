@@ -1,0 +1,22 @@
+<td width="1">{{ key }}</td>
+<td>
+  <div class="view">{{ value }}</div>
+  <div class="edit hidden">
+    <div class="form-group">
+      <label>Renderer</label>
+      <input class="form-control renderer-select"></input>
+    </div>
+
+    <div class="form-group">
+      <label>Content</label>
+      <textarea class="form-control content"></textarea>
+    </div>
+    <button class="btn btn-sm btn-default apply-button">Apply</button>
+  </div>
+</td>
+<td width="1" class="text-nowrap">
+  <button class="action edit-button"><span class="hoverable glyphicon glyphicon-pencil"></span></button>
+  {{#if temp}}
+  <button class="action delete-button"><span class="hoverable glyphicon glyphicon-remove"></span></button>
+  {{/if}}
+</td>

@@ -1,0 +1,24 @@
+<div class="col-xs-12">
+  <div class="panel panel-{{#if escalated}}danger{{else}}default{{/if}}">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        {{ name }}
+      </h4>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table alert-table">
+        <thead>
+          <tr><td width="1">Time</td><td colspan="2">{{date alert_date}}</td></td>
+          <!-- F_DIS <tr><td width="1">Escalated</td><td colspan="2">{{#if escalated}}Yes{{else}}No{{/if}}</td></td> -->
+          <tr><td width="1">Assignee</td><td colspan="2">{{ assignee_name }}</td></td>
+          <tr><td width="1">Status</td><td colspan="2">{{dict states key=state default='Unknown'}}</td></td>
+          {{#ifeq state 2}}
+          <tr><td width="1">Resolution</td><td colspan="2">{{dict resolutions key=resolution default='Unknown'}}</td></td>
+          {{/ifeq}}
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>

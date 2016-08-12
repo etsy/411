@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>First Attempt</th>
+        <th>Last Attempt</th>
+        <th>Tries</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each jobs}}
+    <tr>
+      <td>{{ id }}</td>
+      <td>{{date target_date}}</td>
+      <td>{{date last_execution_date}}</td>
+      <td>{{ tries }}</td>
+      <td>{{ dict ../states key=state default='Unknown' }}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>

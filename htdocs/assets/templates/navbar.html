@@ -1,0 +1,75 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      {{#if dropdown}}
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".page-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {{/if}}
+      <span class="navbar-brand">{{ title }}</span>
+    </div>
+
+    <div class="collapse navbar-collapse page-navbar-collapse">
+      <ul class="nav navbar-nav navbar-links">
+        {{#each links}}
+        <li><a{{#if link}} href="{{ link }}"{{/if}}{{#if action}} tabindex="0" class="{{ action }}-button navbar-link-{{@index}}"{{/if}}>
+          {{#if icon}}<span class="glyphicon glyphicon-{{ icon }}"></span> {{/if}}{{ name }}
+        </a></li>
+        {{/each}}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right navbar-sidelinks">
+        {{#each sidelinks}}
+        <li><a{{#if link}} href="{{ link }}"{{/if}}{{#if action}} tabindex="0" class="{{ action }}-button"{{/if}}>
+          {{#if icon}}<span class="glyphicon glyphicon-{{ icon }}"></span> {{/if}}{{ name }}
+        </a></li>
+        {{/each}}
+      </ul>
+    </div>
+
+    {{#if search}}
+    <form class="search-form">
+      <div class="navbar-form navbar-search">
+        <div class="input-group">
+          <input type="text" autocomplete="off" name="query" class="form-control navbar-search-input">
+          <div class="input-group-btn">
+
+            <button class="btn btn-default navbar-search-button" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right navbar-searchlinks">
+              {{#each searchlinks}}
+              {{#if divider}}
+              <li role="separator" class="divider"></li>
+              {{else}}
+              <li><a{{#if link}} href="{{ link }}"{{/if}}{{#if action}} tabindex="0" class="{{ action }}-button"{{/if}} {{#if val}}data-val="{{ val }}"{{/if}}>
+                {{#if icon}}<span class="glyphicon glyphicon-{{ icon }}"></span> {{/if}}{{ name }}
+              </a></li>
+              {{/if}}
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-form">
+        <div class="input-group date input-group-sm time-a">
+          <span class="input-group-addon">From</span>
+          <input type="text" class="form-control" name="from" placeholder="-&infin;" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+        <div class="input-group date input-group-sm time-b">
+          <span class="input-group-addon">To</span>
+          <input type="text" class="form-control" name="to" placeholder="now" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+    </form>
+    {{/if}}
+  </div>
+</nav>

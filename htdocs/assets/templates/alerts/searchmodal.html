@@ -1,0 +1,68 @@
+<div class="col-xs-12 form-group">
+  <label for="search">Search</label>
+  <input class="form-control" type="hidden" name="search_id" />
+</div>
+
+<div class="col-xs-12 form-group">
+  <label for="tags">Tags</label>
+  <input class="form-control tags" type="text" name="tags" />
+</div>
+
+<div class="col-sm-6 col-xs-12 form-group">
+  <label for="category">Category</label>
+  <select class="form-control" name="category">
+    <option></option>
+    {{#each categories}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>
+<div class="col-sm-6 col-xs-12 form-group">
+  <label for="priority">Priority</label>
+  <select class="form-control" name="priority">
+    <option></option>
+    {{#each priorities}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>
+
+<div class="col-sm-6 col-xs-12 form-group">
+  <label for="type">Type</label>
+  <select class="form-control" name="type">
+    <option></option>
+    {{#each types}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>
+
+<div class="col-sm-6 col-xs-12 form-group">
+  <label for="state">State</label>
+  <select class="form-control" name="state">
+    <option></option>
+    {{#each states}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>
+<!-- F_DIS
+<div class="col-sm-6 col-xs-12 form-group">
+  <label for="escalated">Escalated</label>
+  <select class="form-control" name="escalated">
+    <option></option>
+    <option value="0">No</option>
+    <option value="1">Yes</option>
+  </select>
+</div>
+-->
+
+<div class="col-sm-6 col-xs-12 form-group">
+  <label for="assignee">Assignee</label>
+  <input type="hidden" class="form-control" name="assignee">
+</div>
+
+<div class="col-sm-6 col-xs-12 form-group">
+  <label for="owner">Owner</label>
+  <input type="hidden" class="form-control" name="owner">
+</div>

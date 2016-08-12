@@ -1,0 +1,71 @@
+<form method="post" id="admin-form">
+  <div class="form-group col-xs-6 col-md-4">
+    <label for="cron_enabled">Scheduler <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggles the 411 Scheduler, which is responsible for scheduling jobs."></span></label><br />
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary {{#if cron_enabled}}active{{/if}}">
+        <input type="checkbox" autocomplete="off" name="cron_enabled" value="on" {{#if cron_enabled}}checked{{/if}} />
+        <span class="glyphicon glyphicon-off"></span> Enable
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-6 col-md-4">
+    <label for="worker_enabled">Worker <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggles the 411 Worker, which is responsible for executing jobs."></span></label><br />
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary {{#if worker_enabled}}active{{/if}}">
+        <input type="checkbox" autocomplete="off" name="worker_enabled" value="on" {{#if worker_enabled}}checked{{/if}} />
+        <span class="glyphicon glyphicon-off"></span> Enable
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-6 col-md-4">
+    <label for="summary_enabled">Weekly Summary <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggles the weekly summary email that gets sent at the end of each week."></span></label><br />
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary {{#if summary_enabled}}active{{/if}}">
+        <input type="checkbox" autocomplete="off" name="summary_enabled" value="on" {{#if summary_enabled}}checked{{/if}} />
+        <span class="glyphicon glyphicon-off"></span> Enable
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-6 col-md-4">
+    <label for="error_email_enabled">Error Email <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggles the sending of notification emails when a Search is failing."></span></label><br />
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary {{#if error_email_enabled}}active{{/if}}">
+        <input type="checkbox" autocomplete="off" name="error_email_enabled" value="on" {{#if error_email_enabled}}checked{{/if}} />
+        <span class="glyphicon glyphicon-off"></span> Enable
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-12 col-md-4">
+    <label for="error_email_throttle">Error Email Rate <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Throttles Error Emails to the specified value."></span></label>
+    <div class="input-group">
+      <input type="number" class="form-control" name="error_email_throttle" value="{{ error_email_throttle }}" />
+      <span class="input-group-addon">Minutes</span>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-12 col-md-4">
+    <label for="default_email">Default Email <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Specifies the default email address to send Alert notifications to."></span></label>
+    <input type="text" class="form-control" name="default_email" value="{{ default_email }}" />
+  </div>
+
+  <div class="form-group col-xs-12 col-md-4">
+    <label for="from_email">From Email <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Specifies the from email for emails from 411."></span></label>
+    <input type="text" class="form-control" name="from_email" value="{{ from_email }}" />
+  </div>
+
+  <div class="form-group col-xs-12 col-md-4">
+    <label for="from_error_email">From Error Email <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Specifies the from email for error emails from 411."></span></label>
+    <input type="text" class="form-control" name="from_error_email" value="{{ from_error_email }}" />
+  </div>
+
+  <div class="col-xs-12">
+    <div class="well text-right">
+      <button class="btn btn-success" type="submit" id="save-button"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+    </div>
+  </div>
+
+</form>

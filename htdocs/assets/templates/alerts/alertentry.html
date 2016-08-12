@@ -1,0 +1,26 @@
+{{#unless preview}}
+<td><input type="checkbox" class="alert-checkbox" name="alerts[]" value="{{ id }}" /></td>
+{{/unless}}
+<td>
+  {{#if id}}
+  {{#unless preview}}
+  <a class="btn btn-xs btn-info alert-link" href="/alert/{{ id }}"><span class="glyphicon glyphicon-eye-open"></span> View</a>
+  {{/unless}}
+  {{/if}}
+</td>
+<td>
+  {{#if id}}
+  <a class="btn btn-xs btn-info source-link" tabindex="0" data-id="{{ id }}"><span class="glyphicon glyphicon-link"></span> Source</a>
+  {{/if}}
+</td>
+<td><span class="text-nowrap">{{date alert_date}}</span></td>
+{{#if full}}
+<td>
+  {{#if search_id}}<a href="/search/{{ search_id }}">{{/if}}
+    {{ name }}
+    {{#if search_id}}</a>{{/if}}
+</td>
+<td>{{#if escalated}}Yes{{else}}No{{/if}}</td>
+<td>{{ assignee_name }}</td>
+<td>{{dict states key=state default='Unknown'}}</td>
+{{/if}}

@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-bordered" id="history-table">
+    <thead>
+      <tr>
+        <th width="1">#</th>
+        <th width="1"></th>
+        <th>Description</th>
+        <th width="20%">User</th>
+        <th width="30%">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each logs}}
+    <tr>
+      <td>{{@index}}</td>
+      <td><button type="button" class="btn btn-info btn-xs view-button" value="{{ this.id }}"><span class="glyphicon glyphicon-eye-open"></span> View</button></td>
+      <td>{{ this.description }}</td>
+      <td>{{ this.user }}</td>
+      <td>{{date this.create_date}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>

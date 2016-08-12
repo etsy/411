@@ -1,0 +1,57 @@
+<div class="col-xs-12">
+  <form id="user-form" method="post">
+    <div class="panel panel-default">
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6 col-xs-12 form-group">
+            <label for="name">Username</label>
+            <input class="form-control" name="name" value="{{ name }}" />
+          </div>
+          <div class="col-md-6 col-xs-12 form-group">
+            <label for="real_name">Real Name</label>
+            <input class="form-control" name="real_name" value="{{ real_name }}" />
+          </div>
+
+          <div class="col-md-6 col-xs-12 form-group">
+            <label for="password">{{#unless new_user}}New {{/unless}}Password</label>
+            <input class="form-control" type="password" name="password" />
+          </div>
+          <div class="col-md-6 col-xs-12 form-group">
+            <label for="password_">Retype Password</label>
+            <input class="form-control" type="password" name="password_" />
+          </div>
+          <div class="col-md-6 col-xs-12 form-group">
+            <label for="email">Email</label>
+            <input class="form-control" type="email" name="email" value="{{ email }}" />
+          </div>
+          <div class="col-md-6 col-xs-12 form-group">
+            <label for="admin">Admin</label>
+            <select class="form-control" name="admin">
+              <option value="1" {{#if admin}}selected{{/if}}>Yes</option>
+              <option value="0" {{#unless admin}}selected{{/unless}}>No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-footer clearfix">
+        <div class="pull-right">
+          {{#if new_user}}
+          <button type="submit" class="btn btn-success" id="create-button">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Create
+          </button>
+          {{else}}
+          <button type="submit" class="btn btn-success" id="update-button">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Update
+          </button>
+          <button type="button" class="btn btn-danger" id="delete-button">
+            <span class="glyphicon glyphicon-trash"></span> Delete
+          </button>
+          {{/if}}
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

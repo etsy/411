@@ -1,0 +1,26 @@
+<div class="bar clearfix">
+  <div class="pull-right">
+    <button type="button" class="action edit-button"><span aria-hidden="true">
+        <span class="hoverable glyphicon glyphicon-pencil"></span>
+    </span><span class="sr-only">Edit</span></button>
+    {{#unless hide_config}}
+    <button type="button" class="action down-button"><span aria-hidden="true">
+        <span class="hoverable glyphicon glyphicon-chevron-down"></span>
+    </span><span class="sr-only">Move down</span></button>
+    <button type="button" class="action up-button"><span aria-hidden="true">
+        <span class="hoverable glyphicon glyphicon-chevron-up"></span>
+    </span><span class="sr-only">Move up</span></button>
+    {{/unless}}
+    <button type="button" class="action close-button"><span aria-hidden="true">
+        <span class="hoverable glyphicon glyphicon glyphicon-remove"></span>
+    </span><span class="sr-only">Close</span></button>
+  </div>
+
+  <div class="text-left">
+    <b>{{titlecase name}}</b>
+    <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="{{ desc }}"></span>
+  </div>
+
+  {{ description }}
+
+</div>

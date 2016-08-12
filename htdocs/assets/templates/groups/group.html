@@ -1,0 +1,50 @@
+<div class="col-xs-12">
+  <form id="group-form" method="post">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <input class="form-control input-lg" type="text" name="name" placeholder="Name" value="{{ name }}" />
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4 col-xs-12 form-group">
+            <label for="type">Type <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Which members to send email notifications to."></span></label>
+            <select class="form-control" name="type">
+              {{#each types}}
+              <option value="{{ @key }}" {{#ifeq @key ../type}}selected{{/ifeq}}>{{ this }}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          {{#if new_group}}
+          <div class="col-xs-12">
+            <div class="alert alert-info">Save this group to start adding users.</div>
+          </div>
+          {{else}}
+          <div class="target-list">
+          </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="panel-footer clearfix">
+        <div class="pull-right">
+          {{#if new_group}}
+          <button id="create-button" type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Create
+          </button>
+          {{else}}
+          <button id="update-button" type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Update
+          </button>
+          <button id="delete-button" type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span> Delete
+          </button>
+          {{/if}}
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

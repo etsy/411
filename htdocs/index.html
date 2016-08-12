@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>411</title>
+    <link href="/assets/css/main.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="/assets/imgs/favicon.ico" />
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+
+<div id="header"></div>
+<div id="message" class="container-fluid"></div>
+<div id="modal"></div>
+<div id="loader"></div>
+<div id="container" class="container-fluid">
+    <noscript>
+        <div class="jumbotron">
+            <h1>Javascript is disabled</h1>
+            <p>Javascript is required for this application to function. Please enable Javascript and refresh the page.</p>
+        </div>
+    </noscript>
+</div>
+<div id="footer"></div>
+
+</body>
+<script>
+(function() {
+    var loader = document.getElementById('loader');
+    var title = document.getElementsByTagName('title')[0];
+    var container = document.getElementById('container');
+
+    loader.style.display = 'block';
+    title.innerText = 'Loading...';
+
+    window.onerror = function() {
+        var wrap = document.createElement('div');
+        wrap.className = 'jumbotron';
+
+        var hdr = document.createElement('h1');
+        hdr.innerText = 'Application error';
+        var cnt = document.createElement('p');
+        cnt.innerText = 'There was an error while loading the application. Check the javascript console for more information.';
+
+        wrap.appendChild(hdr);
+        wrap.appendChild(cnt);
+        container.appendChild(wrap);
+        loader.style.display = 'none';
+        window.onerror = null;
+    }
+})();
+</script>
+<script data-main="/assets/js/main" src="/assets/js/libs/require.js"></script>
+</html>

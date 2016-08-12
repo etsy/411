@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      {{#if fold}}<span class="glyphicon glyphicon-collapse-{{#if folded}}up{{else}}down{{/if}} fold-button"></span>{{/if}}
+      {{ title }}
+    </h4>
+  </div>
+
+  <div class="panel-body {{#if folded}}folded{{/if}}">
+    <ul class="list-unstyled list"></ul>
+  </div>
+
+  <div class="panel-footer clearfix">
+    <label>New</label>
+    <input type="hidden" class="form-control select" />
+    <span class="help-block">{{ help }}</span>
+  </div>
+</div>

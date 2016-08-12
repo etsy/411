@@ -1,0 +1,352 @@
+@import url(bootstrap.css);
+@import url(select2.css);
+@import url(select2-bootstrap.css);
+@import url(datetimepicker.css);
+@import url(tablesorter-bootstrap.css);
+@import url(codemirror.css);
+@import url(dragula.css);
+
+#message {
+    position: fixed;
+    width: 100%;
+    top: 60px;
+    padding-left: 55px;
+    padding-right: 55px;
+    z-index: 1051;
+    pointer-events: none;
+}
+
+#loader {
+    background: url(../imgs/load.gif) rgba(0, 0, 0, 0.3);
+    background-position: center;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 2000;
+}
+
+#container {
+    margin-top: 70px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    pointer-events: none;
+}
+
+/**
+ * Allow clicks on messages themselves
+ */
+#message .alert {
+    pointer-events: auto;
+}
+
+/**
+ * Reduce the borders on the status bar
+ */
+.alerts-status {
+    cursor: pointer;
+    padding: 5px;
+}
+
+/**
+ * Show a pointer when hovering on the "More Alerts" button
+ */
+.fold-button {
+    cursor: pointer;
+}
+
+/**
+ * Allow renderer data popovers to be wider.
+ */
+.renderer-data {
+    max-width: 100% !important;
+}
+
+/**
+ * Pad the more alerts ui.
+ */
+.alerts-load {
+    width: 150px;
+    float: right;
+}
+
+/**
+ * Classes for folding elements with the class .panel-body
+ */
+.panel-body {
+    overflow: hidden;
+}
+
+.folded {
+    height: 0px;
+}
+
+/**
+ * Renderer selection
+ */
+.renderer-select {
+    width: 100%;
+}
+
+/**
+ * Don't allow content overflow out of long tables.
+ */
+.table-responsive {
+    overflow-y: hidden;
+}
+
+/**
+ * Fix label position in panel-title
+ */
+.panel-title .label {
+    vertical-align: bottom;
+    display: inline-block;
+}
+
+/**
+ * Fix select2 inputs when next to addon.
+ */
+.input-group-addon + .select2-container .select2-choice,
+.input-group-addon + .select2-container .select2-choices {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.form-control + .input-group-addon {
+    border-left: 0px;
+}
+
+/**
+ * Formatting for the search bar
+ */
+.navbar-search .input-group {
+    width: 100%;
+}
+.navbar-search .input-group-btn {
+    width: 1% !important;
+}
+
+/**
+ * Add some padding to the left of a tab list.
+ */
+.nav {
+    padding-left: 1em;
+}
+
+/**
+ * Add some padding to the top of a tab-pane.
+ */
+.tab-pane {
+    margin-top: 1em;
+}
+
+/**
+ * Allow textareas to be vertically resized.
+ */
+textarea {
+    resize: vertical;
+}
+
+/**
+ * Codemirror vertical sizing.
+ */
+.CodeMirror {
+    height: auto !important;
+}
+
+/**
+ * Allow smaller input fields
+ */
+.input-xs {
+    height: 22px;
+    padding: 2px 5px;
+    font-size: 12px;
+    line-height: 1.5; //If Placeholder of the input is moved up, rem/modify this.
+    border-radius: 3px;
+}
+
+/**
+ * Make all a tags look clickable.
+ */
+a {
+    cursor: pointer;
+}
+
+/**
+ * Allow large modals
+ */
+@media (min-width: 1200px) {
+    .modal-lg {
+        width: 80% !important;
+    }
+}
+
+/**
+ * Remove padding from tablesorter column with sorting disabled.
+ */
+.sorter-false .tablesorter-header-inner {
+    padding: 0px;
+}
+.sorter-false .tablesorter-icon {
+    visibility: hidden;
+}
+
+/**
+ * Fix an element to the bottom of the screen
+ */
+.fix-bottom {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: 0px;
+}
+
+/**
+ *
+ */
+.fix-bottom.well {
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+    border-radius: 0px;
+    z-index: 3;
+}
+
+/**
+ * Small bar with content.
+ */
+.bar {
+    border-color: rgb(221, 221, 221);
+    border-style: solid;
+    border-width:  1px 1px 2px 1px;
+    padding: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.action {
+   font-weight: bold;
+   text-shadow: 0 1px 0 #fff;
+   opacity: .4;
+   -webkit-appearance: none;
+    margin-left: 5px;
+   padding: 0;
+   cursor: pointer;
+   background: transparent;
+   border: 0;
+}
+.action:hover,
+.action:focus {
+  text-decoration: none;
+  cursor: pointer;
+  opacity: .8;
+}
+.bar .table {
+    margin-bottom: 0px;
+}
+.bar .input-group {
+    padding-bottom: 5px;
+}
+.bar th, .bar td {
+    border-top: 0px !important;
+}
+.bar .bar-footer {
+    border-top: #ddd 1px solid;
+}
+
+/**
+ * Add padding to lists in elements
+ */
+.element-list-entry {
+    margin-bottom: 2px;
+}
+
+/**
+ * Query entries
+ */
+.query-entry {
+    display: flex;
+}
+.query-entry .action {
+    width: 30px;
+    margin: 0px;
+    padding: 5px !important;
+    text-align: center;
+    height: 100%;
+}
+.query-entry a.query {
+    width: 100%;
+}
+
+/**
+ * Theme fixes
+ */
+.select2-drop {
+    margin-top: -5px !important;
+}
+.select2-chosen {
+    padding: 8px 12px !important;
+}
+.bar {
+    border-color: rgba(0, 0, 0, 0.6) !important;
+}
+.action:hover,
+.action:focus {
+    opacity: 1 !important;
+}
+.tablesorter-header {
+    background-color: #272b30 !important;
+}
+/**
+ * Select2 container needs to be taller to match up with other inputs.
+ */
+.select2-container .select2-choice, .select2-container .select2-choices {
+    height: 38px !important;
+}
+/**
+ * The contents need to be lower.
+ */
+.select2-search-choice {
+    margin-top: 7px !important;
+}
+.select2-search-field {
+    margin-top: 1px !important;
+}
+/**
+ * Force panel title to white for readability.
+ */
+.panel-title {
+    color: #fff !important;
+}
+/**
+ * Fix hover on bootstrap datetimepicker.
+ */
+.bootstrap-datetimepicker-widget {
+    background: #2e3338;
+}
+.bootstrap-datetimepicker-widget .btn {
+    border: none;
+}
+.bootstrap-datetimepicker-widget.bottom:before,
+.bootstrap-datetimepicker-widget.bottom:after {
+    display: none;
+}
+.bootstrap-datetimepicker-widget td.day:hover,
+.bootstrap-datetimepicker-widget td span:hover,
+.bootstrap-datetimepicker-widget td.hour:hover,
+.bootstrap-datetimepicker-widget td.minute:hover,
+.bootstrap-datetimepicker-widget td.second:hover,
+.bootstrap-datetimepicker-widget th.picker-switch:hover,
+.bootstrap-datetimepicker-widget th.prev:hover,
+.bootstrap-datetimepicker-widget th.next:hover,
+.bootstrap-datetimepicker-widget span.year:hover,
+.bootstrap-datetimepicker-widget span.month:hover {
+    background: #191b1d !important;
+}

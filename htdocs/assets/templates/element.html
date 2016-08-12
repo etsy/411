@@ -1,0 +1,82 @@
+{{#unless hide_chrome}}
+<div class="bar clearfix">
+  <div class="pull-right">
+    {{#unless hide_config}}
+    <button type="button" class="action down-button"><span aria-hidden="true">
+        <span class="hoverable glyphicon glyphicon-chevron-up"></span>
+    </span><span class="sr-only">Move up</span></button>
+    <button type="button" class="action up-button"><span aria-hidden="true">
+        <span class="hoverable glyphicon glyphicon-chevron-down"></span>
+    </span><span class="sr-only">Move down</span></button>
+    {{/unless}}
+    <button type="button" class="action close-button"><span aria-hidden="true">
+        <span class="hoverable glyphicon glyphicon glyphicon-remove"></span>
+    </span><span class="sr-only">Close</span></button>
+  </div>
+  {{/unless}}
+
+  <div class="text-left">
+    <b>{{titlecase name}}</b>
+    <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="{{ desc }}"></span>
+  </div>
+
+  <table class="table">
+    <tbody>
+    {{#each data}}
+    <tr>
+      <th width="25%" class="text-right">{{ @key }}</th>
+      <td>
+        {{#ifeq this.data.[0] 0}}
+        <input type="checkbox" name="{{ @key }}" value="on" {{#if this.value}}checked{{/if}} />
+        {{/ifeq}}
+        {{#ifeq this.data.[0] 1}}
+        <input class="form-control input-block input-sm" type="number" name="{{ @key }}" value="{{ this.value }}" />
+        {{/ifeq}}
+        {{#ifeq this.data.[0] 2}}
+        <input class="form-control input-sm" type="text" name="{{ @key }}" value="{{ this.value }}" />
+        {{/ifeq}}
+        {{#ifeq this.data.[0] 3}}
+        <select class="form-control input-block input-sm" name="{{ @key }}">
+          {{#each this.data.[1]}}
+          <option value="{{ @key }}" {{#ifeq ../this.value @key}}selected{{/ifeq}}>{{ this }}</option>
+          {{/each}}
+        </select>
+        {{/ifeq}}
+        {{#ifeq this.data.[0] 4}}
+        {{#each this.value}}
+        <div class="input-group element-list-entry">
+          <input class="form-control input-sm" type="text" name="{{ @../key }}[]" value="{{ this }}" />
+          <span class="input-group-btn">
+            <button class="btn btn-default btn-sm delete-element" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+          </span>
+        </div>
+        {{/each}}
+        <div class="input-group">
+          <input class="form-control input-sm" type="text" name="{{ @key }}[]" />
+          <span class="input-group-btn">
+            <button class="btn btn-default btn-sm add-element" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+          </span>
+        </div>
+        {{/ifeq}}
+      </td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  {{#unless temp}}
+  <div class="form-group bar-footer">
+    <div class="form-group">
+      <label for="lifetime">Lifetime <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="How long this element will live."></span></label>
+      <input class="form-control" type="number" name="lifetime" value="{{ lifetime }}" />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" name="description">{{ description }}</textarea>
+    </div>
+  </div>
+  {{/unless}}
+
+  {{#unless hide_chrome}}
+</div>
+{{/unless}}

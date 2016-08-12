@@ -1,0 +1,8 @@
+<div class="col-xs-12 form-group">
+  <label for="type">Type</label>
+  <select class="form-control" name="type">
+    {{#each types}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>

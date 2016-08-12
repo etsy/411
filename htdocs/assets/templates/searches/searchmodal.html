@@ -1,0 +1,52 @@
+<div class="col-xs-12 form-group">
+  <label for="tags">Tags</label>
+  <input class="form-control tags" type="text" name="tags" />
+</div>
+
+<div class="col-md-6 col-xs-12 form-group">
+  <label for="category">Category</label>
+  <select class="form-control" name="category">
+    <option></option>
+    {{#each categories}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>
+<div class="col-md-6 col-xs-12 form-group">
+  <label for="priority">Priority</label>
+  <select class="form-control" name="priority">
+    <option></option>
+    {{#each priorities}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>
+
+<div class="col-md-6 col-xs-12 form-group">
+  <label for="type">Type</label>
+  <select class="form-control" name="type">
+    <option></option>
+    {{#each types}}
+    <option value="{{ @key }}">{{ this }}</option>
+    {{/each}}
+  </select>
+</div>
+
+<div class="col-md-6 col-xs-12 form-group">
+  <label for="enabled">Enabled</label>
+  <select class="form-control" name="enabled">
+    <option></option>
+    <option value="0">Disabled</option>
+    <option value="1">Enabled</option>
+  </select>
+</div>
+
+<div class="col-md-6 col-xs-12 form-group">
+  <label for="assignee">Assignee</label>
+  <input type="hidden" class="form-control" name="assignee">
+</div>
+
+<div class="col-md-6 col-xs-12 form-group">
+  <label for="owner">Owner</label>
+  <input type="hidden" class="form-control" name="owner">
+</div>

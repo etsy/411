@@ -1,0 +1,24 @@
+<div class="modal fade" tabindex="-1">
+  <div class="modal-dialog{{#if large}} modal-lg{{/if}}">
+    <div class="modal-content">
+      <form method="post">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title">{{ title }}</h4>
+        </div>
+
+        <div class="modal-body clearfix"></div>
+
+        {{#if buttons.length }}
+        <div class="modal-footer">
+          {{#each buttons}}
+          <button type="{{#if clear}}reset{{else}}submit{{/if}}" class="btn btn-{{ type }}{{#if action}} {{ action }}-button{{/if}}">{{#if icon}}<span class="glyphicon glyphicon-{{ icon }}"></span> {{/if}}{{ name }}</button>
+          {{/each}}
+        </div>
+        {{/if}}
+
+      </form>
+    </div>
+  </div>
+</div>

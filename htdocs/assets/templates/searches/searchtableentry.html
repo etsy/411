@@ -1,0 +1,21 @@
+<td>
+  <a href="/search/{{ id }}" class="btn btn-xs btn-info">
+    <span class="glyphicon glyphicon-pencil"></span> Edit
+  </a>
+</td>
+<td>
+  <a href="/searches/new?id={{ id }}" class="btn btn-xs btn-info">
+    <span class="glyphicon glyphicon-paste"></span> Clone
+  </a>
+</td>
+<td>{{ name }}</td>
+<td><a href="?category={{ category }}">{{ dict categories key=category default='Unknown' }}</a></td>
+<td>
+  {{#each tags}}
+  <a class="label label-default" href="?tags[]={{ this }}">{{ this }}</a>
+  {{/each}}
+</td>
+<td><a href="?type={{ type }}">{{ dict types key=type default='Unknown' }}</a></td>
+<td><a href="?priority={{ priority }}">{{ dict priorities key=priority default='Unknown' }}</a></td>
+<td class="{{#if healthy}}success{{else}}danger{{/if}}">{{#if healthy}}OK{{else}}Failing{{/if}}</td>
+<td><input type="checkbox" name="{{ id }}" value="on" {{#if enabled}}checked{{/if}} /></td>

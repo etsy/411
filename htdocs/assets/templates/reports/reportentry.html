@@ -1,0 +1,18 @@
+<td>
+  <a href="/report/{{ id }}" class="btn btn-xs btn-info">
+    <span class="glyphicon glyphicon-pencil"></span> Edit
+  </a>
+</td>
+<td>
+  <button type="button" class="btn btn-xs btn-primary generate-pdf-button">
+    <span class="glyphicon glyphicon-play"></span> PDF
+  </button>
+</td>
+<td>
+  <button type="button" class="btn btn-xs btn-primary generate-csv-button">
+    <span class="glyphicon glyphicon-play"></span> CSV
+  </button>
+</td>
+<td>{{ name }}</td>
+<td>{{ dict types key=type default='Unknown' }}</td>
+<td>{{#if enabled}}Yes{{else}}No{{/if}}</td>

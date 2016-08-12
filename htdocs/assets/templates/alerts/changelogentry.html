@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title">
+      <span class="label label-primary">{{date create_date}}</span>
+      {{#unless simple}}<a href="/alert/{{ alert_id }}">{{ name }}</a>{{/unless}}
+      {{#unless simple}}<span class="label label-{{ level }} pull-right">{{/unless}}{{ description }}{{#unless simple}}</span>{{/unless}}
+    </h4>
+  </div>
+  {{#if note}}
+  <div class="panel-body">
+    <div class="col-xs-12">{{ note }}</div>
+  </div>
+  {{/if}}
+</div>

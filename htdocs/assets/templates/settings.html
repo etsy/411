@@ -1,0 +1,18 @@
+<form method="post" id="settings-form">
+  <div class="form-group col-xs-6 col-md-4">
+    <label for="alert_sorting">Alert Sorting <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggle table sorting on the Alerts page."></span></label><br />
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary {{#if alert_sorting}}active{{/if}}">
+        <input type="checkbox" autocomplete="off" name="alert_sorting" value="on" {{#if alert_sorting}}checked{{/if}} />
+        <span class="glyphicon glyphicon-off"></span> Enable
+      </label>
+    </div>
+  </div>
+
+  <div class="col-xs-12">
+    <div class="well text-right">
+      <button class="btn btn-success" type="submit" id="save-button"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+    </div>
+  </div>
+
+</form>

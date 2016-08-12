@@ -1,0 +1,26 @@
+{{#each shortcuts}}
+{{#if this.shortcuts.length}}
+<div class="col-sm-6 col-xs-12">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th colspan="2">{{ this.name }}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each this.shortcuts}}
+    <tr>
+      <td>
+        {{#each this.keys}}
+        <kbd>{{ this }}</kbd>
+        {{#unless @last}}+{{/unless}}
+        {{/each}}
+      </td>
+      <td>{{ this.help }}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/if}}
+{{/each}}

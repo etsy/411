@@ -1,0 +1,18 @@
+<div class="table-responsive">
+  <table class="table table-condensed table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each stats}}
+    <tr>
+      <th>{{ @key }}</th>
+      <td class="text-right">{{ this }}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,20 @@
+<phpunit bootstrap="testbootstrap.php" backupGlobals="false">
+  <testsuites>
+    <testsuite name="unit">
+      <directory>unit</directory>
+    </testsuite>
+    <testsuite name="integration">
+      <directory>integration</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">../phplib</directory>
+    </whitelist>
+  </filter>
+
+  <logging>
+    <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+  </logging>
+</phpunit>

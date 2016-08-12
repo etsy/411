@@ -1,0 +1,31 @@
+<div class="panel panel-default hidden results-wrapper">
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title pull-right">
+      <span class="badge count">0</span>
+    </h4>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped tablesorter">
+      <thead>
+        <tr>
+          {{#each columns}}
+          <th {{#if width}}width="{{ width }}%"{{/if}} {{#if sorter}}class="sorter-{{ sorter }}"{{/if}}>{{ name }}</th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  {{#if buttons}}
+  <div class="panel-footer text-right">
+    {{#each buttons}}
+    <button type="button" class="btn btn-{{ type }}{{#if action}} {{ action }}-button{{/if}}">{{#if icon}}<span class="glyphicon glyphicon-{{ icon }}"></span> {{/if}}{{ name }}</button>
+    {{/each}}
+
+  </div>
+  {{/if}}
+</div>
+
+<h1 class="text-center hidden noresults-wrapper">No results found</h1>

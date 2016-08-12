@@ -1,0 +1,38 @@
+<h1>Health</h1>
+
+<h2 class="text-center">
+  <small>The last cron execution was on</small>
+  {{ date last_cron_date }}
+</h2>
+
+<div class="col-xs-12 col-sm-6">
+  <h2>Jobs</h2>
+
+
+  <h3 class="text-center col-xs-6 col-lg-6 text-info">{{ searchjob_health.[0] }} <small> jobs are pending</small></h3>
+  <h3 class="text-center col-xs-6 col-lg-6 text-info">{{ searchjob_health.[4] }} <small> jobs are running</small></h3>
+  <h3 class="text-center col-xs-6 col-lg-6 text-success">{{ searchjob_health.[1] }} <small> jobs were successful</small></h3>
+  <h3 class="text-center col-xs-6 col-lg-6 text-warning">{{ searchjob_health.[2] }} <small> jobs have failed</small></h3>
+  <h3 class="text-center col-xs-6 col-lg-6 text-danger">{{ searchjob_health.[3] }} <small> jobs have been cancelled</small></h3>
+</div>
+
+<div class="col-xs-12 col-sm-6">
+  <h2>Search Types</h2>
+
+  <table class="table table-condensed table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each search_health}}
+    <tr>
+      <td>{{ @key }}</td>
+      <td class="{{#if this}}success{{else}}danger{{/if}}">{{#if this}}OK{{else}}Failing{{/if}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>

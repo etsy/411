@@ -1,0 +1,91 @@
+# Security Headers
+Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
+Header set X-Frame-Options "DENY"
+Header set X-Content-Type-Options "nosniff"
+Header set X-XSS-Protection "1; mode=block"
+
+# Rewrite Rules
+RewriteEngine on
+
+RewriteRule ^api/search/?$ /api/searches.php [L]
+RewriteRule ^api/search/test$ /api/searches.php?action=test [L]
+RewriteRule ^api/search/(\d+)$ /api/searches.php?id=$1 [L]
+RewriteRule ^api/search/(\d+)/stats$ /api/searches.php?id=$1&action=stats [L]
+RewriteRule ^api/search/(\d+)/execute$ /api/searches.php?id=$1&action=execute [L]
+
+RewriteRule ^api/search/(\d+)/log$ /api/searchlogs.php?search_id=$1 [L]
+RewriteRule ^api/search/(\d+)/job$ /api/jobs.php?type=search&target_id=$1 [L,QSA]
+
+RewriteRule ^api/search/(\d+)/target/?$ /api/targets.php?search_id=$1 [L]
+RewriteRule ^api/search/(\d+)/filter/validate$ /api/filters.php?search_id=$1&action=validate [L]
+RewriteRule ^api/search/(\d+)/target/(\d+)$ /api/targets.php?search_id=$1&id=$2 [L]
+
+RewriteRule ^api/search/(\d+)/filter/?$ /api/filters.php?search_id=$1 [L]
+RewriteRule ^api/search/(\d+)/target/validate$ /api/targets.php?search_id=$1&action=validate [L]
+RewriteRule ^api/search/(\d+)/filter/(\d+)$ /api/filters.php?search_id=$1&id=$2 [L]
+
+RewriteRule ^api/alert/?$ /api/alerts.php [L]
+RewriteRule ^api/alert/ids$ /api/alerts.php?action=ids [L,QSA]
+RewriteRule ^api/alert/bootstrap$ /api/alerts.php?action=bootstrap [L,QSA]
+RewriteRule ^api/alert/query$ /api/alerts.php?action=query [L,QSA]
+RewriteRule ^api/alert/send$ /api/alerts.php?action=send [L,QSA]
+RewriteRule ^api/alert/whitelist$ /api/alerts.php?action=whitelist [L,QSA]
+RewriteRule ^api/alert/escalate$ /api/alerts.php?action=escalate [L,QSA]
+RewriteRule ^api/alert/switch$ /api/alerts.php?action=switch [L,QSA]
+RewriteRule ^api/alert/assign$ /api/alerts.php?action=assign [L,QSA]
+RewriteRule ^api/alert/note$ /api/alerts.php?action=note [L,QSA]
+RewriteRule ^api/alert/(\d+)$ /api/alerts.php?id=$1 [L]
+RewriteRule ^api/alert/(\d+)/link$ /api/alerts.php?id=$1&action=link [L]
+
+RewriteRule ^api/alert/(\d+)/log$ /api/alertlogs.php?alert_id=$1 [L]
+RewriteRule ^api/alertlog$ /api/alertlogs.php [L]
+
+RewriteRule ^api/enrich$ /api/enrich.php [L,QSA]
+
+RewriteRule ^api/group/?$ /api/groups.php [L]
+RewriteRule ^api/group/(\d+)$ /api/groups.php?id=$1 [L]
+RewriteRule ^api/group/(\d+)/target/?$ /api/grouptargets.php?group_id=$1 [L]
+RewriteRule ^api/group/(\d+)/target/(\d+)$ /api/grouptargets.php?group_id=$1&id=$2 [L]
+
+RewriteRule ^api/report/?$ /api/reports.php [L]
+RewriteRule ^api/report/(\d+)$ /api/reports.php?id=$1 [L]
+RewriteRule ^api/report/(\d+)/generate/(\w+)$ /api/reports.php?id=$1&action=generate&mode=$2 [L]
+RewriteRule ^api/report/(\d+)/target/?$ /api/reporttargets.php?report_id=$1 [L]
+RewriteRule ^api/report/(\d+)/target/(\d+)$ /api/reporttargets.php?report_id=$1&id=$2 [L]
+
+RewriteRule ^api/user/?$ /api/users.php [L]
+RewriteRule ^api/user/(\d+)$ /api/users.php?id=$1 [L]
+
+RewriteRule ^api/list/?$ /api/lists.php [L]
+RewriteRule ^api/list/(\d+)$ /api/lists.php?id=$1 [L]
+RewriteRule ^api/list/(\d+)/info$ /api/lists.php?id=$1&action=info [L]
+
+RewriteRule ^api/admin$ /api/admin.php [L]
+RewriteRule ^api/dashboard$ /api/dashboard.php [L]
+RewriteRule ^api/health$ /api/health.php [L]
+RewriteRule ^api/login$ /api/login.php [L]
+RewriteRule ^api/logout$ /api/login.php?logout [L]
+
+RewriteRule ^api/data$ /api/data.php [L]
+RewriteRule ^api/jira$ /api/jira.php [L]
+
+RewriteRule ^manifest.json$ /manifest.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !api
+RewriteCond %{REQUEST_FILENAME} !assets
+RewriteCond %{REQUEST_FILENAME} !dist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.html [L]
+
+# Compression
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript

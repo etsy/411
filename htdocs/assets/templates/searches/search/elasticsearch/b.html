@@ -1,0 +1,30 @@
+<div class="col-md-4 col-xs-12 form-group">
+  <label for="result_type">Result Type</label>
+  <div class="input-group">
+    <span class="input-group-addon">
+      <span><input type="radio" name="result_type" value="0" /> Fields</span>
+    </span>
+    <span class="input-group-addon">
+      <span><input type="radio" name="result_type" value="1" /> Count</span>
+    </span>
+    <span class="input-group-addon">
+      <span><input type="radio" name="result_type" value="2" /> No results</span>
+    </span>
+  </div>
+</div>
+
+<div class="col-md-8 col-xs-12 form-group filter-group">
+  <label>Result Filter</label>
+  <div class="input-group">
+    <span class="input-group-addon">At least</span>
+    <input class="form-control" type="number" name="filter_lo" value="{{#if query_data.filter_range.[0]}}{{ query_data.filter_range.[0] }}{{/if}}" placeholder="-inf" />
+    <span class="input-group-addon">At most</span>
+    <input class="form-control" type="number" name="filter_hi" value="{{#if query_data.filter_range.[1]}}{{ query_data.filter_range.[1] }}{{/if}}" placeholder="inf" />
+    <span class="input-group-addon">results</span>
+  </div>
+</div>
+
+<div class="col-xs-12 form-group fields-group">
+  <label for="fields">Fields <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The fields to extract from the search results. Leave blank to extract all fields."></span></label>
+  <input class="form-control tags select2-multiple" type="text" name="fields" value="{{ query_data.fields }}" />
+</div>

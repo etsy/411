@@ -1,0 +1,46 @@
+{
+  "name": "FourOneOne",
+  "version": "1.0.0",
+  "homepage": "https://github.com/kiwiz/411",
+  "authors": [
+    "Kai Zhong <z@kwi.li>",
+    "Ken Lee <kennysanx@hotmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "dependencies": {
+    "autosize": "^3.0.12",
+    "backbone": "^1.2.2",
+    "bootstrap": "^3.3.4",
+    "bootswatch": "^3.3.5",
+    "codemirror": "^5.10.0",
+    "eonasdan-bootstrap-datetimepicker": "~3.1.0",
+    "false": "~0.1.0",
+    "handlebars": "~3.0.3",
+    "jquery": "~2.1.4",
+    "jquery.tablesorter": "~2.23.2",
+    "moment": "~2.10.3",
+    "mousetrap": "~1.5.3",
+    "requirejs": "~2.1.20",
+    "requirejs-text": "~2.0.14",
+    "routefilter": "~0.2.1",
+    "select2": "~4.0.0",
+    "select2-bootstrap3-css": "~1.4.6",
+    "underscore": "~1.8.3",
+    "uri.js": "~1.16.0",
+    "dragula.js": "dragula#^3.7.0",
+    "Chart.js": "~2.1.6"
+  },
+  "resolutions": {
+    "select2": "^3.3.2"
+  }
+}

@@ -1,0 +1,29 @@
+<div class="col-xs-12">
+  <div class="fill" style="height: 200px"></div>
+  <div class="well well-sm fix-bottom">
+    {{#if count}}
+    {{#each groups}}
+    <div class="btn-group dropup">
+      <button type="button" class="btn btn-{{ this.[0].type }} alert-action" data-action="{{ this.[0].action }}" title="{{ this.[0].help }}"><span class="glyphicon glyphicon-{{ this.[0].icon }}"></span><span class="hidden-xs"> {{ this.[0].name }}</span></button>
+      {{#if this.[1] }}
+      <button type="button" class="btn btn-{{ this.[0].type }} dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        {{#each this}}
+        {{#unless @first}}
+        <li>
+        <a href="#" class="alert-action" data-action="{{ action }}" title="{{ help }}"><span class="glyphicon glyphicon-{{ icon }}"></span> {{ name }}</a>
+        </li>
+        {{/unless}}
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+    {{/each}}
+    {{else}}
+    Select one or more Alerts for a list of actions
+    {{/if}}
+  </div>
+</div>

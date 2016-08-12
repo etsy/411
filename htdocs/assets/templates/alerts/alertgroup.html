@@ -1,0 +1,68 @@
+<div class="panel panel-{{#if escalated}}danger{{else}}default{{/if}} hidden results-wrapper">
+
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title">
+      {{#unless preview}}
+      <span class="glyphicon glyphicon-collapse-down fold-button" tabindex="0" title="Toggle folding"></span>
+        {{ name }}
+        {{#if search_id}}
+        <span class="text-nowrap">
+          <span class="label label-{{ level }}">{{dict priorities key=priority default='Unknown'}}</span>
+          <span class="label label-primary">{{dict states key=state default='Unknown'}}</span>
+        </span>
+        {{/if}}
+        {{/unless}}
+        <span class="pull-right">
+          {{#if total}}<span class="badge">{{ total }}</span>{{/if}}
+          <div class="btn-group">
+            <button class="btn btn-xs btn-{{#if escalated}}danger{{else}}default{{/if}} sort-button {{#if sortable}}active{{/if}}" title="Toggle sorting"><span class="glyphicon glyphicon-sort"></span></button>
+            {{#unless full}}
+            <a class="btn btn-xs btn-{{#if escalated}}danger{{else}}default{{/if}}" href="/search/{{ search_id }}" title="Go to Search"><span class="glyphicon glyphicon-link"></span></a>
+            {{/unless}}
+            <button class="btn btn-xs btn-{{#if escalated}}danger{{else}}default{{/if}} download-button" title="Download as JSON"><span class="glyphicon glyphicon-download-alt"></span></button>
+          </div>
+        </span>
+      </h4>
+    </div>
+
+    <div class="table-responsive table-wrapper">
+      <table class="table table-striped table-condensed alerts-table">
+        <thead>
+          {{#unless preview}}
+          <th class="sorter-false" width="1"><input type="checkbox" class="alerts-select-visible" /></th>
+          {{/unless}}
+          <th class="sorter-false" width="1"></th>
+          <th class="sorter-false" width="1"></th>
+          <th width="1" data-sorter="datetime">Time</th>
+          {{#if full}}
+          <th width="1">Search</th>
+          <th width="1">Escalated</th>
+          <th width="1">Assignee</th>
+          <th width="1">State</th>
+          {{/if}}
+          {{#each columns}}
+          <th {{#if width}}width="{{ width }}%"{{/if}} {{#if sorter}}class="sorter-{{ sorter }}"{{/if}}>{{ name }}</th>
+          {{/each}}
+        </tr>
+        <tr><th colspan="1024" class="text-center alerts-status hidden" data-sorter="false"></th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  {{#if more}}
+  <div class="panel-footer clearfix">
+    <form class="load-form">
+      <div class="alerts-load input-group">
+        <span class="input-group-btn">
+          <button class="alerts-load-button btn btn-default btn-xs">Load</button>
+        </span>
+        <input type="number" class="form-control input-xs" value="100" />
+      </div>
+    </form>
+  </div>
+  {{/if}}
+
+</div>
+
+<h1 class="text-center hidden noresults-wrapper">No results</h1>

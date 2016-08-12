@@ -1,0 +1,237 @@
+<div class="col-xs-12">
+  <form id="search-form" method="post">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <input class="form-control input-lg" type="text" name="name" placeholder="Name" value="{{ name }}" />
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          {{#ifeq last_execution_date last_failure_date}}
+          {{#if last_execution_date}}
+          <div class="col-xs-12 form-group">
+            <label>Last Status</label>
+            <div class="text-center alert alert-danger">Error: {{ last_status }}</div>
+          </div>
+          {{/if}}
+          {{else}}
+          {{#if last_status}}
+          <div class="col-xs-12 form-group">
+            <label>Last Status</label>
+            <div class="text-center alert alert-info">{{ last_status }}</div>
+          </div>
+          {{/if}}
+          {{/ifeq}}
+
+          <div class="col-xs-12 form-group">
+            <label for="query">Type</label>
+            <p>{{ dict types key=type default='Unknown' }}</p>
+          </div>
+
+          <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#basic" data-toggle="tab">Basic</a></li>
+            <li role="presentation"><a href="#notif" data-toggle="tab">Notif<span class="hidden-xs">ications</span></a></li>
+            <li role="presentation"><a href="#adv" data-toggle="tab">Adv<span class="hidden-xs">anced</span></a></li>
+          </ul>
+        </div>
+
+        <div class="row">
+          <div class="tab-content">
+            <div class="tab-pane active" id="basic">
+              {{{ addn_fields_a }}}
+
+              {{#unless no_query}}
+              <div class="col-xs-12 form-group">
+                <label for="query">Query</label>
+                <textarea class="form-control" name="query">{{ query_data.query }}</textarea>
+                <p class="help-block">The search query to execute against the Search type.</p>
+              </div>
+              {{/unless}}
+
+              {{{ addn_fields_b }}}
+
+              <div class="col-xs-12 form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="description">{{ description }}</textarea>
+                <p class="help-block">A description of what this Search does.</p>
+              </div>
+
+              {{{ addn_fields_c }}}
+
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="category">Category</label>
+                <select class="form-control" name="category">
+                  {{#each categories}}
+                  <option value="{{ @key }}" {{#ifeq @key ../category}}selected{{/ifeq}}>{{ this }}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="labels">Tags</label>
+                <input type="hidden" class="tags form-control" name="tags" value="{{ tags }}" />
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="priority">Priority <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The priority of this Search."></span></label>
+                <select class="form-control" name="priority">
+                  {{#each priorities}}
+                  <option value="{{ @key }}" {{#ifeq @key ../priority}}selected{{/ifeq}}>{{ this }}</option>
+                  {{/each}}
+                </select>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="frequency" class="frequency-label">Frequency <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The number of minutes between each run."></span></label>
+                <label for="cron_expression" class="cron-label" class="hidden">Cron Expression <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Specify the cron expression for this search."></span></label>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <input type="checkbox" id="schedule-checkbox" name="schedule_type" value="on" {{#if schedule_type}}checked{{/if}} /> Cron?
+                  </span>
+
+                  <input class="form-control frequency-input" type="number" name="frequency" value="{{ frequency }}" />
+                  <input class="form-control hidden cron-input" type="text" name="cron_expression" value="{{ cron_expression }}" />
+                </div>
+              </div>
+
+              {{#unless no_range}}
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="range">Time Range <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The number of minutes back to search."></span></label>
+                <input class="form-control" type="number" name="range" value="{{ range }}" />
+              </div>
+              {{/unless}}
+
+              {{{ addn_fields_d }}}
+
+              <div class="col-xs-12 col-sm-6 form-group">
+                <label for="enabled">Status</label><br />
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-default {{#if enabled}}active{{/if}}">
+                    <input type="checkbox" name="enabled" value="on" {{#if enabled}}checked{{/if}} />
+                    <span class="glyphicon glyphicon-off"></span> Enable
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="tab-pane" id="notif">
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="notif_type">Notification Type <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The type of notification scheduling to use for this Search."></span></label>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <input type="checkbox" id="notif-checkbox" name="notif_enabled" value="on" {{#if notif_type}}checked{{/if}} /> Enable
+                  </span>
+
+                  <select class="form-control" name="notif_type">
+                    {{#each notif_types}}
+                      {{#ifneq @key 0}}
+                      <option value="{{ @key }}" {{#ifeq @key ../../notif_type}}selected{{/ifeq}}>{{ this }}</option>
+                      {{/ifneq}}
+                    {{/each}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group notif-format">
+                <label for="notif_format">Notification Format <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The format to use for notifications from this Search."></span></label>
+                <select class="form-control" name="notif_format">
+                  {{#each notif_formats}}
+                  <option value="{{ @key }}" {{#ifeq @key ../notif_format}}selected{{/ifeq}}>{{ this }}</option>
+                  {{/each}}
+                </select>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="assignee">Assignee <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The notification targets when this Search generates Alerts."></span></label>
+                <input type="hidden" class="form-control" name="assignee" value="{{#if assignee}}{{ assignee_type }},{{ assignee }}{{/if}}">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="owner">Owner <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The maintainer of this Search."></span></label>
+                <input type="hidden" class="form-control" name="owner" value="{{#if owner}}{{ owner }}{{/if}}">
+              </div>
+
+              <div class="col-xs-12 form-group">
+                <label for="source_expr">Source Link <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The SEL expression defining the source link of this Search."></span></label>
+                <input class="form-control" name="source_expr" value="{{ query_data.source_expr }}" />
+              </div>
+
+              {{{ addn_fields_e }}}
+            </div>
+
+            <div class="tab-pane" id="adv">
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="autoclose_threshold">Autoclose <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Automatically close Alerts after a set amount of time with no activity."></span></label>
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <input type="checkbox" id="autoclose-checkbox" name="autoclose_enabled" value="on" {{#if autoclose_threshold}}checked{{/if}} /> Enable
+                  </span>
+
+                  <input class="form-control" type="number" name="autoclose_threshold" {{#if autoclose_threshold}}value="{{ autoclose_threshold }}"{{/if}} />
+                </div>
+              </div>
+
+              {{#if new_search}}
+              <div class="col-xs-12">
+                <div class="alert alert-info">Save this search to start adding filters and targets.</div>
+              </div>
+              {{else}}
+              <div class="col-xs-12">
+                <div class="row">
+                  <div id="filter-list"></div>
+                  <div id="target-list"></div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="text-center">
+                  <button id="save-elements-button" class="btn btn-sm btn-default" type="submit">Save Filters and Targets</button>
+                </div>
+              </div>
+              {{/if}}
+            </div>
+
+            {{{ addn_fields_f }}}
+          </div>
+        </div>
+
+        <div class="row">
+          {{#unless new_search}}
+          <hr />
+
+          <div class="col-xs-12 form-group">
+            <label for="change_description">Description of changes</label>
+            <textarea class="form-control" name="change_description"></textarea>
+          </div>
+          {{/unless}}
+        </div>
+      </div>
+
+      <div class="panel-footer clearfix">
+        <div class="pull-right">
+          <button id="test-button" type="button" class="btn btn-info">
+            <span class="glyphicon glyphicon-list-alt"></span> Test
+          </button>
+          {{#unless new_search}}
+          <button id="execute-button" type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-play"></span> Execute
+          </button>
+          {{/unless}}
+          {{#if new_search}}
+          <button id="create-button" type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Create
+          </button>
+          {{else}}
+          <button id="update-button" type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Update
+          </button>
+          <button id="delete-button" type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span> Delete
+          </button>
+          {{/if}}
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

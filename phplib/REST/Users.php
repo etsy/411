@@ -60,6 +60,11 @@ class Users_REST extends Models_REST {
 	        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 	    }
 
+        // If not an admin, don't allow setting the admin field.
+        if(!Auth::isAdmin()) {
+            unset($data['admin']);
+        }
+
         return self::format($this->update($get, $data));
     }
 }

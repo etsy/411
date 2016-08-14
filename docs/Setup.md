@@ -82,19 +82,18 @@ Modify config.php:
 ```
 # If Elasticsearch is set up locally, you might not have to make any changes.
 $config['elasticsearch'] = [
-    'alerts' => [ # Used by 411 to store Alerts
+    # Used by 411 to store Alerts
+    'alerts' => [
         'hosts' => ['localhost:9200'], # Host to retrieve Alerts from.
-        'index_hosts' => [], # Host to push Alerts to.
-        'index' => null, # N/A
-        'date_based' => false, # N/A
-        'date_field' => 'alert_date', # N/A
-        'src_url' => null, # N/A
+        'index_hosts' => [], # Host to push Alerts to. (If different)
     ],
-    'logstash' => [ # Data source for the Logstash Search
+
+    # Data source for the Logstash Search
+    'logstash' => [
         'hosts' => ['localhost:9200'], # Hosts to query for results.
         'index_hosts' => [], # Hosts to push lookup tables to. (If different)
-        'index' => 'logstash', # Index name
-        'date_based' => true, # Whether to mangle the index name based on the date.
+        'index' => 'logstash', # Index name (Without the date).
+        'date_based' => true, # Whether to append a date to the index (`logstash` becomes `logstash-2016.01.01`).
         'date_field' => '@timestamp', # Field to use for date based queries.
         'src_url' => null, # Link to Kibana instance.
     ],

@@ -5,7 +5,7 @@ Dependencies
 ------------
 
 - Apache 2
-- PHP 7 with SQLite3 support
+- PHP 5.5 with SQLite3 support
 - Sqlite 3.3+
 - Composer
 - NPM
@@ -15,7 +15,7 @@ Dependencies
 
 Ubuntu Packages:
 ```
-$ sudo apt-get install apache2 libapache2-mod-php php-xml php7.0-sqlite php7.0-curl nodejs-legacy npm sqlite3
+$ sudo apt-get install apache2 libapache2-mod-php php-xml php7.0-mbstring php7.0-sqlite php7.0-curl nodejs-legacy npm sqlite3
 ```
 
 Fedora Packages:

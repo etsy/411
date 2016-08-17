@@ -4,6 +4,8 @@
 What is 411?
 ============
 
+[![Join the chat at https://gitter.im/411/Lobby](https://badges.gitter.im/411/Lobby.svg)](https://gitter.im/411/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A Search scheduler
 ------------------
 

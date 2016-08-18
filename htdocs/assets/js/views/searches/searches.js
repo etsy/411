@@ -306,7 +306,10 @@ define(function(require) {
             for(var k in raw) {
                 var enabled = !!raw[k];
                 var change_desc = (enabled ? 'Enabled':'Disabled') + ' search';
-                data.push({id: k, enabled: enabled, change_description: change_desc});
+                var search = this.App.Data.Searches.get(k);
+                if(search.get('enabled') != enabled) {
+                    data.push({id: k, enabled: enabled, change_description: change_desc});
+                }
             }
             this.App.showLoader();
 

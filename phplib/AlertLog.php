@@ -111,13 +111,13 @@ class AlertLogFinder extends ModelFinder {
         $sql = sprintf('
             SELECT * FROM `%s` INNER JOIN (
                 SELECT A.`log_id`, MAX(A.`create_date`) FROM `%s` as A INNER JOIN `%s` as B USING(`alert_id`) INNER JOIN `%s` as C USING(`search_id`)
-                WHERE A.`site_id` = ? AND C.`notif_type` = ? AND A.`create_date` >= ? AND A.`create_date` < ? AND A.`archived` = 0 AND B.`archived` = 0 AND C.`archived` = 0
+                WHERE A.`site_id` = ? AND C.`notif_type` = ? AND A.`action` != ? AND A.`create_date` >= ? AND A.`create_date` < ? AND A.`archived` = 0 AND B.`archived` = 0 AND C.`archived` = 0
                 GROUP BY A.`alert_id`, `log_id`
                 HAVING MAX(A.`log_id`)
             ) AS `tbl` USING(`log_id`)
         ', $MODEL::$TABLE, $MODEL::$TABLE, Alert::$TABLE, Search::$TABLE);
 
-        $objs = DB::query($sql, [SiteFinder::getCurrentId(), $type, $date - $range, $date]);
+        $objs = DB::query($sql, [SiteFinder::getCurrentId(), $type, $MODEL::A_CREATE, $date - $range, $date]);
         return static::hydrateModels($objs);
     }
 

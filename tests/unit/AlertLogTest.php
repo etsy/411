@@ -27,12 +27,12 @@ class AlertLogTest extends DBTestCase {
 
     public function testFinderGetRecentForRollup() {
         TestHelper::populateDB([
-            [FOO\Search::$TABLE, 1, 0, 'One', 'null', '', '', '', FOO\Search::$CATEGORIES['general'], '', FOO\Search::P_MED, FOO\Search::SCT_FREQ, 1, '', 1, true, 0, 0, 0, 0.0, FOO\Search::NT_ONDEMAND, FOO\Search::NF_FULL, '', 0, '', 0, 0, 0, 0, 0, 0, 0],
-            [FOO\Search::$TABLE, 2, 0, 'Two', 'null', '', '', '', FOO\Search::$CATEGORIES['general'], '', FOO\Search::P_LOW, FOO\Search::SCT_FREQ, 1, '', 1, true, 0, 0, 0, 0.0, FOO\Search::NT_ONDEMAND, FOO\Search::NF_FULL, '', 0, '', 0, 0, 0, 0, 0, 0, 0],
+            [FOO\Search::$TABLE, 1, 0, 'One', 'null', '', '', '', '', FOO\Search::$CATEGORIES['general'], '', FOO\Search::P_MED, FOO\Search::SCT_FREQ, 1, '', 1, true, 0, 0, 0, 0.0, FOO\Search::NT_ONDEMAND, FOO\Search::NF_FULL, '', 0, '', 0, 0, 0, 0, 0, 0, 0],
+            [FOO\Search::$TABLE, 2, 0, 'Two', 'null', '', '', '', '', FOO\Search::$CATEGORIES['general'], '', FOO\Search::P_LOW, FOO\Search::SCT_FREQ, 1, '', 1, true, 0, 0, 0, 0.0, FOO\Search::NT_ONDEMAND, FOO\Search::NF_FULL, '', 0, '', 0, 0, 0, 0, 0, 0, 0],
             [FOO\Alert::$TABLE, 1, 0, 0, '', '', '', 0, 0, 1, 0, FOO\Alert::ST_NEW, 0, 0, 0, 0],
             [FOO\Alert::$TABLE, 2, 0, 0, '', '', '', 0, 0, 2, 0, FOO\Alert::ST_NEW, 0, 0, 0, 0],
             [FOO\Alert::$TABLE, 3, 0, 0, '', '', '', 0, 0, 1, 0, FOO\Alert::ST_NEW, 0, 0, 0, 0],
-            [FOO\AlertLog::$TABLE, 1, 0, 1, 1, FOO\AlertLog::A_ESCALATE, '', 1, 0, 0, 2900, 0],
+            [FOO\AlertLog::$TABLE, 1, 0, 1, 1, FOO\AlertLog::A_CREATE, '', 1, 0, 0, 2900, 0],
             [FOO\AlertLog::$TABLE, 2, 0, 1, 1, FOO\AlertLog::A_ESCALATE, '', 1, 0, 0, 3000, 0],
             [FOO\AlertLog::$TABLE, 3, 0, 2, 1, FOO\AlertLog::A_ESCALATE, '', 1, 0, 0, 0, 0],
             [FOO\AlertLog::$TABLE, 4, 0, 3, 1, FOO\AlertLog::A_ESCALATE, '', 1, 0, 0, 300, 0],

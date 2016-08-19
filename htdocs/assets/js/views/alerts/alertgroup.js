@@ -246,7 +246,7 @@ define(function(require) {
             this.vars = {
                 name: this.group_name,
                 full: this.full,
-                total: this.collection.total,
+                total: this.collection.total || this.collection.length,
                 state: this.collection.query.state,
                 priority: priority,
                 level: levels[priority],

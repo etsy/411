@@ -284,12 +284,6 @@ class ESClient {
             // Iterate over each bucket and continue recursing.
             foreach($data['agg']['buckets'] as $sub_data) {
                 $val = $sub_data['key'];
-                // Aggregations over bools get turned into 'T' or 'F',
-                // Convert to a bool if that's the case (only 'escalated')
-                // This only seems to be necessary pre-ES 2.0?
-                if($key == 'escalated') {
-                    $val = (is_string($val) && 'T' == $val) || (is_int($val) && $val);
-                }
 
                 // Clone fields (each iteration is independent).
                 $new_node = $node;

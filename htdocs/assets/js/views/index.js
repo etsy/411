@@ -56,7 +56,7 @@ define(function(require) {
                     datasets: [_.extend({lineTension:0, data: chartdata[1], label: 'Created'}, ChartView.colors[0])]
                 };
                 chart = new ChartView(this.App, {
-                    title: 'Alerts in the last 20 days', data: cdata
+                    title: 'Alerts in the last 15 days', data: cdata
                 });
                 this.registerView(chart, true);
 
@@ -70,7 +70,7 @@ define(function(require) {
                     ]
                 };
                 chart = new ChartView(this.App, {
-                    title: 'Actions in the last 20 days', data: cdata
+                    title: 'Actions in the last 15 days', data: cdata
                 });
                 this.registerView(chart, true);
             }

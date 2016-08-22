@@ -8,9 +8,12 @@ namespace FOO;
  * @package FOO
  */
 class Dashboard_REST extends REST {
+    const RANGE = 15;
+
     public function GET(array $get) {
         $data = [];
         $meta = new DBMeta;
+        $client = new ESClient;
 
         $func = function($data) {
             return [$data['date'], Util::get($data, 'count', 0)];
@@ -23,42 +26,18 @@ class Dashboard_REST extends REST {
         $data['failing_searches'] = (int)DB::query($sql, [SiteFinder::getCurrentId(), true], DB::VAL);
 
         // Get a count of active Alerts and their priorities.
-        $sql = sprintf('
-            SELECT `escalated`, `priority`, `state`, COUNT(*) as `count`
-            FROM `%s` AS A INNER JOIN `%s` AS B USING(`search_id`)
-            WHERE A.`site_id` = ? AND `state` IN %s AND A.`archived` = 0 AND B.`archived` = 0
-            GROUP BY 1, 2, 3
-        ', Alert::$TABLE, Search::$TABLE, DB::inPlaceholder(2));
-        $ret = [0, 0, 0, 0,  0, 0];
-        foreach(DB::query($sql, [SiteFinder::getCurrentId(), Alert::ST_NEW, Alert::ST_INPROG]) as $count) {
-            if($count['escalated']) {
-                $ret[3] += $count['count'];
-            } else {
-                $ret[$count['priority']] += (int)$count['count'];
-            }
-            $ret[4 + $count['state']] += (int)$count['count'];
-        }
-        $data['active_alerts_status'] = [];
-        $data['active_alerts'] = $ret;
+        $data['active_alerts'] = $client->getActiveAlertCounts();
 
         // Get a count of stale Alerts.
-        $sql = sprintf('SELECT COUNT(*) FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND `update_date` < ? AND `state` IN %s',
-            Alert::$TABLE, DB::inPlaceholder(2)
-        );
-        $data['stale_alerts'] = (int)DB::query($sql, [SiteFinder::getCurrentId(), $_SERVER['REQUEST_TIME'] - (60 * 60 * 24 * 7), Alert::ST_NEW, Alert::ST_INPROG], DB::VAL);
-
-        $range = -10;
-        $dates = $this->dateRange($range);
+        $data['stale_alerts'] = AlertFinder::countByQuery([
+            'state' => [Alert::ST_NEW, Alert::ST_INPROG],
+            'update_date' => [
+                ModelFinder::C_LT => $_SERVER['REQUEST_TIME'] - (60 * 60 * 24 * 7)
+        ]]);
+        //$sql = sprintf('SELECT COUNT(*) FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND `update_date` < ? AND `state` IN %s',
 
         // Generate data for an Alert creation histogram.
-        $sql = sprintf('
-            SELECT DATE(create_date, "unixepoch") AS `date`, COUNT(*) AS `count`
-            FROM `%s` WHERE `site_id` = ? AND `archived` = 0
-            AND DATE(create_date, "unixepoch") > DATE(?, "unixepoch")
-            GROUP BY 1
-        ', Alert::$TABLE);
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), strtotime("now $range days")]);
-        $data['historical_alerts'] = $this->fillDates($ret, $dates, $func);
+        $data['historical_alerts'] = $client->getAlertActivityCounts(self::RANGE);
 
         // Generate data for an Alert action histogram.
         $sql = sprintf('
@@ -71,7 +50,8 @@ class Dashboard_REST extends REST {
                 ) AND DATE(create_date, "unixepoch") > DATE(?, "unixepoch") GROUP BY 1, 2
             ) AS `tbl` USING(`alert_id`, `create_date`) GROUP BY 1, 2;
         ', AlertLog::$TABLE, AlertLog::$TABLE);
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), AlertLog::A_ESCALATE, AlertLog::A_ASSIGN, AlertLog::A_SWITCH, strtotime("now $range days")]);
+        $dates = $this->dateRange(self::RANGE);
+        $ret = DB::query($sql, [SiteFinder::getCurrentId(), AlertLog::A_ESCALATE, AlertLog::A_ASSIGN, AlertLog::A_SWITCH, strtotime(sprintf('now -%d days', self::RANGE))]);
         $groups = [[], [], []];
         foreach($ret as $row) {
             switch($row['action']) {

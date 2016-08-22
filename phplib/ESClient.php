@@ -304,6 +304,122 @@ class ESClient {
     }
 
     /**
+     * Get counts of active Alerts grouped by priority.
+     * @return array Count data.
+     */
+    public function getActiveAlertCounts() {
+        $client = self::getClient();
+
+        $filter = [
+            'terms' => [
+                'state' => [Alert::ST_NEW, Alert::ST_INPROG]
+            ]
+        ];
+        $aggs = [
+            'st' => [
+                'terms' => [ 'field' => 'state' ]
+            ],
+            'esc' => [
+                'terms' => [
+                    'field' => 'escalated',
+                ],
+                'aggs' => ['prio' => [
+                    'terms' => [
+                        'field' => 'priority'
+                    ]
+                ]]
+            ]
+        ];
+
+        try {
+            $data = $client->search([
+                'index' => $this->index,
+                'body' => [
+                    'query' => [
+                        'filtered' => [
+                            'filter' => $filter
+                        ],
+                    ],
+                    'size' => 0,
+                    'aggs' => $aggs
+                ]
+            ]);
+
+            $states = [0, 0];
+            foreach($data['aggregations']['st']['buckets'] as $row) {
+                if(array_key_exists($row['key'], $states)) {
+                    $states[$row['key']] = $row['doc_count'];
+                }
+            }
+
+            $priorities = [0, 0, 0];
+            $escalated = [0];
+            foreach($data['aggregations']['esc']['buckets'] as $row) {
+                if($row['key'] == 0) {
+                    foreach($row['prio']['buckets'] as $sub_row) {
+                        if(array_key_exists($sub_row['key'], $priorities)) {
+                            $priorities[$sub_row['key']] = $sub_row['doc_count'];
+                        }
+                    }
+                } else {
+                    $escalated[0] = $row['doc_count'];
+                }
+            }
+            $data = array_merge($priorities, $escalated, $states);
+        } catch(\Elasticsearch\Common\Exceptions\BadRequest400Exception $e) {
+            throw new \RuntimeException('Error getting active count data');
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get counts of new Alerts grouped by date.
+     * @param int $range The number of days to return data for.
+     * @return array Count data.
+     */
+    public function getAlertActivityCounts($range) {
+        $client = self::getClient();
+
+        $filter = [
+            'range' => [
+                'create_date' => [
+                    'lt' => 'now',
+                    'gte' => sprintf('now-%dd/d', $range)
+                ]
+            ]
+        ];
+        $aggs = ['agg' => [
+            'date_histogram' => [
+                'field' => 'create_date',
+                'interval' => '1d',
+                'format' => 'yyyy-MM-dd',
+            ]
+        ]];
+
+        try {
+            $data = $client->search([
+                'index' => $this->index,
+                'body' => [
+                    'query' => [
+                        'filtered' => [
+                            'filter' => $filter
+                        ],
+                    ],
+                    'size' => 0,
+                    'aggs' => $aggs
+                ]
+            ]);
+        } catch(\Elasticsearch\Common\Exceptions\BadRequest400Exception $e) {
+            throw new \RuntimeException('Error getting activity count data');
+        }
+
+        return array_map(function($x) {
+            return [$x['key_as_string'], $x['doc_count']];
+        }, $data['aggregations']['agg']['buckets']);
+    }
+
+    /**
      * Format result objects from ES.
      * @param array $data Alert data.
      * @return array Formatted Alert data.
@@ -391,15 +507,12 @@ class ESClient {
         $data['content'] = $this->unflatten((array)$data['content']);
 
         // Populate search data.
-        $search_data = [];
-        if(!is_null($search)) {
-            $search_data = [
-                'tags' => $search['tags'],
-                'priority' => $search['priority'],
-                'category' => $search['category'],
-                'owner' => $search['owner'],
-            ];
-        }
+        $search_data = [
+            'tags' => Util::get($search, 'tags', []),
+            'priority' => Util::get($search, 'priority', Search::P_LOW),
+            'category' => Util::get($search, 'category', Search::$CATEGORIES['general']),
+            'owner' => Util::get($search, 'owner', 0),
+        ];
 
         // Populate note data.
         $alertlogs = AlertLogFinder::getByQuery([

@@ -329,6 +329,14 @@ class Model implements \JsonSerializable, \ArrayAccess {
     }
 
     /**
+     * Set the id of this model. Used for testing.
+     * @param int|null The id.
+     */
+    public function setId($id) {
+        $this->obj[static::$PKEY] = $id;
+    }
+
+    /**
      * ArrayAccess interface
      * @param mixed $key
      * @return bool

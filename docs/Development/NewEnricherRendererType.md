@@ -91,7 +91,7 @@ The `auto` field tells the frontend whether this Renderer should look for fields
 Defining `remote`
 -----------------
 
-The `remote` field indicates which Enricher this Renderer pulls data from. The Renderer framework will automatically query that Enricher and provide the data. We'll be using the `MyIP_Enricher`, so put `'myip'` goes in this field. For Renderers that doesn't use an Enricher, just leave it as `null`.
+The `remote` field indicates which Enricher this Renderer pulls data from. The Renderer framework will automatically query that Enricher and provide the data. We'll be using the `MyIP_Enricher`, so put `'myip'` goes in this field. For Renderers that don't use an Enricher, just leave it as `null`.
 ```
         remote: 'myip',
 ```

@@ -8,7 +8,7 @@ namespace FOO;
  * @package FOO
  */
 class Enricher {
-    public static $TYPES = ['IP_Enricher', 'MAC_Enricher'];
+    public static $TYPES = ['IP_Enricher', 'MAC_Enricher', 'Null_Enricher'];
     public static $TYPE = '';
 
     /**

@@ -148,8 +148,10 @@ class AlertFinder extends ModelFinder {
      * @throws DBException
      */
     public static function getRecentSearchCount($search_id, $since) {
-        return self::countByQuery(['create_date' => [
-            self::C_GT => $since
+        return self::countByQuery([
+            'search_id' => $search_id,
+            'create_date' => [
+                self::C_GT => $since,
         ]]);
     }
 

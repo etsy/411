@@ -29,7 +29,7 @@ class SearchTest extends DBTestCase {
 
     public function testExecute() {
         $search = new FOO\Null_Search();
-        $search[FOO\Search::$PKEY] = 1;
+        $search->setId(1);
         $search['assignee_type'] = FOO\Assignee::T_USER;
         $search['assignee'] = 1;
 
@@ -67,7 +67,7 @@ class SearchTest extends DBTestCase {
         ]);
 
         $search = new FOO\Null_Search();
-        $search[FOO\Search::$PKEY] = 1;
+        $search->setId(1);
 
         $filters = $search->getFilters();
         $this->assertCount(1, $filters);
@@ -79,10 +79,10 @@ class SearchTest extends DBTestCase {
         ]);
 
         $search = new FOO\Null_Search();
-        $search[FOO\Search::$PKEY] = 1;
+        $search->setId(1);
 
         $targets = $search->getTargets();
-        $this->assertCount(1, $targets);
-        $this->assertSame(1, $targets[0][FOO\Target::$PKEY]);
+        $this->assertCount(2, $targets);
+        $this->assertSame(1, $targets[1][FOO\Target::$PKEY]);
     }
 }

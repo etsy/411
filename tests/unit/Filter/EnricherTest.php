@@ -2,16 +2,15 @@
 
 class EnricherFilterTest extends DBTestCase {
     public function testProcess() {
-        $mac = '00:00:00:00:00';
         $filter = new FOO\Enricher_Filter();
-        $filter['data']['key'] = 'mac';
-        $filter['data']['type'] = 'mac';
+        $filter['data']['key'] = 'test';
+        $filter['data']['type'] = 'null';
         $alert = new FOO\Alert();
-        $alert['content']['mac'] = $mac;
+        $alert['content']['test'] = 'test';
 
         $alert_ = $filter->process($alert, 0)[0];
 
-        $enricher = FOO\Enricher::getEnricher('mac');
-        $this->assertSame($enricher::process($mac), $alert_['content']['mac']);
+        $enricher = FOO\Enricher::getEnricher('null');
+        $this->assertSame($enricher::process('test'), $alert_['content']['test']);
     }
 }

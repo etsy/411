@@ -19,7 +19,7 @@ class ElementTest extends DBTestCase {
     public function testSerialize() {
         $element = new FOO\TestElement();
 
-        $data = ['data' => []];
+        $data = ['data' => [], 'archived' => false];
         $expected = ['data' => '{}', 'archived' => false];
         $this->assertSame($expected, TestHelper::invokeMethod($element, 'serialize', [$data]));
     }
@@ -27,7 +27,7 @@ class ElementTest extends DBTestCase {
     public function testDeserialize() {
         $element = new FOO\TestElement();
 
-        $data = ['data' => '{}'];
+        $data = ['data' => '{}', 'archived' => false];
         $expected = ['data' => [], 'archived' => false];
         $this->assertSame($expected, TestHelper::invokeMethod($element, 'deserialize', [$data]));
     }

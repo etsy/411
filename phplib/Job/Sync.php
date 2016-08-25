@@ -18,7 +18,6 @@ class Sync_Job extends Job {
      */
     public function run() {
         $client = new ESClient;
-        $count = AlertFinder::countByQuery([]);
 
         $id = 0;
         $curr = 0;
@@ -27,6 +26,7 @@ class Sync_Job extends Job {
         if($target > 0) {
             $query['search_id'] = $target;
         }
+        $count = AlertFinder::countByQuery([]);
 
         do {
             $query['alert_id'] = [ModelFinder::C_GT => $id];

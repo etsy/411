@@ -107,6 +107,13 @@ Create the database:
 $ sqlite3 data.db < db.sql
 ```
 
+Run the db migration script:
+```
+$ bin/migration.php
+Migrating from A.B.C to D.E.F
+Migration complete!
+```
+
 Create a new 411 site:
 ```
 # Run the bin/create_site.php script and answer the questions.

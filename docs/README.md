@@ -8,6 +8,7 @@ Usage
 -----
 
 - [Setup](/docs/Setup.md)
+- [Upgrading](/docs/Upgrading.md)
 - [Getting Started](/docs/GettingStarted.md)
 - [Searches](/docs/Searches.md)
 - [Filters](/docs/Filters.md)

@@ -408,6 +408,8 @@ DROP INDEX IF EXISTS `jobs_target_id_idx`;
 DROP INDEX IF EXISTS `jobs_state_idx`;
 DROP INDEX IF EXISTS `jobs_tries_idx`;
 DROP INDEX IF EXISTS `jobs_last_execution_date_idx`;
+DROP INDEX IF EXISTS `jobs_target_date_idx`;
+DROP INDEX IF EXISTS `jobs_type_target_id_site_id_archived_idx`;
 
 DROP INDEX IF EXISTS `jobs_site_id`;
 DROP INDEX IF EXISTS `jobs_archived`;
@@ -433,7 +435,9 @@ CREATE INDEX `jobs_type_idx` ON `jobs`(`type`);
 CREATE INDEX `jobs_target_id_idx` ON `jobs`(`target_id`);
 CREATE INDEX `jobs_state_idx` ON `jobs`(`state`);
 CREATE INDEX `jobs_tries_idx` ON `jobs`(`tries`);
+CREATE INDEX `jobs_target_date_idx` ON `jobs`(`target_date`);
 CREATE INDEX `jobs_last_execution_date_idx` ON `jobs`(`last_execution_date`);
+CREATE INDEX `jobs_type_target_id_site_id_archived_idx` ON `jobs`(type, target_id, site_id, archived);
 
 CREATE INDEX `jobs_site_id` ON `jobs`(`site_id`);
 CREATE INDEX `jobs_archived` ON `jobs`(`archived`);

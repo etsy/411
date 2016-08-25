@@ -8,7 +8,7 @@ namespace FOO;
  * @package FOO
  */
 class Sync_Job extends Job {
-    public static $TYPE = 'autoclose';
+    public static $TYPE = 'sync';
 
     const CHUNK_SIZE = 1000;
 

@@ -86,12 +86,14 @@ $config['elasticsearch'] = [
     'alerts' => [
         'hosts' => ['localhost:9200'], # Host to retrieve Alerts from.
         'index_hosts' => [], # Host to push Alerts to. (If different)
+        'ssl_cert' => null, # Path to SSL certificate if self-signed.
     ],
 
     # Data source for the Logstash Search
     'logstash' => [
         'hosts' => ['localhost:9200'], # Hosts to query for results.
         'index_hosts' => [], # Hosts to push lookup tables to. (If different)
+        'ssl_cert' => null, # Path to SSL certificate if self-signed.
         'index' => 'logstash', # Index name (Without the date).
         'date_based' => true, # Whether to append a date to the index (`logstash` becomes `logstash-2016.01.01`).
         'date_field' => '@timestamp', # Field to use for date based queries.

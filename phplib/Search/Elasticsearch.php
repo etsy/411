@@ -141,6 +141,20 @@ abstract class Elasticsearch_Search extends Search {
         return Util::get($this->getListData([$name]), $name, []);
     }
 
+    public function getConnection($host) {
+        $cfg = static::getConfig();
+
+        $cb = \Elasticsearch\ClientBuilder::create();
+        if(!is_null($cfg['ssl_cert'])) {
+            $cb->setSSLVerification($cfg['ssl_cert']);
+        }
+        if(!is_null($host)) {
+            $cb->setHosts([$host]);
+        }
+
+        return $cb->build();
+    }
+
     /**
      * Execute an Elasticsearch query and return the results.
      * @param int $date What time this query was started.
@@ -169,7 +183,7 @@ abstract class Elasticsearch_Search extends Search {
             // Grab a count of results.
             $count_settings = $settings;
             $count_settings['count'] = true;
-            $es = new \ESQuery\Scheduler($count_settings, $query_list, null, [$this, 'getList']);
+            $es = new \ESQuery\Scheduler($count_settings, $query_list, [$this, 'getConnection'], [$this, 'getList']);
             $count = $es->execute()['count'];
 
             // Determine whether continue processing.

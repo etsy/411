@@ -108,7 +108,7 @@ class Worker {
                     if(count($errors) == 0) {
                         $success = true;
                     } else {
-                        $retry = $job->shouldRetry();
+                        $retry = $job->shouldRetry($date);
                     }
                 } catch(JobCancelException $e) {
                     Logger::info('Job cancelled', ['id' => $job['id']], self::LOG_NAMESPACE);

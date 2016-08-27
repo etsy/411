@@ -33,7 +33,9 @@ class Logger {
      * @param string $ns The namespace.
      */
     public static function info($msg, $arr=[], $ns='NONE') {
-        self::log('info', $msg, $arr, $ns);
+        if(php_sapi_name() != 'cli') {
+            self::log('info', $msg, $arr, $ns);
+        }
     }
 
     /**

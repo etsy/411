@@ -71,6 +71,7 @@ class Worker {
 
         if($cfg['worker_enabled']) {
             $ids = JobFinder::getPendingIds();
+            printf("[+] Job count: %d\n", count($ids));
 
             // Grab a job from the database and run it!
             foreach($ids as $id) {
@@ -89,6 +90,7 @@ class Worker {
                 Hook::call('job.start');
                 Logger::info('Execute job', ['id' => $job['id']], self::LOG_NAMESPACE);
                 cli_set_process_title($base_title . ' Job: ' . $job['id']);
+                printf("[+] Running job: %d, Type: %s, Target: %d\n", $id, $job['type'], $job['target_id']);
                 $jobtimer = new Timer();
                 $jobtimer->start();
                 $errors = [];
@@ -153,7 +155,7 @@ class Worker {
                 Logger::info('Finish job', ['id' => $job['id'], 'success' => $success, 'taken' => $jobtimer->taken()], self::LOG_NAMESPACE);
             }
         } else {
-            print("[+] Cron disabled\n");
+            print("[+] Worker disabled\n");
         }
 
         $timer->stop();

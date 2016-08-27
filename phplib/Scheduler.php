@@ -17,7 +17,7 @@ class Scheduler {
      */
     public function process($date, $backfill) {
         Logger::info('Scheduler run', ['time' => $date], self::LOG_NAMESPACE);
-        cli_set_process_title('411] Cron');
+        cli_set_process_title('411] Scheduler');
         print "[+] Scheduler: $date\n";
         $timer = new Timer();
         $timer->start();
@@ -30,6 +30,7 @@ class Scheduler {
             $pid = pcntl_fork();
             if($pid === -1) {
                 Logger::err('Fork failed', ['time' => $date], self::LOG_NAMESPACE);
+                print "[-] Error: $date\n";
                 continue;
             }
 
@@ -170,7 +171,7 @@ class Scheduler {
                 $meta['last_cron_date'] = $date;
             }
         } else {
-            print("[+] Cron disabled\n");
+            print("[+] Scheduler disabled\n");
         }
 
         $timer->stop();

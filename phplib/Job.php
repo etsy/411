@@ -9,6 +9,7 @@ namespace FOO;
  */
 abstract class Job extends TypeModel {
     const LOG_NAMESPACE = 'JOB';
+    const MAX_TRIES = 5;
 
     public static $TYPES = ['Search_Job', 'Report_Job', 'Rollup_Job', 'Summary_Job', 'Autoclose_Job', 'Sync_Job'];
     public static $TABLE = 'jobs';
@@ -113,16 +114,27 @@ class JobFinder extends TypeModelFinder {
     public static $MODEL = 'Job';
 
     /**
-     * Reset any Jobs that haven't made progress in the last 20 minutes.
+     * Fail or cancel any Jobs that haven't made progress in the last 20 minutes.
      * @param int $date The current date.
      * @throws DBException
      */
     public static function fail($date) {
         $MODEL = 'FOO\\' . static::$MODEL;
-        $sql = sprintf(
-            'UPDATE `%s` SET `state` = ?, `update_date` = ? WHERE `site_id` = ? AND `archived` = 0 AND `state` IN %s AND `update_date` < (? - 20 * 60)',
+        $threshold = $date - (20 * 60);
+
+        // Cancel any jobs that have failed more than MAX_TRIES times.
+        $sql = sprintf('
+            UPDATE `%s` SET `state` = ?, `update_date` = ?
+            WHERE `site_id` = ? AND `archived` = 0 AND `state` IN %s AND `update_date` < ? AND `tries` > ?',
         $MODEL::$TABLE, DB::inPlaceholder(2));
-        DB::query($sql, [$MODEL::ST_PEND, $date, SiteFinder::getCurrentId(), $MODEL::ST_RUN, $MODEL::ST_FAIL, $date]);
+        DB::query($sql, [$MODEL::ST_CANC, $date, SiteFinder::getCurrentId(), $MODEL::ST_RUN, $MODEL::ST_FAIL, $threshold]);
+
+        // Fail any jobs that have failed less than MAX_TRIES times.
+        $sql = sprintf('
+            UPDATE `%s` SET `state` = ?, `update_date` = ?
+            WHERE `site_id` = ? AND `archived` = 0 AND `state` IN %s AND `update_date` < ? AND `tries` <= ?',
+        $MODEL::$TABLE, DB::inPlaceholder(2));
+        DB::query($sql, [$MODEL::ST_PEND, $date, SiteFinder::getCurrentId(), $MODEL::ST_RUN, $MODEL::ST_FAIL, $threshold]);
     }
 
     /**

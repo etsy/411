@@ -7,7 +7,6 @@
  */
 class Worker {
     const LOG_NAMESPACE = '411_Worker';
-    const MAX_TRIES = 5;
 
     /**
      * Entrypoint to worker.
@@ -139,7 +138,7 @@ class Worker {
 
                         if($retry) {
                             // Cancel the job if it's been attempted more than MAX_TRIES times.
-                            $job['state'] = $job['tries'] > self::MAX_TRIES ? Job::ST_CANC:Job::ST_FAIL;
+                            $job['state'] = $job['tries'] > Job::MAX_TRIES ? Job::ST_CANC:Job::ST_FAIL;
                         } else {
                             $job['state'] = Job::ST_CANC;
                         }

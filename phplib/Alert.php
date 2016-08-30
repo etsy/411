@@ -61,8 +61,8 @@ class Alert extends Model {
     }
 
     protected function deserialize(array $data) {
-        $data['content'] = json_decode($data['content'], true);
-        $data['renderer_data'] = json_decode($data['renderer_data'], true);
+        $data['content'] = (array)json_decode($data['content'], true);
+        $data['renderer_data'] = (array)json_decode($data['renderer_data'], true);
         $data['escalated'] = (bool)$data['escalated'];
         return parent::deserialize($data);
     }

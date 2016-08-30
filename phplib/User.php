@@ -48,7 +48,7 @@ class User extends Model {
     }
 
     protected function deserialize(array $data) {
-        $data['settings'] = json_decode($data['settings'], true);
+        $data['settings'] = (array)json_decode($data['settings'], true);
         $data['admin'] = (bool)$data['admin'];
         return parent::deserialize($data);
     }

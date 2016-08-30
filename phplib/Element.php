@@ -81,7 +81,7 @@ abstract class Element extends TypeModel {
     }
 
     protected function deserialize(array $data) {
-        $data['data'] = json_decode($data['data'], true);
+        $data['data'] = (array)json_decode($data['data'], true);
         return parent::deserialize($data);
     }
 

@@ -133,10 +133,10 @@ abstract class Search extends TypeModel {
     }
 
     protected function deserialize(array $data) {
-        $data['query_data'] = json_decode($data['query_data'], true);
-        $data['state_data'] = json_decode($data['state_data'], true);
-        $data['renderer_data'] = json_decode($data['renderer_data'], true);
-        $data['notif_data'] = json_decode($data['notif_data'], true);
+        $data['query_data'] = (array)json_decode($data['query_data'], true);
+        $data['state_data'] = (array)json_decode($data['state_data'], true);
+        $data['renderer_data'] = (array)json_decode($data['renderer_data'], true);
+        $data['notif_data'] = (array)json_decode($data['notif_data'], true);
         $data['tags'] = array_filter(array_map('trim', explode(',', $data['tags'])), 'strlen');
         $data['enabled'] = (bool)$data['enabled'];
         return parent::deserialize($data);

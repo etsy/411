@@ -41,7 +41,7 @@ class Jira_Data_REST extends REST {
         if(!is_null($jiracfg['user']) && !is_null($jiracfg['pass'])) {
             $curl->setBasicAuthentication($jiracfg['user'], $jiracfg['pass']);
         }
-        $ret = $curl->get(sprintf('https://%s/rest/api/2/issue/createmeta', $jiracfg['host']));
+        $ret = $curl->get(sprintf('%s/rest/api/2/issue/createmeta', $jiracfg['host']));
 
         if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
             return null;

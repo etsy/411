@@ -167,6 +167,10 @@ class Scheduler {
             cli_set_process_title($base_title . ' Autoclose');
             $this->processAutoclose($date, $backfill);
 
+            print("[+] Cleanup\n");
+            cli_set_process_title($base_title . ' Autoclose');
+            $this->processCleanup($date);
+
             if(!$backfill) {
                 $meta['last_cron_date'] = $date;
             }
@@ -288,6 +292,20 @@ class Scheduler {
             $autoclosejob = new Autoclose_Job();
             $autoclosejob['target_date'] = $date;
             $autoclosejob->store();
+        }
+    }
+
+    /**
+     * Schedule cleanup job.
+     * @param int $date The current timestamp.
+     */
+    private function processCleanup($date) {
+        // Run daily.
+        $lastjob = JobFinder::getLastByQuery(['type' => Cleanup_Job::$TYPE]);
+        if(is_null($lastjob) || $date - $lastjob['target_date'] >= 24 * 60 * 60 - 5) {
+            $cleanupjob = new Cleanup_Job();
+            $cleanupjob['target_date'] = $date;
+            $cleanupjob->store();
         }
     }
 

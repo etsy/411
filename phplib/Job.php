@@ -11,7 +11,7 @@ abstract class Job extends TypeModel {
     const LOG_NAMESPACE = 'JOB';
     const MAX_TRIES = 5;
 
-    public static $TYPES = ['Search_Job', 'Report_Job', 'Rollup_Job', 'Summary_Job', 'Autoclose_Job', 'Sync_Job'];
+    public static $TYPES = ['Search_Job', 'Report_Job', 'Rollup_Job', 'Summary_Job', 'Autoclose_Job', 'Sync_Job', 'Cleanup_Job'];
     public static $TABLE = 'jobs';
     public static $PKEY = 'job_id';
 
@@ -155,6 +155,7 @@ class JobFinder extends TypeModelFinder {
     /**
      * Attempt to get a lock on a Job.
      * @param int $id The Job id.
+     * @param int $date The current date.
      * @return Job|null A Job if successful or null.
      */
     public static function getAndLock($id, $date) {
@@ -194,6 +195,18 @@ class JobFinder extends TypeModelFinder {
     public static function getLastByQuery($query) {
         $ret = static::getByQuery($query, 1, null, [['target_date', self::O_DESC]]);
         return count($ret) ? $ret[0]:null;
+    }
+
+    /**
+     * Archive old jobs. (Older than 30 days)
+     * @param int $date The current date.
+     */
+    public static function optimize($date) {
+        $MODEL = 'FOO\\' . static::$MODEL;
+        $sql = sprintf('
+            UPDATE `%s` SET `archived` = 1 WHERE `site_id` = ? AND `archived` = 0 AND `state` = ? AND `update_date` < ?',
+        $MODEL::$TABLE);
+        DB::query($sql, [SiteFinder::getCurrentId(), $MODEL::ST_SUCC, $date - (30 * 24 * 60 * 60)]);
     }
 }
 

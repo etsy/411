@@ -34,7 +34,6 @@ class Dashboard_REST extends REST {
             'update_date' => [
                 ModelFinder::C_LT => $_SERVER['REQUEST_TIME'] - (60 * 60 * 24 * 7)
         ]]);
-        //$sql = sprintf('SELECT COUNT(*) FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND `update_date` < ? AND `state` IN %s',
 
         // Generate data for an Alert creation histogram.
         $data['historical_alerts'] = $client->getAlertActivityCounts(self::RANGE);
@@ -47,11 +46,17 @@ class Dashboard_REST extends REST {
                     (`action` = ? AND `a` = 1) OR
                     (`action` = ? AND (`a` != 0 OR `b` != 0)) OR
                     (`action` = ? AND `a` = 2)
-                ) AND DATE(create_date, "unixepoch") > DATE(?, "unixepoch") GROUP BY 1, 2
+                ) AND `create_date` > ? AND DATE(create_date, "unixepoch") > DATE(?, "unixepoch") GROUP BY 1, 2
             ) AS `tbl` USING(`alert_id`, `create_date`) GROUP BY 1, 2;
         ', AlertLog::$TABLE, AlertLog::$TABLE);
         $dates = $this->dateRange(self::RANGE);
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), AlertLog::A_ESCALATE, AlertLog::A_ASSIGN, AlertLog::A_SWITCH, strtotime(sprintf('now -%d days', self::RANGE))]);
+        $ret = DB::query($sql, [
+            SiteFinder::getCurrentId(),
+            AlertLog::A_ESCALATE,
+            AlertLog::A_ASSIGN,
+            AlertLog::A_SWITCH,
+            strtotime(sprintf('now -%d days', self::RANGE + 1)), strtotime(sprintf('now -%d days', self::RANGE))
+        ]);
         $groups = [[], [], []];
         foreach($ret as $row) {
             switch($row['action']) {

@@ -204,11 +204,12 @@ class Searches_REST extends Models_REST {
         $data['Flap rate'] = $model['flap_rate'];
 
         // Get count of total alerts.
-        $sql = sprintf(
-            'SELECT state, COUNT(*) AS count FROM `%s` WHERE `site_id` = ? AND `search_id` = ? AND `archived` = 0 GROUP BY `state`',
-            Alert::$TABLE
-        );
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), $id]);
+        list($sql, $vals) = AlertFinder::generateQuery(
+            ['state', 'COUNT(*) as count'],
+            ['search_id' => $id],
+        null, null, [], ['state']);
+
+        $ret = DB::query(implode(' ', $sql), $vals);
         $active = [0, 0];
         foreach($ret as $row) {
             $i = $row['state'] != Alert::ST_RES ? 0:1;
@@ -218,19 +219,19 @@ class Searches_REST extends Models_REST {
         $data['Active'] = $active[0];
 
         // Get count of escalated alerts.
-        $sql = sprintf(
-            'SELECT COUNT(*) AS count FROM `%s` WHERE `site_id` = ? AND `search_id` = ? AND `escalated` = ? AND `archived` = 0',
-            Alert::$TABLE
-        );
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), $id, 1], DB::VAL);
+        $ret = AlertFinder::countByQuery([
+            'search_id' => $id,
+            'escalated' => 1
+        ]);
         $data['Escalated'] = is_null($ret) ? 0:(int)$ret;
 
         // Get count of resolved alerts
-        $sql = sprintf(
-            'SELECT `resolution`, COUNT(*) AS count FROM `%s` WHERE `site_id` = ? AND `search_id` = ? AND `state` = ? AND `archived` = 0 GROUP BY `resolution`',
-            Alert::$TABLE
-        );
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), $id, Alert::ST_RES]);
+        list($sql, $vals) = AlertFinder::generateQuery(
+            ['resolution', 'COUNT(*) as count'],
+            ['search_id' => $id, 'state' => Alert::ST_RES],
+        null, null, [], ['resolution']);
+
+        $ret = DB::query(implode(' ', $sql), $vals);
         $groups = [0, 0, 0];
         foreach($ret as $row) {
             $groups[$row['resolution']] += $row['count'];
@@ -240,11 +241,12 @@ class Searches_REST extends Models_REST {
         $data['Resolved: Too old'] = $groups[2];
 
         // Get timestamp of most recent alert.
-        $sql = sprintf(
-            'SELECT MAX(`alert_date`) as date FROM `%s` WHERE `site_id` = ? AND `search_id` = ? AND `archived` = 0',
-            Alert::$TABLE
+        list($sql, $vals) = AlertFinder::generateQuery(
+            ['MAX(`alert_date`) as date'],
+            ['search_id' => $id]
         );
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), $id], DB::VAL);
+
+        $ret = DB::query(implode(' ', $sql), $vals, DB::VAL);
         $data['Last alert'] = is_null($ret) ? 'N/A':gmdate(DATE_RSS, $ret);
 
         $data['Last execution'] = $model['last_execution_date'] == 0 ? 'N/A':gmdate(DATE_RSS, $model['last_execution_date']);

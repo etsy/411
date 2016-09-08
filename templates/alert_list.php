@@ -55,7 +55,7 @@
             </td>
           <?php endif ?>
           <?php foreach($alertkeys as $alertkey): ?>
-            <td style="<?= $cell_style ?>"><?= Util::escape(Util::get($alert['content'], $alertkey, '')) ?></td>
+            <td style="<?= $cell_style ?>"><?= nl2br(Util::escape(Util::get($alert['content'], $alertkey, ''))) ?></td>
           <?php endforeach ?>
           </tr>
         <?php endforeach ?>

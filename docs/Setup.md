@@ -20,7 +20,7 @@ $ sudo apt-get install apache2 libapache2-mod-php php-xml php7.0-mbstring php7.0
 
 Fedora Packages:
 ```
-$ sudo dnf install httpd php php-posix php-pdo sqlite nodejs
+$ sudo dnf install httpd php php-posix php-pdo php-xml sqlite nodejs
 ```
 
 Composer:

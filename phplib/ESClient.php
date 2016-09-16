@@ -411,9 +411,18 @@ class ESClient {
             throw new \RuntimeException('Error getting activity count data');
         }
 
-        return array_map(function($x) {
-            return [$x['key_as_string'], $x['doc_count']];
-        }, $data['aggregations']['agg']['buckets']);
+        $ret = [];
+        $date = new \DateTime('@' . $_SERVER['REQUEST_TIME']);
+        for($i = 0; $i < $range; ++$i) {
+            $date_str = $date->sub(new \DateInterval('P10D'))->format('Y-m-d');
+            $ret[$date_str] = [$date_str, 0];
+        }
+
+        foreach($data['aggregations']['agg']['buckets'] as $x) {
+            $ret[$x['key_as_string']] = [$x['key_as_string'], $x['doc_count']];
+        }
+
+        return array_values($ret);
     }
 
     /**

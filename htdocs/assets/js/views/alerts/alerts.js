@@ -142,7 +142,7 @@ define(function(require) {
                 }
             });
 
-            this.updateQuery(query_string, query.from, query.to);
+            this.updateQuery(query_string, query.from, query.to, true);
 
             this.App.registerSelectableKbdShortcut('x', 'select', 'Toggle selection of the current Alert', false);
             this.App.registerSelectableKbdShortcut('u', 'source', 'Open source of the current Alert', false);
@@ -212,7 +212,7 @@ define(function(require) {
         /**
          * Write a query object to the navbar.
          */
-        updateQuery: function(query, from, to) {
+        updateQuery: function(query, from, to, replace) {
             this.$('.navbar-search-input').val(query);
             var params = {
                 query: query
@@ -226,7 +226,7 @@ define(function(require) {
                 this.$('.time-b input[name=to]').val(to);
                 params.to = to;
             }
-            this.App.Router.navigate('/alerts?' + decodeURIComponent($.param(params)), {trigger: false});
+            this.App.Router.navigate('/alerts?' + decodeURIComponent($.param(params)), {trigger: false, replace: replace});
         },
         /**
          * Retrieve the query from the navbar and submit it for processing.

@@ -496,7 +496,13 @@ define(function(require) {
 
             // Redirect to the login page if trying to hit an authenticated page.
             if(!this.Data.User && !_.contains(['', 'login', 'logout', 'forbidden'], route)) {
-                this.Router.navigate('login?redirect=' + link.resource(), {trigger: true});
+                this.Router.navigate('login?redirect=' + link.resource(), {trigger: true, replace: true});
+                return false;
+            }
+
+            // Redirect to page if already authenticated.
+            if(this.Data.User && route == 'login') {
+                this.Router.navigate(link.query(true)['redirect'], {trigger: true, replace: true});
                 return false;
             }
 

@@ -180,76 +180,124 @@ abstract class Elasticsearch_Search extends Search {
 
         $alerts = [];
         try {
-            // Grab a count of results.
-            $count_settings = $settings;
-            $count_settings['count'] = true;
-            $es = new \ESQuery\Scheduler($count_settings, $query_list, [$this, 'getConnection'], [$this, 'getList']);
-            $count = $es->execute()['count'];
+            // Agg results.
+            $query_len = count($query_list);
+            if($query_len > 0 && $query_list[$query_len - 1][0] == \ESQuery\Token::C_AGG) {
+                $es = new \ESQuery\Scheduler($settings, $query_list, [$this, 'getConnection'], [$this, 'getList']);
+                $data = $es->execute();
 
-            // Determine whether continue processing.
-            $ok = true;
-            if(!is_null($filter_range[0]) && $ok) {
-                $ok = $count >= $filter_range[0];
-            }
-            if(!is_null($filter_range[1]) && $ok) {
-                $ok = $count <= $filter_range[1];
-            }
-
-            // _index, _type, _id and _score always show up. If they aren't explicitly included in the field list, just exclude them!
-            $underscore_fields = ['_index', '_type', '_id', '_score'];
-            $field_specified = [];
-            foreach($underscore_fields as $field) {
-                if(in_array($field, $fields)) {
-                    $field_specified[$field] = null;
-                }
-            }
-
-            if($ok) {
                 switch($result_type) {
                     // Rows
                     case self::R_FIELDS:
-                        $es = new \ESQuery\Scheduler($settings, $query_list, null, [$this, 'getList']);
-                        $data = $es->execute();
-
                         foreach($data as $row) {
-                            $alert = new Alert;
-                            if (!array_key_exists('time', $row)) {
-                                $alert_date = $date;
-                                if (array_key_exists($date_field, $row)) {
-                                    // Extract the date field.
-                                    if(ctype_digit($row[$date_field])) {
-                                        $alert_date = (int) $row[$date_field];
-                                    } else {
-                                        $alert_date = strtotime($row[$date_field]);
-                                    }
-                                    unset($row[$date_field]);
-                                }
-                                $alert['alert_date'] = $alert_date;
+                            $ok = true;
+                            $count = $row['count'];
+                            if(!is_null($filter_range[0]) && $ok) {
+                                $ok = $count >= $filter_range[0];
                             }
-                            foreach($underscore_fields as $field) {
-                                if(!array_key_exists($field, $field_specified)) {
-                                    unset($row[$field]);
-                                }
+                            if(!is_null($filter_range[1]) && $ok) {
+                                $ok = $count <= $filter_range[1];
                             }
-                            $alert['content'] = $row;
-                            $alerts[] = $alert;
+
+                            if($ok) {
+                                $alert = new Alert;
+                                $alert['alert_date'] = $date;
+                                $alert['content'] = $row;
+                                $alerts[] = $alert;
+                            }
                         }
                         break;
 
                     // Count
                     case self::R_COUNT:
-                        $alert = new Alert;
-                        $alert['alert_date'] = $date;
-                        $alert['content'] = ['count' => $count];
-                        $alerts[] = $alert;
-                        break;
-
                     // No data
                     case self::R_NO_RESULTS:
-                        $alert = new Alert;
-                        $alert['alert_date'] = $date;
-                        $alerts[] = $alert;
+                        $ok = true;
+                        $count = count($data);
+                        if(!is_null($filter_range[0]) && $ok) {
+                            $ok = $count >= $filter_range[0];
+                        }
+                        if(!is_null($filter_range[1]) && $ok) {
+                            $ok = $count <= $filter_range[1];
+                        }
+
+                        if($ok) {
+                            $alert = new Alert;
+                            $alert['alert_date'] = $date;
+                            $alert['content'] = ['count' => $count];
+                            $alerts[] = $alert;
+                        }
                         break;
+                }
+
+            // Normal results.
+            } else {
+                // Grab a count of results.
+                $count_settings = $settings;
+                $count_settings['count'] = true;
+                $es = new \ESQuery\Scheduler($count_settings, $query_list, [$this, 'getConnection'], [$this, 'getList']);
+                $count = $es->execute()['count'];
+
+                // Determine whether continue processing.
+                $ok = true;
+                if(!is_null($filter_range[0]) && $ok) {
+                    $ok = $count >= $filter_range[0];
+                }
+                if(!is_null($filter_range[1]) && $ok) {
+                    $ok = $count <= $filter_range[1];
+                }
+
+                // _index, _type, _id and _score always show up. If they aren't explicitly included in the field list, just exclude them!
+                $underscore_fields = ['_index', '_type', '_id', '_score'];
+                $field_specified = [];
+                foreach($underscore_fields as $field) {
+                    if(in_array($field, $fields)) {
+                        $field_specified[$field] = null;
+                    }
+                }
+
+                if($ok) {
+                    switch($result_type) {
+                        // Rows
+                        case self::R_FIELDS:
+                            $es = new \ESQuery\Scheduler($settings, $query_list, null, [$this, 'getList']);
+                            $data = $es->execute();
+
+                            foreach($data as $row) {
+                                $alert = new Alert;
+                                if (!array_key_exists('time', $row)) {
+                                    $alert_date = $date;
+                                    if (array_key_exists($date_field, $row)) {
+                                        // Extract the date field.
+                                        if(ctype_digit($row[$date_field])) {
+                                            $alert_date = (int) $row[$date_field];
+                                        } else {
+                                            $alert_date = strtotime($row[$date_field]);
+                                        }
+                                        unset($row[$date_field]);
+                                    }
+                                    $alert['alert_date'] = $alert_date;
+                                }
+                                foreach($underscore_fields as $field) {
+                                    if(!array_key_exists($field, $field_specified)) {
+                                        unset($row[$field]);
+                                    }
+                                }
+                                $alert['content'] = $row;
+                                $alerts[] = $alert;
+                            }
+                            break;
+
+                        // Count
+                        case self::R_COUNT:
+                        // No data
+                        case self::R_NO_RESULTS:
+                            $alert = new Alert;
+                            $alert['alert_date'] = $date;
+                            $alert['content'] = ['count' => $count];
+                            $alerts[] = $alert;
+                            break;
+                    }
                 }
             }
         } catch(\Exception $e) {

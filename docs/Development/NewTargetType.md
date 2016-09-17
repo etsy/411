@@ -26,7 +26,7 @@ The `generateDataSchema` method defines all the parameters that this Target type
 Implementing `validateData`
 ---------------------------
 
-The `validateData` method verifies that the paramaters passed to the Target are valid. We simply need to verify that the URL we were provided is actually valid. Additionally, We make sure to call the parent `validateData` method.
+The `validateData` method verifies that the parameters passed to the Target are valid. We simply need to verify that the URL we were provided is actually valid. Additionally, We make sure to call the parent `validateData` method.
 ```
     public function validateData($data) {
         parent::validateData($data);

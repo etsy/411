@@ -28,7 +28,7 @@ The `generateDataSchema` method defines all the parameters that this Filter type
 Implementing `validateData`
 ---------------------------
 
-The `validateData` method verifies that the paramaters passed to the Filter are valid. The only value that we need to verify is the `regex` itself. We can grab the string and verify that it compiles correctly. We also need to call the parent `validateData` method.
+The `validateData` method verifies that the parameters passed to the Filter are valid. The only value that we need to verify is the `regex` itself. We can grab the string and verify that it compiles correctly. We also need to call the parent `validateData` method.
 ```
     public function validateData($data) {
         parent::validateData($data);

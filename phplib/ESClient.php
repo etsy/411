@@ -54,6 +54,9 @@ class ESClient {
         } else if(count($escfg['hosts']) > 0) {
             $cb->setHosts($escfg['hosts']);
         }
+        if(!is_null($escfg['ssl_cert'])) {
+            $cb->setSSLVerification($escfg['ssl_cert']);
+        }
 
         return $cb->build();
     }

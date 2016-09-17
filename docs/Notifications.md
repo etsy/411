@@ -1,7 +1,7 @@
 Notification Emails
 ===================
 
-411 sends out a variety of notification emails when certain events happen. Below is a comprehesive list of emails that it sends.
+411 sends out a variety of notification emails when certain events happen. Below is a comprehensive list of emails that it sends.
 
 
 

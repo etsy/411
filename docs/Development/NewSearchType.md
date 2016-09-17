@@ -24,7 +24,7 @@ The `isWorking` method reports whether this Search type is currently available. 
 Implementing `validateData`
 ------------------------
 
-The `validateData` method verifies that the paramaters passed to the Search are valid. For our Search, we need to verify that the `host` we are given is valid. To accomplish this, we can attempt to resolve the string we're given. We should also make sure to call the parent `validateData` method.
+The `validateData` method verifies that the parameters passed to the Search are valid. For our Search, we need to verify that the `host` we are given is valid. To accomplish this, we can attempt to resolve the string we're given. We should also make sure to call the parent `validateData` method.
 ```
     public function validateData($data) {
         parent::validateData($data);
@@ -47,7 +47,7 @@ The `constructQuery` method processes the `query_data` of the Search and returns
 ```
 
 
-Implementingg `_execute`
+Implementing `_execute`
 ------------------------
 
 The `_execute` method contains the actual logic for the Search and returns an array of Alerts. For our Search, we want to execute the `ping` command and check the return value. A non-zero return value indicates an error, so we'll generate an Alert, fill it with relevant data, and return it. Otherwise, the ping succeeded, and no Alerts are generated. Again, note that `_execute` returns an array of Alerts. This isn't particularly useful for this Search, but other Search types could return multiple Alerts per execution.

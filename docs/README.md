@@ -30,3 +30,4 @@ Misc
 
 - [Development](/docs/Development.md)
 - [Glossary](/docs/Glossary.md)
+- [FAQs](/docs/FAQs.md)

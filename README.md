@@ -18,6 +18,16 @@ An alert management interface
 Review and manage Alerts through the web interface. You can apply Renderers to alerts to enrich them with additional metadata.
 
 
+Use cases
+=========
+
+- You want to detect when certain log lines show up in ES.
+- You want to detect when a Graphite metric changes.
+- You want to detect when a server stops responding
+- You want to manage alerts through a simple workflow.
+And much more!
+
+
 Help
 ====
 
@@ -31,6 +41,7 @@ If you've any questions on 411, contact us on twitter at [@sixhundredns](https:/
 Links
 =====
 
+- [CaC post](https://codeascraft.com/2016/09/15/introducing-411-a-new-open-source-framework-for-handling-alerting/)
 - Defcon presentation (Not available yet)
 - [Slides](https://speakerdeck.com/kennysan/411-a-framework-for-managing-security-alerts)
 - [Demo](https://demo.fouroneone.io) (User: user, Pass: user)

@@ -77,10 +77,10 @@ WhitespaceChar
 
 // Field names and values
 Field
-  = $[a-zA-Z0-9\._]+
+  = $[a-zA-Z0-9\._\-]+
 
 Value
-  = $[a-zA-Z0-9\._]+
+  = $[a-zA-Z0-9\._\-]+
 
 Boolean
   = 'true' { return true; }

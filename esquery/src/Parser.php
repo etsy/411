@@ -3801,8 +3801,8 @@ class Parser{
     $this->peg_c54 = array( "type" => "class", "value" => "[^\\r\\n]", "description" => "[^\\r\\n]" );
     $this->peg_c55 = "/^[ \\t\\n\\r]/";
     $this->peg_c56 = array( "type" => "class", "value" => "[ \\t\\n\\r]", "description" => "[ \\t\\n\\r]" );
-    $this->peg_c57 = "/^[a-zA-Z0-9._]/";
-    $this->peg_c58 = array( "type" => "class", "value" => "[a-zA-Z0-9._]", "description" => "[a-zA-Z0-9._]" );
+    $this->peg_c57 = "/^[a-zA-Z0-9._-]/";
+    $this->peg_c58 = array( "type" => "class", "value" => "[a-zA-Z0-9._\\-]", "description" => "[a-zA-Z0-9._\\-]" );
     $this->peg_c59 = "true";
     $this->peg_c60 = array( "type" => "literal", "value" => "true", "description" => "\"true\"" );
     $this->peg_c61 = function() { return true; };

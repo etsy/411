@@ -172,6 +172,14 @@ QueryAND
   }
 
 QueryNOT
+  =  a:QueryUnaryNOT b:(_ 'NOT' _ QueryUnaryNOT)? {
+    if(isset($b) && count($b)) {
+      return [Token::F_AND, [$a, [Token::F_NOT, $b[3]]]];
+    }
+    return $a;
+  }
+
+QueryUnaryNOT
   = neg:'-'? '(' _? expr:QueryExpression _? ')' {
     if($neg) {
       return [Token::F_NOT, $expr];

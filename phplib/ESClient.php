@@ -14,8 +14,6 @@ class ESClient {
     /** Name of the ES mapping template. */
     const MAPPING_TEMPLATE = '411_alerts_wildcard';
 
-    /** @var Search[] Mapping of ids to Search objects. **/
-    private $searches = [];
     /** @var Alert[] List of pending Alerts. **/
     private $list = [];
     /** @var string Index name. **/
@@ -77,6 +75,10 @@ class ESClient {
                         '_default_' => [
                             'properties' => [
                                 'alert_date' => ['type' => 'date', 'format' => 'epoch_second'],
+                                'name' => ['type' => 'string'],
+                                'category' => ['type' => 'string'],
+                                'tags' => ['type' => 'string'],
+                                'priority' => ['type' => 'long'],
                                 'assignee_type' => ['type' => 'long'],
                                 'assignee' => ['type' => 'long'],
                                 'content' => ['type' => 'object'],
@@ -442,7 +444,7 @@ class ESClient {
         $this->list[] = [[
             'index' => [
                 '_index' => $this->index,
-                '_type' => $alert->getSearch()['type'] ?: 'null',
+                '_type' => $alert['type'],
                 '_id' => $alert['alert_id'],
             ]
         ], $alert];
@@ -491,13 +493,7 @@ class ESClient {
                 continue;
             }
 
-            $search_id = $alert_data[1]['search_id'];
-            if(!Util::exists($this->searches, $search_id)) {
-                $this->searches[$search_id] = SearchFinder::getById($search_id);
-            }
-            $list[] = $this->generateAlertData(
-                $alert_data[1], Util::get($this->searches, $search_id)
-            );
+            $list[] = $this->generateAlertData($alert_data[1]);
         }
 
         $client = self::getClient('alerts', true);
@@ -508,17 +504,9 @@ class ESClient {
         $this->list = [];
     }
 
-    private function generateAlertData(Alert $alert, Search $search=null) {
+    private function generateAlertData(Alert $alert) {
         $data = $alert->toArray();
         $data['content'] = $this->unflatten((array)$data['content']);
-
-        // Populate search data.
-        $search_data = [
-            'tags' => Util::get($search, 'tags', []),
-            'priority' => Util::get($search, 'priority', Search::P_LOW),
-            'category' => Util::get($search, 'category', Search::$CATEGORIES['general']),
-            'owner' => Util::get($search, 'owner', 0),
-        ];
 
         // Populate note data.
         $alertlogs = AlertLogFinder::getByQuery([
@@ -533,7 +521,7 @@ class ESClient {
             }
         }
 
-        return array_merge($data, $search_data, ['notes' => $notes]);
+        return array_merge($data, ['notes' => $notes]);
     }
 
     public function unflatten(array $data) {

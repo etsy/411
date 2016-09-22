@@ -65,6 +65,7 @@ CREATE INDEX `searches_update_date` ON `searches`(`update_date`);
 
 DROP TABLE IF EXISTS `alerts`;
 DROP INDEX IF EXISTS `alerts_alert_date_idx`;
+DROP INDEX IF EXISTS `alerts_type_idx`;
 DROP INDEX IF EXISTS `alerts_search_id_idx`;
 DROP INDEX IF EXISTS `alerts_assignee_idx`;
 DROP INDEX IF EXISTS `alerts_assignee_type_idx`;
@@ -81,6 +82,11 @@ CREATE TABLE `alerts` (
     `alert_id` INTEGER PRIMARY KEY,
     `site_id` INTEGER NOT NULL,
     `alert_date` UNSIGNED INTEGER NOT NULL,
+    `type` VARCHAR(64) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `category` VARCHAR(64) NOT NULL,
+    `tags` VARCHAR(255) NOT NULL,
+    `priority` UNSIGNED INTEGER NOT NULL,
     `content` TEXT NOT NULL,
     `content_hash` VARCHAR(64) NOT NULL,
     `renderer_data` TEXT NOT NULL,
@@ -96,6 +102,7 @@ CREATE TABLE `alerts` (
     `update_date` UNSIGNED INTEGER NOT NULL
 );
 CREATE INDEX `alerts_alert_date_idx` ON `alerts`(`alert_date`);
+CREATE INDEX `alerts_type_idx` ON `alerts`(`type`);
 CREATE INDEX `alerts_search_id_idx` ON `alerts`(`search_id`);
 CREATE INDEX `alerts_assignee_idx` ON `alerts`(`assignee`);
 CREATE INDEX `alerts_assignee_type_idx` ON `alerts`(`assignee_type`);

@@ -41,6 +41,11 @@ class Alert extends Model {
     protected static function generateSchema() {
         return [
             'alert_date' => [static::T_NUM, null, 0],
+            'type' => [self::T_STR, null, ''],
+            'name' => [self::T_STR, null, ''],
+            'category' => [self::T_ENUM, Search::$CATEGORIES, ''],
+            'tags' => [self::T_ARR, self::T_STR, []],
+            'priority' => [self::T_ENUM, Search::$PRIORITIES, self::P_LOW],
             'assignee_type' => [static::T_ENUM, Assignee::$TYPES, Assignee::T_USER],
             'assignee' => [static::T_NUM, null, User::NONE],
             'content' => [static::T_OBJ, null, []],
@@ -57,6 +62,7 @@ class Alert extends Model {
         $data['content'] = json_encode((object)$data['content']);
         $data['renderer_data'] = json_encode((object)$data['renderer_data']);
         $data['escalated'] = (bool)$data['escalated'];
+        $data['tags'] = implode(',', array_filter(array_map('trim', $data['tags']), 'strlen'));
         return parent::serialize($data);
     }
 
@@ -64,6 +70,7 @@ class Alert extends Model {
         $data['content'] = (array)json_decode($data['content'], true);
         $data['renderer_data'] = (array)json_decode($data['renderer_data'], true);
         $data['escalated'] = (bool)$data['escalated'];
+        $data['tags'] = array_filter(array_map('trim', explode(',', $data['tags'])), 'strlen');
         return parent::deserialize($data);
     }
 

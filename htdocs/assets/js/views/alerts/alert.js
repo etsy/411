@@ -30,12 +30,6 @@ define(function(require) {
             var desc_parts = [];
 
             var alert = this.App.Data.Alerts.get(this.model.get('alert_id'));
-            var search = this.App.Data.Searches.get(alert.get('search_id'));
-
-            var name = 'Unknown';
-            if(search) {
-                name = search.get('name');
-            }
 
             var users = this.App.Data.Users;
             var getName = function(user_id) {
@@ -81,7 +75,7 @@ define(function(require) {
             }
             var vars = {
                 alert_id: model_data.alert_id,
-                name: name,
+                name: model_data.name,
                 simple: this.simple,
                 level: level,
                 description: desc_parts.join(' '),
@@ -250,7 +244,7 @@ define(function(require) {
             // Load dependencies and the single requested alert.
             this.collection = new AlertLogCollection([], {id: id});
             this.loadCollectionsAndModel(
-                [this.App.Data.Searches, this.App.Data.Users, this.App.Data.Groups, this.collection],
+                [this.App.Data.Users, this.App.Data.Groups, this.collection],
                 this.App.Data.Alerts, id
             );
         },
@@ -260,13 +254,12 @@ define(function(require) {
 
             this.App.registerSelectableGroup(this);
 
-            var search = this.App.Data.Searches.get(this.model.get('search_id'));
             var vars = this.model.toJSON();
             _.extend(vars, {
-                search_id: search ? search.get('id'):0,
+                search_id: this.model.get('search_id'),
                 states: Alert.Data().States,
                 resolutions: Alert.Data().Resolutions,
-                name: search ? search.get('name'):'Unknown',
+                name: this.model.get('name'),
                 assignee_name: Util.getAssigneeName(
                     this.model.get('assignee_type'), this.model.get('assignee'),
                     this.App.Data.Users, this.App.Data.Groups

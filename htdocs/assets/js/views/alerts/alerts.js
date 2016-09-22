@@ -7,7 +7,6 @@ define(function(require) {
         NavbarView = require('views/navbar'),
         CollectionView = require('views/collection'),
         AlertGroupView = require('views/alerts/alertgroup'),
-        SearchesView = require('views/searches/searches'),
         ActionsView = require('views/alerts/actions'),
         QueryParser = require('queryparser'),
         Handlebars = require('handlebars'),
@@ -440,7 +439,7 @@ define(function(require) {
      */
     var AlertsView = View.extend({
         _load: function() {
-            this.loadCollections([this.App.Data.Users, this.App.Data.Groups, this.App.Data.Searches]);
+            this.loadCollections([this.App.Data.Users, this.App.Data.Groups]);
         },
         _render: function() {
             this.App.setTitle('Alerts');

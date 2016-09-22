@@ -219,6 +219,11 @@ abstract class Search extends TypeModel {
         $ret = [];
         $constructed_qdata = $this->constructQuery();
         foreach($this->_execute($date, $constructed_qdata) as $alert) {
+            $alert['type'] = $this->obj['type'];
+            $alert['name'] = $this->obj['name'];
+            $alert['category'] = $this->obj['category'];
+            $alert['tags'] = $this->obj['tags'];
+            $alert['priority'] = $this->obj['priority'];
             $alert['search_id'] = $this['id'];
             $alert['assignee_type'] = $this->obj['assignee_type'];
             $alert['assignee'] = $this->obj['assignee'];

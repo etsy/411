@@ -6,7 +6,9 @@ define(function(require) {
         HTTPSearchView = require('views/searches/search/http'),
         GraphiteSearchView = require('views/searches/search/graphite'),
         ThreatexchangeSearchView = require('views/searches/search/threatexchange'),
-        ElasticsearchSearchView = require('views/searches/search/elasticsearch');
+        ElasticsearchSearchView = require('views/searches/search/elasticsearch'),
+        PushSearchView = require('views/searches/search/push'),
+        ECLSearchView = require('views/searches/search/ecl');
 
 
     /**
@@ -19,4 +21,6 @@ define(function(require) {
     SearchView.registerSubclass('threatexchange', ThreatexchangeSearchView);
     SearchView.registerSubclass('logstash', ElasticsearchSearchView);
     SearchView.registerSubclass('alert', ElasticsearchSearchView);
+    SearchView.registerSubclass('push', PushSearchView);
+    SearchView.registerSubclass('ecl', ECLSearchView);
 });

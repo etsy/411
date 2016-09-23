@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63079bf898f889cc72f8fa8f5872874a",
-    "content-hash": "44d7e6faad53b3bbf98975e43dfe43cd",
+    "hash": "452e1529bd73831f94b46b5353977987",
+    "content-hash": "12cbd052822a3d9ef64010dbad424783",
     "packages": [
         {
             "name": "elasticsearch/elasticsearch",
@@ -163,21 +163,17 @@
             "time": "2014-10-12 19:18:40"
         },
         {
-            "name": "kiwiz/esquery",
-            "version": "v0.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "8a33cb1cee732873afde562ce3020bfa9e0def22"
-            },
+            "name": "kiwiz/ecl",
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/8a33cb1cee732873afde562ce3020bfa9e0def22",
-                "reference": "8a33cb1cee732873afde562ce3020bfa9e0def22",
-                "shasum": ""
+                "type": "path",
+                "url": "./ecl",
+                "reference": "565c5929ab503b6241c9fd6ddc65ea478a817f1e",
+                "shasum": null
             },
             "require": {
-                "elasticsearch/elasticsearch": "^2.0"
+                "elasticsearch/elasticsearch": "^2.2",
+                "symfony/expression-language": "^3.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8"
@@ -185,22 +181,10 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "ESQuery\\": "src"
+                    "ECL\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "k_",
-                    "email": "z@kwi.li"
-                }
-            ],
-            "description": "Elasticsearch querying library",
-            "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2016-09-23 16:42:25"
+            "description": "ECL"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -4075,7 +4059,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kiwiz/ecl": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

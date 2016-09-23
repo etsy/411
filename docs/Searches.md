@@ -88,6 +88,17 @@ Queries an Elasticsearch cluster. Each document returned by ES generates an Aler
 - Time Range: How far back to query.
 
 
+### ECL ###
+
+![ECL Search](/docs/imgs/search_ecl.png?raw=true)
+
+Queries one or more ES clusters using ECL. Some basic post processing can be done on the result sets before they're returned. See [here](https://github.com/kiwiz/ecl/blob/master/README.md) for details.
+
+#### Additional Fields ####
+
+- Time Range: How far back to query.
+
+
 ### ThreatExchange ###
 
 ![ThreatExchange Search](/docs/imgs/search_threatexchange.png?raw=true)

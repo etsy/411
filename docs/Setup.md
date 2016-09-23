@@ -140,7 +140,7 @@ Set up the cron:
 ```
 # Add the following line into your crontab.
 $ crontab -u USER -e
-* * * * * /var/www/411/bin/cron.php && /var/www/411/bin/worker.php
+* * * * * /var/www/411/bin/cron.php > /dev/null 2>&1 && /var/www/411/bin/worker.php > /dev/null 2>&1
 ```
 
 That's all! Next, check out the [guide](/docs/GettingStarted.md) to get a Search set up.

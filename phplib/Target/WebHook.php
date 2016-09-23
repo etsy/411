@@ -13,11 +13,13 @@ class WebHook_Target extends Target {
 
     public static $DESC = 'Sends Alerts off to a remote server via POST.';
 
+    /** @var Alert[]|array[] The list of data to send. */
     private $list = [];
 
     protected static function generateDataSchema() {
         return [
-            'url' => [static::T_STR, null, '']
+            'url' => [static::T_STR, null, ''],
+            'content_only' => [static::T_BOOL, null, false],
         ];
     }
 
@@ -35,7 +37,7 @@ class WebHook_Target extends Target {
      * @param int $date The current date.
      */
     public function process(Alert $alert, $date) {
-        $this->list[] = $alert;
+        $this->list[] = $this->obj['data']['content_only'] ? $alert['content']:$alert;
 
         if(count($this->list) >= 100) {
             $this->send();

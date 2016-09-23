@@ -43,6 +43,7 @@ Send a HTTP POST with the Alerts. The Alerts are encoded in JSON format and batc
 #### Parameters ####
 
 - URL: The endpoint to send the Alerts to.
+- Content_Only: Whether to only send the contents of the Alert.
 
 
 ### Jira ###

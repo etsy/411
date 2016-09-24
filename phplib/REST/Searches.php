@@ -29,9 +29,6 @@ class Searches_REST extends Models_REST {
         'enabled', 'owner', 'assignee_type', 'assignee', 'renderer_data'
     ];
 
-    /** @var Search Cached Search object. */
-    protected $old_model = null;
-
     protected function construct($data=null) {
         $type = Util::get($data, 'type', '');
 
@@ -85,34 +82,12 @@ class Searches_REST extends Models_REST {
         if(!$new && empty(trim($description))) {
             throw new ValidationException('No change description provided');
         }
-
-        // Cache the old model.
-        if(!$new) {
-            $this->old_model = SearchFinder::getById($model['search_id']);
-        }
     }
 
     public function afterStore($model, $data, $new, $delete) {
         $MODEL = 'FOO\\' . static::$MODEL;
 
         $fields = ['tags', 'priority', 'category', 'owner'];
-
-        // Trigger a job to update any Alerts if we've changed any denormalized fields.
-        if($this->old_model) {
-            foreach($fields as $field) {
-                if($model[$field] == $this->old_model[$field]) {
-                    continue;
-                }
-
-                $syncjob = new Sync_Job();
-                $syncjob['target_id'] = $model[$MODEL::$PKEY];
-                $syncjob['target_date'] = $_SERVER['REQUEST_TIME'];
-                $syncjob->store();
-                break;
-            }
-        }
-
-        $this->old_model = null;
 
         // Log change.
         $description = Util::get($data, 'change_description', '');

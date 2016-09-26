@@ -9,6 +9,9 @@ define(function(require) {
 
     // Turn a timestamp into a datestring.
     var formatDate = function(ts, options) {
+        if(ts === 0) {
+            return 'N/A';
+        }
         return (new Date(parseInt(ts, 10) * 1000)).toUTCString();
     };
 

@@ -13,9 +13,6 @@ class Data_REST extends REST {
      * Outputs all runtime data necessary to bootstrap the frontend.
      */
     public function GET(array $get) {
-        $site = SiteFinder::getCurrent();
-        $app_name = $site ? $site['name']:'411';
-
         $users = $this->generateUsers();
 
         $search_types = $this->generateTypeNames(Search::getTypes());
@@ -30,7 +27,8 @@ class Data_REST extends REST {
 
         header('Content-Type: text/javascript;charset=utf-8');
         $ret = [
-            'AppName' => $app_name,
+            'AppName' => Util::getSiteName(),
+            'Host' => Util::getHost(),
             'Alert' => [
                 'States' => $this->generateEnumData(Alert::$STATES),
                 'Resolutions' => $this->generateEnumData(Alert::$RESOLUTIONS),

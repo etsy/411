@@ -36,6 +36,7 @@ RewriteRule ^api/alert/assign$ /api/alerts.php?action=assign [L,QSA]
 RewriteRule ^api/alert/note$ /api/alerts.php?action=note [L,QSA]
 RewriteRule ^api/alert/(\d+)$ /api/alerts.php?id=$1 [L]
 RewriteRule ^api/alert/(\d+)/link$ /api/alerts.php?id=$1&action=link [L]
+RewriteRule ^api/alert/push$ /api/alerts.php?action=push [L,QSA]
 
 RewriteRule ^api/alert/(\d+)/log$ /api/alertlogs.php?alert_id=$1 [L]
 RewriteRule ^api/alertlog$ /api/alertlogs.php [L]

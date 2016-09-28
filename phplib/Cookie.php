@@ -96,13 +96,14 @@ class Cookie {
      */
     public static function write() {
         $site = SiteFinder::getCurrent();
+        $domain = explode(':', $site['host'])[0];
         if(self::$write && self::$dirty) {
             $expiry = $_SERVER['REQUEST_TIME'] + self::COOKIE_LIFETIME;
             setcookie(
                 self::COOKIE_KEY,
                 self::generate(self::$cache, $_SERVER['REQUEST_TIME']),
                 $expiry,
-                '/', $site['host'],
+                '/', $domain,
                 false, true
             );
         }

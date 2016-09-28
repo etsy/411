@@ -57,9 +57,9 @@ class SiteFinder extends ModelFinder {
      */
     public static function getCurrent() {
         $host =
-            getenv('FOOHOST') ?:
+            getenv('FOURONEONEHOST') ?:
             getenv('411HOST') ?:
-            Util::get($_SERVER, 'FOOHOST', '') ?:
+            Util::get($_SERVER, 'FOURONEONEHOST', '') ?:
             Util::get($_SERVER, '411HOST', '') ?:
             Util::get($_SERVER, 'HTTP_HOST', '');
         if(self::$site === Site::NONE && strlen($host) > 0) {

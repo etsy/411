@@ -118,7 +118,7 @@ Create a new 411 site:
 ```
 # Run the bin/create_site.php script and answer the questions.
 # Important: The hostname has to match what you've configured in the vhost. (Including the port, if it's nonstandard)
-# If this is not possible, set the `FOOHOST` value in the vhost to the same value.
+# If this is not possible, set the `FOURONEONEHOST` value in the vhost to the same value.
 $ bin/create_site.php
 Creating new site
 Site name: FourOneOne

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An Alert Management Web Application",
   "main": "index.js",
+  "repository": "https://github.com/etsy/411",
   "dependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.11.2",

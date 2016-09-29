@@ -51,7 +51,7 @@ Install
 
 Grab the repo:
 ```
-$ git clone https://github.com/kiwiz/411.git
+$ git clone https://github.com/etsy/411.git
 ```
 
 Set up Apache VHost:

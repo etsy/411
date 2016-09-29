@@ -1,7 +1,7 @@
 {
   "name": "FourOneOne",
   "version": "1.0.0",
-  "homepage": "https://github.com/kiwiz/411",
+  "homepage": "https://github.com/etsy/411",
   "authors": [
     "Kai Zhong <z@kwi.li>",
     "Ken Lee <kennysanx@hotmail.com>"
@@ -33,14 +33,11 @@
     "requirejs": "~2.1.20",
     "requirejs-text": "~2.0.14",
     "routefilter": "~0.2.1",
-    "select2": "~4.0.0",
+    "select2": "^3.3.2",
     "select2-bootstrap3-css": "~1.4.6",
     "underscore": "~1.8.3",
     "uri.js": "~1.16.0",
     "dragula.js": "dragula#^3.7.0",
     "Chart.js": "~2.1.6"
-  },
-  "resolutions": {
-    "select2": "^3.3.2"
   }
 }

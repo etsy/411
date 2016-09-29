@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ccf967b6145c64a54d34eaa9f830328c",
-    "content-hash": "fdc136105ced64172c79199dc20a5062",
+    "hash": "112dad5c6436a242688c18d1829b2ac4",
+    "content-hash": "a55af0a0d7d824ddccbc060ecdbd64ae",
     "packages": [
         {
             "name": "elasticsearch/elasticsearch",
@@ -185,6 +185,46 @@
                 }
             },
             "description": "ECL"
+        },
+        {
+            "name": "kiwiz/esquery",
+            "version": "v0.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kiwiz/esquery.git",
+                "reference": "8a33cb1cee732873afde562ce3020bfa9e0def22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/8a33cb1cee732873afde562ce3020bfa9e0def22",
+                "reference": "8a33cb1cee732873afde562ce3020bfa9e0def22",
+                "shasum": ""
+            },
+            "require": {
+                "elasticsearch/elasticsearch": "^2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ESQuery\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "k_",
+                    "email": "z@kwi.li"
+                }
+            ],
+            "description": "Elasticsearch querying library",
+            "homepage": "https://github.com/kiwiz/esquery",
+            "time": "2016-09-23 16:42:25"
         },
         {
             "name": "mtdowling/cron-expression",

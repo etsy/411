@@ -7,6 +7,7 @@
         "setasign/fpdf": "^1.7",
         "symfony/expression-language": "^3.1",
         "elasticsearch/elasticsearch": "^2.0",
+        "kiwiz/esquery": "^0.9",
         "kiwiz/ecl": "dev-master"
     },
     "require-dev": {

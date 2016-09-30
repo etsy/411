@@ -44,6 +44,10 @@ class ECL_Search extends Search {
             'size' => (floor($this->obj['range'] / 1440) + 1) * 500,
         ];
 
+        $table = new \ECL\SymbolTable;
+        $table['to'] = $date;
+        $table['from'] = $from;
+
         $es_builder = new \ECL\Command\Elasticsearch\Builder;
         $es_builder->setSources(Config::get('elasticsearch'));
         $es_builder->setSettings($settings);

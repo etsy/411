@@ -54,7 +54,7 @@ class ECL_Search extends Search {
         $parser = new \ECL\Parser;
         $parser->setESBuilder($es_builder);
 
-        $statementlist = $parser->parse($constructed_qdata);
+        $statementlist = $parser->parse($constructed_qdata, $table);
         $sch = new \ECL\Scheduler;
         $results = $sch->process($statementlist);
 

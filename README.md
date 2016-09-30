@@ -6,14 +6,14 @@ What is 411?
 
 [![Join the chat at https://gitter.im/411/Lobby](https://badges.gitter.im/411/Lobby.svg)](https://gitter.im/411/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-A Search scheduler
-------------------
+Search scheduling
+-----------------
 
 Configure Searches to periodically run against a variety of data sources. You can define a custom pipeline of Filters to manipulate any generated Alerts and forward them to multiple Targets.
 
 
-An alert management interface
------------------------------
+Alert management
+----------------
 
 Review and manage Alerts through the web interface. You can apply Renderers to alerts to enrich them with additional metadata.
 
@@ -35,7 +35,7 @@ Check out the [setup guide](/docs/Setup.md) to quickly configure a 411 instance.
 
 See the [Table of Contents](/docs/README.md) for a list of documentation pages.
 
-If you've any questions on 411, contact us on twitter at [@sixhundredns](https://twitter.com/sixhundredns) and [@kennysan](https://twitter.com/Kennysan)!
+If you've any questions, feel free to ask on Gitter. You can also contact us on Twitter at [@sixhundredns](https://twitter.com/sixhundredns) and [@kennysan](https://twitter.com/Kennysan).
 
 
 Links

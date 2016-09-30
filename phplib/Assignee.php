@@ -66,7 +66,7 @@ class Assignee {
      * @return string The name.
      */
     public static function getName($type, $entry) {
-        $ret = 'Unknown';
+        $ret = 'System';
         switch($type) {
             case self::T_USER:
                 $user = UserFinder::getById($entry);

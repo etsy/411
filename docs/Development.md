@@ -120,6 +120,57 @@ $thing->delete();
 ```
 
 
+Setup
+-----
+
+### Additional dependencies ###
+
+- NPM
+- Bower
+- Grunt
+
+Ubuntu Packages:
+```
+$ sudo apt-get install nodejs-legacy npm
+```
+
+Fedora Packages:
+```
+$ sudo dnf install nodejs
+```
+
+Grunt & Bower:
+```
+$ sudo npm install -g grunt-cli bower
+```
+
+Install Grunt & Bower:
+```
+$ sudo npm install -g grunt-cli bower
+```
+
+Install dependencies:
+```
+$ npm install
+$ bower install
+$ composer install
+```
+
+Setup assets:
+```
+$ grunt dev
+```
+
+
+Building a release
+------------------
+
+To build a release, run:
+```
+$ bin/generate_release.sh
+```
+
+
 PHPDocs
 -------
 

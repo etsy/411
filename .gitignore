@@ -20,4 +20,5 @@ node_modules
 bower_components
 vendor
 hook.php
+release.tgz
 *_

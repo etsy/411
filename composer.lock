@@ -168,12 +168,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/ecl.git",
-                "reference": "0438610fccca10be8376806947d7d3b676f11e6d"
+                "reference": "5a8bc01f12e0d0fb42c260d0b36af1660b83ecb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/0438610fccca10be8376806947d7d3b676f11e6d",
-                "reference": "0438610fccca10be8376806947d7d3b676f11e6d",
+                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/5a8bc01f12e0d0fb42c260d0b36af1660b83ecb0",
+                "reference": "5a8bc01f12e0d0fb42c260d0b36af1660b83ecb0",
                 "shasum": ""
             },
             "require": {
@@ -191,7 +191,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "ECL",
-            "time": "2016-09-29 15:14:57"
+            "time": "2016-09-30 19:58:34"
         },
         {
             "name": "kiwiz/esquery",

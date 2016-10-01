@@ -8,29 +8,21 @@ Dependencies
 - PHP 5.5 with SQLite3 support
 - Sqlite 3.3+
 - Composer
-- NPM
-- Bower
-- Grunt
 - Elasticsearch 1.5+
 
 Ubuntu Packages:
 ```
-$ sudo apt-get install apache2 libapache2-mod-php php-xml php7.0-mbstring php7.0-sqlite php7.0-curl nodejs-legacy npm sqlite3
+$ sudo apt-get install apache2 libapache2-mod-php php-xml php7.0-mbstring php7.0-sqlite php7.0-curl sqlite3
 ```
 
 Fedora Packages:
 ```
-$ sudo dnf install httpd php php-posix php-pdo php-xml sqlite nodejs
+$ sudo dnf install httpd php php-posix php-pdo php-xml sqlite
 ```
 
 Composer:
 ```
 $ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-```
-
-Grunt & Bower:
-```
-$ sudo npm install -g grunt-cli bower
 ```
 
 MTA:
@@ -49,10 +41,7 @@ Enable the `mod_rewrite` and `mod_headers` Apache modules.
 Install
 -------
 
-Grab the repo:
-```
-$ git clone https://github.com/etsy/411.git
-```
+Grab the newest [release](https://github.com/etsy/411/releases).
 
 Set up Apache VHost:
 
@@ -68,14 +57,7 @@ Move the 411 directory into `/var/www`. You may have to fix permissions on the d
 
 Install dependencies:
 ```
-$ npm install
-$ bower install
 $ composer install
-```
-
-Compile assets:
-```
-$ grunt prod
 ```
 
 Modify config.php:

@@ -8,7 +8,7 @@ Dependencies
 - PHP 5.5 with SQLite3 support
 - Sqlite 3.3+
 - Composer
-- Elasticsearch 1.5+
+- Elasticsearch 2.0+
 
 Ubuntu Packages:
 ```

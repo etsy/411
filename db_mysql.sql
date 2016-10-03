@@ -62,8 +62,8 @@ CREATE TABLE `config` (
   PRIMARY KEY (`site_id`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 
-DROP TABLE IF EXISTS `filters`;
-CREATE TABLE `filters` (
+DROP TABLE IF EXISTS `search_filters`;
+CREATE TABLE `search_filters` (
   `filter_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,
   `type` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -323,8 +323,8 @@ CREATE TABLE `slogs` (
   KEY `site_id_idx` (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 
-DROP TABLE IF EXISTS `targets`;
-CREATE TABLE `targets` (
+DROP TABLE IF EXISTS `search_targets`;
+CREATE TABLE `search_targets` (
   `target_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,
   `type` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,

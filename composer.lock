@@ -168,12 +168,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/ecl.git",
-                "reference": "5a8bc01f12e0d0fb42c260d0b36af1660b83ecb0"
+                "reference": "d2eeb886fda3aaad91f6dfa673e9e9d1171d696e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/5a8bc01f12e0d0fb42c260d0b36af1660b83ecb0",
-                "reference": "5a8bc01f12e0d0fb42c260d0b36af1660b83ecb0",
+                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/d2eeb886fda3aaad91f6dfa673e9e9d1171d696e",
+                "reference": "d2eeb886fda3aaad91f6dfa673e9e9d1171d696e",
                 "shasum": ""
             },
             "require": {
@@ -191,7 +191,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "ECL",
-            "time": "2016-09-30 19:58:34"
+            "time": "2016-10-03 16:19:50"
         },
         {
             "name": "kiwiz/esquery",
@@ -3343,16 +3343,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.25.0",
+            "version": "v1.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "f16a634ab08d87e520da5671ec52153d627f10f6"
+                "reference": "81c2b5fd36581370c7731387f05dcdb577050513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/f16a634ab08d87e520da5671ec52153d627f10f6",
-                "reference": "f16a634ab08d87e520da5671ec52153d627f10f6",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/81c2b5fd36581370c7731387f05dcdb577050513",
+                "reference": "81c2b5fd36581370c7731387f05dcdb577050513",
                 "shasum": ""
             },
             "require": {
@@ -3365,7 +3365,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.25-dev"
+                    "dev-master": "1.26-dev"
                 }
             },
             "autoload": {
@@ -3400,7 +3400,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-09-21 23:05:12"
+            "time": "2016-10-02 16:19:13"
         },
         {
             "name": "zendframework/zend-cache",

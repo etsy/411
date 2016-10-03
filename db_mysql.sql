@@ -267,8 +267,8 @@ CREATE TABLE `searches` (
   KEY `site_id_idx` (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 
-DROP TABLE IF EXISTS `searchlogs`;
-CREATE TABLE `searchlogs` (
+DROP TABLE IF EXISTS `search_logs`;
+CREATE TABLE `search_logs` (
   `log_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,

@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `alertlogs`;
-CREATE TABLE `alertlogs` (
+DROP TABLE IF EXISTS `alert_logs`;
+CREATE TABLE `alert_logs` (
   `log_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `site_id` bigint(20) unsigned NOT NULL,
   `alert_id` bigint(20) unsigned NOT NULL,
@@ -102,8 +102,8 @@ CREATE TABLE `groups` (
   KEY `site_id_idx` (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 
-DROP TABLE IF EXISTS `grouptargets`;
-CREATE TABLE `grouptargets` (
+DROP TABLE IF EXISTS `group_targets`;
+CREATE TABLE `group_targets` (
   `group_target_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `group_id` bigint(20) unsigned NOT NULL,
   `type` tinyint(4) NOT NULL,
@@ -200,8 +200,8 @@ CREATE TABLE `reports` (
   KEY `site_id_idx` (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 
-DROP TABLE IF EXISTS `reporttargets`;
-CREATE TABLE `reporttargets` (
+DROP TABLE IF EXISTS `report_targets`;
+CREATE TABLE `report_targets` (
   `report_target_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `report_id` bigint(20) unsigned NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,

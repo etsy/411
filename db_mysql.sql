@@ -347,14 +347,20 @@ CREATE TABLE `targets` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
+  `site_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `real_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin` tinyint(1) NOT NULL,
   `settings` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `archived` bigint(20) unsigned NOT NULL,
   `create_date` bigint(20) unsigned NOT NULL,
   `update_date` bigint(20) unsigned NOT NULL,
-  `site_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`user_id`),
+  CONSTRAINT `site_id_name_idx` UNIQUE (`site_id`, `name`),
+  KEY `site_id_idx` (`site_id`),
   KEY `archived_idx` (`archived`),
   KEY `create_date_idx` (`create_date`),
-  KEY `update_date_idx` (`update_date`),
-  KEY `site_id_idx` (`site_id`)
+  KEY `update_date_idx` (`update_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;

@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `alertlogs`;
 CREATE TABLE `alertlogs` (
-  `log_id` bigint(20) unsigned NOT NULL,
+  `log_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `site_id` bigint(20) unsigned NOT NULL,
   `alert_id` bigint(20) unsigned NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `alertlogs` (
 
 DROP TABLE IF EXISTS `alerts`;
 CREATE TABLE `alerts` (
-  `alert_id` bigint(20) unsigned NOT NULL,
+  `alert_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `alert_date` bigint(20) unsigned NOT NULL,
   `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `content_hash` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `config` (
 
 DROP TABLE IF EXISTS `filters`;
 CREATE TABLE `filters` (
-  `filter_id` bigint(20) unsigned NOT NULL,
+  `filter_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,
   `type` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int(11) NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE `filters` (
 
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
-  `group_id` bigint(20) unsigned NOT NULL,
+  `group_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `type` tinyint(4) NOT NULL,
   `state` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `groups` (
 
 DROP TABLE IF EXISTS `grouptargets`;
 CREATE TABLE `grouptargets` (
-  `group_target_id` bigint(20) unsigned NOT NULL,
+  `group_target_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `group_id` bigint(20) unsigned NOT NULL,
   `type` tinyint(4) NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `grouptargets` (
 
 DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs` (
-  `job_id` bigint(20) unsigned NOT NULL,
+  `job_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `site_id` bigint(20) unsigned NOT NULL,
   `type` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `target_id` bigint(20) unsigned NOT NULL,
@@ -151,7 +151,7 @@ CREATE TABLE `jobs` (
 
 DROP TABLE IF EXISTS `lists`;
 CREATE TABLE `lists` (
-  `list_id` bigint(20) unsigned NOT NULL,
+  `list_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `type` tinyint(4) NOT NULL,
   `archived` bigint(20) unsigned NOT NULL,
   `create_date` bigint(20) unsigned NOT NULL,
@@ -178,7 +178,7 @@ CREATE TABLE `meta` (
 
 DROP TABLE IF EXISTS `reports`;
 CREATE TABLE `reports` (
-  `report_id` bigint(20) unsigned NOT NULL,
+  `report_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `type` tinyint(4) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -202,7 +202,7 @@ CREATE TABLE `reports` (
 
 DROP TABLE IF EXISTS `reporttargets`;
 CREATE TABLE `reporttargets` (
-  `report_target_id` bigint(20) unsigned NOT NULL,
+  `report_target_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `report_id` bigint(20) unsigned NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,
   `position` int(11) NOT NULL,
@@ -220,7 +220,7 @@ CREATE TABLE `reporttargets` (
 
 DROP TABLE IF EXISTS `searches`;
 CREATE TABLE `searches` (
-  `search_id` bigint(20) unsigned NOT NULL,
+  `search_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `query_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -269,7 +269,7 @@ CREATE TABLE `searches` (
 
 DROP TABLE IF EXISTS `searchlogs`;
 CREATE TABLE `searchlogs` (
-  `log_id` bigint(20) unsigned NOT NULL,
+  `log_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
   `data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -288,7 +288,7 @@ CREATE TABLE `searchlogs` (
 
 DROP TABLE IF EXISTS `sites`;
 CREATE TABLE `sites` (
-  `site_id` bigint(20) unsigned NOT NULL,
+  `site_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `host` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `archived` tinyint(1) NOT NULL,
@@ -299,7 +299,7 @@ CREATE TABLE `sites` (
 
 DROP TABLE IF EXISTS `slogs`;
 CREATE TABLE `slogs` (
-  `slog_id` bigint(20) unsigned NOT NULL,
+  `slog_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `site_id` bigint(20) unsigned NOT NULL,
   `type` tinyint(4) unsigned NOT NULL,
   `action` tinyint(4) unsigned NOT NULL,
@@ -325,7 +325,7 @@ CREATE TABLE `slogs` (
 
 DROP TABLE IF EXISTS `targets`;
 CREATE TABLE `targets` (
-  `target_id` bigint(20) unsigned NOT NULL,
+  `target_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `search_id` bigint(20) unsigned NOT NULL,
   `type` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -346,7 +346,7 @@ CREATE TABLE `targets` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `user_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned AUTO_INCREMENT NOT NULL,
   `settings` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `archived` bigint(20) unsigned NOT NULL,
   `create_date` bigint(20) unsigned NOT NULL,

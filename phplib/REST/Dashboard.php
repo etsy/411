@@ -39,16 +39,29 @@ class Dashboard_REST extends REST {
         $data['historical_alerts'] = $client->getAlertActivityCounts(self::RANGE);
 
         // Generate data for an Alert action histogram.
-        $sql = sprintf('
-            SELECT DATE(create_date, "unixepoch") as `date`, `action`, COUNT(*) as `count` FROM `%s` INNER JOIN (
-                SELECT DATE(create_date, "unixepoch"), `alert_id`, MAX(`create_date`) as `create_date`
-                FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND (
-                    (`action` = ? AND `a` = 1) OR
-                    (`action` = ? AND (`a` != 0 OR `b` != 0)) OR
-                    (`action` = ? AND `a` = 2)
-                ) AND `create_date` > ? AND DATE(create_date, "unixepoch") > DATE(?, "unixepoch") GROUP BY 1, 2
-            ) AS `tbl` USING(`alert_id`, `create_date`) GROUP BY 1, 2;
-        ', AlertLog::$TABLE, AlertLog::$TABLE);
+        if (DB::getType() == 'mysql') {
+          $sql = sprintf('
+              SELECT FROM_UNIXTIME(create_date) as `date`, `action`, COUNT(*) as `count` FROM `%s` INNER JOIN (
+                  SELECT FROM_UNIXTIME(create_date), `alert_id`, MAX(`create_date`) as `create_date`
+                  FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND (
+                      (`action` = ? AND `a` = 1) OR
+                      (`action` = ? AND (`a` != 0 OR `b` != 0)) OR
+                      (`action` = ? AND `a` = 2)
+                  ) AND `create_date` > ? AND FROM_UNIXTIME(create_date) > FROM_UNIXTIME(?) GROUP BY 1, 2
+              ) AS `tbl` USING(`alert_id`, `create_date`) GROUP BY 1, 2;
+          ', AlertLog::$TABLE, AlertLog::$TABLE);
+        } else {
+          $sql = sprintf('
+              SELECT DATE(create_date, "unixepoch") as `date`, `action`, COUNT(*) as `count` FROM `%s` INNER JOIN (
+                  SELECT DATE(create_date, "unixepoch"), `alert_id`, MAX(`create_date`) as `create_date`
+                  FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND (
+                      (`action` = ? AND `a` = 1) OR
+                      (`action` = ? AND (`a` != 0 OR `b` != 0)) OR
+                      (`action` = ? AND `a` = 2)
+                  ) AND `create_date` > ? AND DATE(create_date, "unixepoch") > DATE(?, "unixepoch") GROUP BY 1, 2
+              ) AS `tbl` USING(`alert_id`, `create_date`) GROUP BY 1, 2;
+          ', AlertLog::$TABLE, AlertLog::$TABLE);
+        }
         $dates = $this->dateRange(self::RANGE);
         $ret = DB::query($sql, [
             SiteFinder::getCurrentId(),

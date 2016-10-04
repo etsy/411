@@ -58,6 +58,9 @@ class DB {
         Hook::call('db.disconnect');
     }
 
+    public static function getType() {
+      return self::$dbh->getAttribute(\PDO::ATTR_DRIVER_NAME);
+    }
     /**
      * Keep the connection alive.
      */

@@ -11,7 +11,8 @@ class Search_Job extends Job {
     public static $TYPE = 'search';
 
     public function shouldRetry($date) {
-        return $this->isTimeBased();
+        $search = SearchFinder::getById($this->obj['target_id']);
+        return $search && $search->isTimeBased();
     }
 
     /**

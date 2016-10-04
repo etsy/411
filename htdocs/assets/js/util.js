@@ -426,6 +426,13 @@ define(function(require) {
         initSelect(elems, new_options, true);
     };
 
+    // Init a select-all.
+    var initSelectAll = function(sel) {
+        sel.click(function() {
+            this.setSelectionRange(0, this.value.length);
+        });
+    };
+
     /**
      * Serialize a form into an object.
      * @param f {Selector} A jQuery selector.
@@ -555,6 +562,7 @@ define(function(require) {
         initAssigneeSelect: initAssigneeSelect,
         initFilterSelect: initFilterSelect,
         initTargetSelect: initTargetSelect,
+        initSelectAll: initSelectAll,
         serializeForm: serializeForm,
         getLevel: getLevel,
         formatFields: formatFields,

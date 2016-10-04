@@ -1,7 +1,8 @@
 "use strict";
 define(function(require) {
     var SearchView = require('views/searches/search'),
-        Templates = require('templates');
+        Templates = require('templates'),
+        Util = require('util');
 
 
     /**
@@ -13,9 +14,7 @@ define(function(require) {
         no_freq: true,
         no_range: true,
         __render: function() {
-            this.registerElement('input[name=push_url]').click(function() {
-                this.setSelectionRange(0, this.value.length);
-            });
+            Util.initSelectAll(this.registerElement('input[name=push_url]'));
         }
     });
 

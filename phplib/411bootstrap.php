@@ -20,7 +20,7 @@ set_error_handler(function($errno, $str, $file, $line) {
 date_default_timezone_set("UTC");
 
 define('BASE_DIR', realpath(__DIR__ . '/..'));
-define('VERSION', '1.0.1');
+define('VERSION', '1.1.0');
 
 // Set up autoloader for our classes.
 spl_autoload_register(function($class) {
@@ -63,4 +63,5 @@ Logger::init();
 DB::init();
 Cookie::init();
 Nonce::init();
+Auth::init();
 Hook::call('init.post');

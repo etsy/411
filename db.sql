@@ -161,11 +161,13 @@ CREATE TABLE `users` (
     `email` VARCHAR(255) NOT NULL,
     `admin` BOOLEAN NOT NULL, /* bool */
     `settings` TEXT NOT NULL,
+    `api_key` VARCHAR(255) NOT NULL,
 
     `archived` UNSIGNED INTEGER NOT NULL,
     `create_date` UNSIGNED INTEGER NOT NULL,
     `update_date` UNSIGNED INTEGER NOT NULL,
 
+    UNIQUE(`site_id`, `api_key`),
     UNIQUE(`site_id`, `name`)
 );
 CREATE INDEX `users_site_id` ON `users`(`site_id`);

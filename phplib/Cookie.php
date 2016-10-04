@@ -12,6 +12,8 @@ class Cookie {
     const COOKIE_KEY = '411sess';
     /** The lifetime of the cookie. (7 days) */
     const COOKIE_LIFETIME = 604800;
+    /** Secret length. */
+    const SECRET_LEN = 24;
     /** Cookie separator. */
     const SEP = ':';
     /** @var array Cookie data cache. */
@@ -97,7 +99,7 @@ class Cookie {
     public static function write() {
         $site = SiteFinder::getCurrent();
         $domain = explode(':', $site['host'])[0];
-        if(self::$write && self::$dirty) {
+        if(self::$write && self::$dirty && Auth::isWeb()) {
             $expiry = $_SERVER['REQUEST_TIME'] + self::COOKIE_LIFETIME;
             setcookie(
                 self::COOKIE_KEY,
@@ -185,7 +187,7 @@ class Cookie {
         $secret = base64_decode($cfg['cookie_secret']);
         $site_id = SiteFinder::getCurrentId();
 
-        if($site_id != Site::NONE && strlen($secret) < 16) {
+        if($site_id != Site::NONE && strlen($secret) < self::SECRET_LEN) {
             throw new CookieException('Cookie secret too short');
         }
         return $secret . Util::get($_SERVER, 'REMOTE_ADDR', 'cli');

@@ -40,9 +40,24 @@ define(function(require) {
             });
             this.$el.append(this.template(vars));
 
+            this.registerElement('.generate-key').click($.proxy(this.generateKey, this));
+            Util.initSelectAll(this.registerElement('.select-all'));
+
             this.detectChanges();
 
             this.App.hideLoader();
+        },
+        generateKey: function() {
+            if(!this.isSelf() && !this.App.Data.User.get('admin')) {
+                return;
+            }
+            var arr = new Uint8Array(24);
+            crypto.getRandomValues(arr);
+            this.$('input[name=api_key]').val(btoa(String.fromCharCode.apply(null, arr)));
+            this.pendingChanges = true;
+        },
+        isSelf: function() {
+            return this.model.get('id') == this.App.Data.User.get('id');
         },
         readForm: function() {
             var form = this.$('#user-form');
@@ -59,9 +74,7 @@ define(function(require) {
             var data = this.readForm();
 
             // Don't allow removing admin from yourself.
-            if(this.model.get('id') == this.App.Data.User.get('id') &&
-                (!data.admin && this.model.get('admin'))
-            ) {
+            if(this.isSelf() && !data.admin && this.model.get('admin')) {
                 this.App.addMessage('Unable to deprivilege this user');
                 return false;
             }

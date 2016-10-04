@@ -70,6 +70,8 @@ RewriteRule ^api/logout$ /api/login.php?logout [L]
 RewriteRule ^api/data$ /api/data.php [L]
 RewriteRule ^api/jira$ /api/jira.php [L]
 
+RewriteRule ^api/ping$ /api/ping.php [L]
+
 RewriteRule ^manifest.json$ /manifest.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !api

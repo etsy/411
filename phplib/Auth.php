@@ -8,10 +8,37 @@ namespace FOO;
  * @package FOO
  */
 class Auth {
-    /** Invalid user. */
-    const NONE = 0;
+    private static $user = null;
+    private static $api_auth = false;
 
-    private static $user = Auth::NONE;
+    public static function init() {
+        if(array_key_exists('HTTP_X_API_KEY', $_SERVER)) {
+            self::$api_auth = true;
+            if(strlen($_SERVER['HTTP_X_API_KEY']) < 30) {
+                return;
+            }
+
+            self::$user = UserFinder::getByAPIKey($_SERVER['HTTP_X_API_KEY']);
+        } else {
+            self::$user = UserFinder::getById(Cookie::get('id'));
+        }
+    }
+
+    /**
+     * Returns whether this request was a Web request.
+     * @return bool Whether this request is thru a web browser.
+     */
+    public static function isWeb() {
+        return !self::$api_auth;
+    }
+
+    /**
+     * Returns whether this request was an API request.
+     * @return bool Whether this request is thru an API Key.
+     */
+    public static function isAPI() {
+        return self::$api_auth;
+    }
 
     /**
      * Login a user.
@@ -29,7 +56,7 @@ class Auth {
                 $user['password'] = password_hash($pass, PASSWORD_DEFAULT);
                 $user->store();
             }
-            self::setUserId($user['id']);
+            self::setUser($user);
             return $user;
         }
         return null;
@@ -39,7 +66,7 @@ class Auth {
      * Logout the user.
      */
     public static function logout() {
-        self::setUserId(0);
+        self::setUser(null);
     }
 
     /**
@@ -47,10 +74,18 @@ class Auth {
      * @return User|null The current User or null.
      */
     public static function getUser() {
-        if(self::$user === Auth::NONE) {
-            self::$user = UserFinder::getById(self::getUserId());
-        }
         return self::$user;
+    }
+
+    /**
+     * Set the current ID of the user.
+     * @return User|null The User or null.
+     */
+    public static function setUser(User $user=null) {
+        if(!self::$api_auth) {
+            Cookie::set('id', $user['id']);
+        }
+        self::$user = $user;
     }
 
     /**
@@ -58,7 +93,7 @@ class Auth {
      * @return bool Whether the user is logged in.
      */
     public static function isAuthenticated() {
-        return !!self::getUser();
+        return !!self::$user;
     }
 
     /**
@@ -66,23 +101,14 @@ class Auth {
      * @return bool Whether the user is an admin.
      */
     public static function isAdmin() {
-        $user = self::getUser();
-        return $user && $user['admin'];
+        return self::$user && self::$user['admin'];
     }
 
-    /**
-     * Set the current ID of the user.
-     * @param int $id The user id.
-     */
-    public static function setUserId($id) {
-        Cookie::set('id', $id);
-        self::$user = Auth::NONE;
-    }
     /**
      * Get the current ID of the user.
      * @return int A user id.
      */
     public static function getUserId() {
-        return Cookie::get('id');
+        return is_null(self::$user) ? 0:self::$user['id'];
     }
 }

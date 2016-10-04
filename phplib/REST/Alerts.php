@@ -366,11 +366,8 @@ class Alerts_REST extends Models_REST {
         $search_id = Util::get($get, 'search_id', 0);
         $search = SearchFinder::getById($search_id);
 
-        // Verify that we have a Push_Search and the key is correct.
-        if(
-            is_null($search) || $search['type'] != Push_Search::$TYPE || !$search['enabled'] ||
-            Util::get($search['query_data'], 'key', '') != Util::get($get, 'key', '')
-        ) {
+        // Verify that we have a Push_Search and that it's enabled.
+        if(is_null($search) || $search['type'] != Push_Search::$TYPE || !$search['enabled']) {
             throw new ForbiddenException;
         }
 

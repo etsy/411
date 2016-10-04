@@ -18,7 +18,7 @@ tar cvzf release.tgz \
   bin \
   composer.json \
   composer.lock \
-  config.php \
+  config_example.php \
   db.sql \
   htdocs \
   phplib \

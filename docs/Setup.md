@@ -60,7 +60,7 @@ Install dependencies:
 $ composer install
 ```
 
-Modify config.php:
+Rename `config_example.php` to `config.php` and modify:
 ```
 # If Elasticsearch is set up locally, you might not have to make any changes.
 $config['elasticsearch'] = [

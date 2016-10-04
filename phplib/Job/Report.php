@@ -32,10 +32,10 @@ class Report_Job extends Job {
 
             // Error emails.
             if(count($errors)) {
-                Notification::sendReportErrorEmail($to, $report, $errors);
+                Notification::sendReportErrorEmail($to, $report, $errors, $this->getDebugData());
                 Logger::err('Report error', ['id' => $report['id'], 'errors' => $errors], self::LOG_NAMESPACE);
             } else {
-                Notification::sendReportEmail($to, $report, $pdf_data);
+                Notification::sendReportEmail($to, $report, $pdf_data, $this->getDebugData());
             }
         }
 

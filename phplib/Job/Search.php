@@ -95,12 +95,12 @@ class Search_Job extends Job {
                         $search['last_error_email_date'] = $this->obj['target_date'];
                     }
 
-                    Notification::sendSearchErrorEmail($to, $search, $errors);
+                    Notification::sendSearchErrorEmail($to, $search, $errors, $this->getDebugData());
                 }
 
                 // Send recovery email if state changed from failure to success.
                 if(!$prev_success && $curr_success) {
-                    Notification::sendSearchRecoveryEmail($to, $search);
+                    Notification::sendSearchRecoveryEmail($to, $search, $this->getDebugData());
                 }
             }
         }
@@ -114,7 +114,8 @@ class Search_Job extends Job {
                     $search->getEmails(),
                     $search,
                     $final_alerts,
-                    $search['notif_format'] == Search::NF_CONTENTONLY
+                    $search['notif_format'] == Search::NF_CONTENTONLY,
+                    $this->getDebugData()
                 );
             }
         }

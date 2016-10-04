@@ -89,7 +89,9 @@ class Rollup_Job extends Job {
                     $data[0], $data[1],
                     $searches,
                     $data[2],
-                    AlertFinder::getActiveCounts()
+                    AlertFinder::getActiveCounts(),
+                    false,
+                    $this->getDebugData()
                 );
             }
         }

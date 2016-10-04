@@ -55,7 +55,8 @@ class Summary_Job extends Job {
             [$new_count, $close_count, $open_count],
             $this->mapUsers($leaders),
             $this->mapSearches($noisy_searches),
-            $this->mapSearches($quiet_searches)
+            $this->mapSearches($quiet_searches),
+            $this->getDebugData()
         );
 
         return [null, []];

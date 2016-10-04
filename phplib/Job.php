@@ -99,6 +99,14 @@ abstract class Job extends TypeModel {
             $this->update();
         }
     }
+
+    /**
+     * Get debugging data.
+     * @return array[] An array of debug data.
+     */
+    public function getDebugData() {
+        return $this->toArray(['type', 'target_id', 'target_date', 'tries']);
+    }
 }
 
 /**

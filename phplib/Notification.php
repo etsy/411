@@ -15,9 +15,10 @@ class Notification {
      * @param Search $search The Search object.
      * @param Alert[] $alerts The list of Alerts.
      * @param boolean $content_only Whether to hide metadata.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendAlertEmail($to, $search, $alerts, $content_only) {
+    public static function sendAlertEmail($to, $search, $alerts, $content_only, $debug_data=[]) {
         $alertkeys = [];
         foreach($alerts as $alert) {
             foreach($alert['content'] as $k=>$v) {
@@ -34,7 +35,7 @@ class Notification {
                 'alerts' => $alerts,
                 'alertkeys' => $alertkeys,
                 'content_only' => $content_only,
-            ])
+            ], $debug_data)
         );
     }
 
@@ -45,9 +46,10 @@ class Notification {
      * @param array $searches A mapping of search ids to Searches.
      * @param Alert[] $alerts The list of Alerts.
      * @param boolean $content_only Whether to hide metadata.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendAlertActionEmail($to, $action, $searches, $alerts, $content_only=false) {
+    public static function sendAlertActionEmail($to, $action, $searches, $alerts, $content_only=false, $debug_data=[]) {
         self::mail(
             $to, self::getFrom(),
             $action->getDescription(),
@@ -55,7 +57,7 @@ class Notification {
                 'action' => $action,
                 'alert_groups' => self::groupAlerts($searches, $alerts),
                 'content_only' => $content_only,
-            ])
+            ], $debug_data)
         );
     }
 
@@ -68,9 +70,10 @@ class Notification {
      * @param Alert[] $action_alerts The list of Alerts that have been actioned on.
      * @param array $active_alerts The counts of active Alerts.
      * @param boolean $content_only Whether to hide metadata.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendRollupEmail($to, $new_alerts, $actions, $searches, $action_alerts, $active_alerts, $content_only=false) {
+    public static function sendRollupEmail($to, $new_alerts, $actions, $searches, $action_alerts, $active_alerts, $content_only=false, $debug_data=[]) {
         $search_map = [];
         foreach($searches as $search) {
             $search_map[$search['id']] = $search;
@@ -92,7 +95,7 @@ class Notification {
                 'actions' => $actions,
                 'action_alert_groups' => self::groupAlerts($search_map, $action_alerts),
                 'content_only' => $content_only,
-            ])
+            ], $debug_data)
         );
     }
 
@@ -100,15 +103,16 @@ class Notification {
      * Send an email about a failing Search type.
      * @param string[]|string $to The destination email.
      * @param string $type The Search type.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendSearchTypeErrorEmail($to, $type) {
+    public static function sendSearchTypeErrorEmail($to, $type, $debug_data=[]) {
         self::mail(
             $to, self::getFrom(true),
             sprintf('[Failure] "%s" Search Type', $type),
             self::render('searchtypeerror', [
                 'type' => $type
-            ])
+            ], $debug_data)
         );
     }
 
@@ -116,15 +120,16 @@ class Notification {
      * Send an email about a recovered Search type.
      * @param string[]|string $to The destination email.
      * @param string $type The Search type.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendSearchTypeRecoveryEmail($to, $type) {
+    public static function sendSearchTypeRecoveryEmail($to, $type, $debug_data=[]) {
         self::mail(
             $to, self::getFrom(true),
             sprintf('[Recovery] "%s" Search Type', $type),
             self::render('searchtyperecovery', [
                 'type' => $type
-            ])
+            ], $debug_data)
         );
     }
 
@@ -133,16 +138,17 @@ class Notification {
      * @param string[]|string $to The destination email.
      * @param Search $search The Search object.
      * @param string[] $errors The list of errors.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendSearchErrorEmail($to, $search, $errors) {
+    public static function sendSearchErrorEmail($to, $search, $errors, $debug_data=[]) {
         self::mail(
             $to, self::getFrom(true),
             sprintf('[Failure] "%s" Search', $search['name']),
             self::render('searcherror', [
                 'search' => $search,
                 'errors' => $errors
-            ])
+            ], $debug_data)
         );
     }
 
@@ -150,15 +156,16 @@ class Notification {
      * Send an email about a recovered Search.
      * @param string[]|string $to The destination email.
      * @param Search $search The Search object.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendSearchRecoveryEmail($to, $search) {
+    public static function sendSearchRecoveryEmail($to, $search, $debug_data=[]) {
         self::mail(
             $to, self::getFrom(true),
             sprintf('[Recovery] "%s" Search', $search['name']),
             self::render('searchrecovery', [
                 'search' => $search
-            ])
+            ], $debug_data)
         );
     }
 
@@ -167,15 +174,16 @@ class Notification {
      * @param string[]|string $to The destination email.
      * @param Report $report The Report object.
      * @param string $pdf_data The content of the Report.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendReportEmail($to, $report, $pdf_data) {
+    public static function sendReportEmail($to, $report, $pdf_data, $debug_data=[]) {
         self::mail(
             $to, self::getFrom(),
             sprintf('"%s" Report', $report['name']),
             self::render('report', [
                 'report' => $report
-            ]),
+            ], $debug_data),
             $pdf_data
         );
     }
@@ -185,16 +193,17 @@ class Notification {
      * @param string[]|string $to The destination email.
      * @param Report $report The Report object.
      * @param string[] $errors The list of errors.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @throws \Exception
      */
-    public static function sendReportErrorEmail($to, $report, $errors) {
+    public static function sendReportErrorEmail($to, $report, $errors, $debug_data=[]) {
         self::mail(
             $to, self::getFrom(true),
             sprintf('[Failure] "%s" Report', $report['name']),
             self::render('reporterror', [
                 'report' => $report,
                 'errors' => $errors
-            ])
+            ], $debug_data)
         );
     }
 
@@ -204,11 +213,12 @@ class Notification {
      * @param DateTime $start_date The starting date for this week.
      * @param int[] $stats New alerts, closed alerts and open alerts.
      * @param array $leaders Users who've closed the most Alerts this week w/ a count.
-     * @param array $noisy_searches Searches that generate the least Alerts w/ a count.
      * @param array $noisy_searches Searches that generate the most Alerts w/ a count.
+     * @param array $quiet_searches Searches that generate the least Alerts w/ a count.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @param
      */
-    public static function sendSummaryEmail($to, $start_date, $stats, $leaders, $noisy_searches, $quiet_searches) {
+    public static function sendSummaryEmail($to, $start_date, $stats, $leaders, $noisy_searches, $quiet_searches, $debug_data=[]) {
         $end_date = clone $start_date;
         $end_date->modify('+6 days');
         self::mail(
@@ -221,7 +231,7 @@ class Notification {
                 'leaders' => $leaders,
                 'noisy_searches' => $noisy_searches,
                 'quiet_searches' => $quiet_searches,
-            ])
+            ], $debug_data)
         );
     }
 
@@ -264,10 +274,11 @@ class Notification {
      * Renders a template.
      * @param string $tpl The name of the template.
      * @param array $vars Variables to inject into the template.
+     * @param array $debug_data Watermarking data for debugging purposes.
      * @return string A templated string.
      * @throws \Exception
      */
-    public static function render($tpl, $vars) {
+    public static function render($tpl, $vars, $debug_data=[]) {
         // Embedded CSS. This is unfortunately necessary as most (all?) mail clients only allow inline CSS.
         $font = "font-family: 'Myriad Pro','Helvetica Neue',Helvetica,Tahoma,Arial,sans-serif;";
         $base_url = sprintf('https://%s', Util::getHost());
@@ -297,6 +308,7 @@ class Notification {
             ob_end_clean();
             throw $e;
         }
+        print sprintf("\n<!-- DEBUG\n%s\n-->", str_replace('&', "\n", http_build_query($debug_data)));
         return ob_get_clean();
     }
 

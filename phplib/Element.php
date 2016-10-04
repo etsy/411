@@ -143,6 +143,6 @@ class ElementFinder extends TypeModelFinder {
         $sql = sprintf(
             'UPDATE `%s` SET `archived` = 1 WHERE `site_id` = ? AND `archived` = 0 AND `lifetime` > 0 AND ? >= (`create_date` + `lifetime` * 60 - 5)',
         $MODEL::$TABLE);
-        DB::query($sql, [SiteFinder::getCurrentId(), $date]);
+        DB::query($sql, [SiteFinder::getCurrentId(), $date], DB::CNT);
     }
 }

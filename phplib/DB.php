@@ -94,28 +94,31 @@ class DB {
             $stmt->bindValue($i, $param, $type);
             $i += 1;
         }
+
+        Logger::dbg($query, $params);
+
         if(!$stmt->execute()) {
             throw new DBException('Query failed: ' . $stmt->errorInfo()[2]);
         }
 
-        Logger::dbg($query, $params);
+        $has_res = $stmt->columnCount() > 0;
 
         $ret = null;
         switch($ret_type) {
             case self::CNT:
-                $ret = $stmt->rowCount();
+                $ret = $has_res ? null:$stmt->rowCount();
                 break;
             case self::VAL:
-                $ret = $stmt->fetchColumn();
+                $ret = $has_res ? $stmt->fetchColumn():null;
                 break;
             case self::ROW:
-                $ret = $stmt->fetch(\PDO::FETCH_ASSOC);
+                $ret = $has_res ? $stmt->fetch(\PDO::FETCH_ASSOC):null;
                 break;
             case self::COL:
-                $ret = $stmt->fetchAll(\PDO::FETCH_COLUMN, 0);
+                $ret = $has_res ? $stmt->fetchAll(\PDO::FETCH_COLUMN, 0):null;
                 break;
             case self::ALL:
-                $ret = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                $ret = $has_res ? $stmt->fetchAll(\PDO::FETCH_ASSOC):null;
                 break;
         }
         $stmt->closeCursor();

@@ -135,7 +135,7 @@ class JobFinder extends TypeModelFinder {
             UPDATE `%s` SET `state` = ?, `update_date` = ?
             WHERE `site_id` = ? AND `archived` = 0 AND `state` IN %s AND `update_date` < ? AND `tries` > ?',
         $MODEL::$TABLE, DB::inPlaceholder(2));
-        DB::query($sql, [$MODEL::ST_CANC, $date, SiteFinder::getCurrentId(), $MODEL::ST_RUN, $MODEL::ST_FAIL, $threshold, $MODEL::MAX_TRIES]), DB::CNT;
+        DB::query($sql, [$MODEL::ST_CANC, $date, SiteFinder::getCurrentId(), $MODEL::ST_RUN, $MODEL::ST_FAIL, $threshold, $MODEL::MAX_TRIES], DB::CNT);
 
         // Fail any jobs that have failed less than MAX_TRIES times.
         $sql = sprintf('

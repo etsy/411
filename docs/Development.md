@@ -139,11 +139,6 @@ Fedora Packages:
 $ sudo dnf install nodejs
 ```
 
-Grunt & Bower:
-```
-$ sudo npm install -g grunt-cli bower
-```
-
 Install Grunt & Bower:
 ```
 $ sudo npm install -g grunt-cli bower

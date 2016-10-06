@@ -30,8 +30,8 @@ class Push_Search extends Search {
 
         foreach($this->results as $result) {
             $alert = new Alert;
-            $alert['alert_date'] = (int) Util::get($alert, 'alert_date', $_SERVER['REQUEST_TIME']);
-            $alert['content'] = (array) Util::get($alert, 'content', []);
+            $alert['alert_date'] = (int) Util::get($result, 'alert_date', $_SERVER['REQUEST_TIME']);
+            $alert['content'] = (array) Util::get($result, 'content', []);
 
             $alerts[] = $alert;
         }

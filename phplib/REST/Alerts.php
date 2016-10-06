@@ -45,7 +45,6 @@ class Alerts_REST extends Models_REST {
      * The push endpoint can be accessed without auth, so we do that whitelisting here.
      */
     public function checkAuthorization() {
-        if($_GET[''
         if(!Auth::isAuthenticated()) {
             throw new UnauthorizedException('Authentication required');
         }

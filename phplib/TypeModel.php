@@ -83,9 +83,9 @@ abstract class TypeModel extends Model {
      * Whether the Model is available. Can be used to enforce access control on a Model.
      * @return bool The availability of the Model.
      */
-     public function isAccessible() {
+    public function isAccessible() {
         return true;
-     }
+    }
 }
 
 /**

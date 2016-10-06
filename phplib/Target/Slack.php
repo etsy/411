@@ -24,6 +24,11 @@ class Slack_Target extends Target {
         parent::validateData($data);
     }
 
+    public function isAccessible() {
+        $scfg = Config::get('slack');
+        return !is_null($scfg['webhook_url']);
+    }
+
     /**
      * Send an Alert off to a Slack channel.
      * @param Alert $alert The Alert object.

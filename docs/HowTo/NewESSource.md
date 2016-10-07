@@ -19,10 +19,14 @@ $config['es'] = [
 ];
 ```
 
-`hosts`: A list of hosts in your ES cluster to query.
-`index_hosts`: A list of hosts in your ES cluster to create documents on. If empty, defaults to `hosts`.
-`ssl_cert`: The full path to the ssl certificate of the server (if using self signed certs).
-`index`: The index to query. If `null`, will query all indices.
-`date_based`: Whether the indices are date based.
-`date_field`: The field to use for date based queries. If `null`, this is ignored.
-`src_url`: A link to display the data (Kibana, as an example).
+
+Fields
+------
+
+- `hosts`: A list of hosts in your ES cluster to query.
+- `index_hosts`: A list of hosts in your ES cluster to create documents on. If empty, defaults to `hosts`.
+- `ssl_cert`: The full path to the ssl certificate of the server (if using self signed certs).
+- `index`: The index to query. If `null`, will query all indices.
+- `date_based`: Whether the indices are date based.
+- `date_field`: The field to use for date based queries. If `null`, this is ignored.
+- `src_url`: A link to display the data (Kibana, as an example).

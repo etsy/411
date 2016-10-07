@@ -25,6 +25,7 @@ Use cases
 - You want to detect when a Graphite metric changes.
 - You want to detect when a server stops responding
 - You want to manage alerts through a simple workflow.
+
 And much more!
 
 

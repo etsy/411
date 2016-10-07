@@ -52,7 +52,7 @@ define(function(require) {
                 return;
             }
             var arr = new Uint8Array(24);
-            crypto.getRandomValues(arr);
+            window.crypto.getRandomValues(arr);
             this.$('input[name=api_key]').val(btoa(String.fromCharCode.apply(null, arr)));
             this.pendingChanges = true;
         },

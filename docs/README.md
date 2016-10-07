@@ -19,6 +19,12 @@ Usage
 - [Misc Features](/docs/MiscFeatures.md)
 
 
+How Tos
+-------
+
+- [Adding a new Elasticsearch source](/docs/HowTo/NewESSource.md)
+
+
 Internals
 ---------
 

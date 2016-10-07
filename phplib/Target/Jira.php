@@ -50,9 +50,6 @@ class Jira_Target extends Target {
                 'assignee' => ['name' => $this->obj['data']['assignee']]
             ]
         );
-        if(!$ret) {
-            throw new TargetException(sprintf('Failed to send Alert:%d to Jira', $alert['alert_id']));
-        }
     }
 
     /**
@@ -78,7 +75,7 @@ class Jira_Target extends Target {
         );
 
         if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
-            return null;
+            throw new TargetException(sprintf('Remote server returned %d', $curl->httpStatusCode));
         }
 
         return $ret->key;

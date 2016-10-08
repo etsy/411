@@ -54,23 +54,26 @@ class ThreatExchange_Search extends Search {
 
         $curl = new \Curl\Curl;
         $since = $date - ($constructed_qdata['range'] * 60);
-        $resultsJSON = $curl->get($constructed_qdata, array(
+        $results = $curl->get($constructed_qdata, array(
            'access_token' => self::API_TOKEN . "|" . self::API_SECRET,
            'text'         => $constructed_qdata['query'],
            'limit'        => '1000',
            'since'        => $since,
            'until'        => $date,
         ));
+
+        if($curl->httpStatusCode != 200) {
+            throw new SearchException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $results));
+        }
+
         $alerts = [];
         if ($constructed_qdata['id']) {
-            $results = json_decode($resultsJSON, true);
             $alert = new Alert();
             $alert['alert_date'] = $date;
             $alert['content'] = $results;
             $alerts[] = $alert;
         } else {
-            $results = json_decode($resultsJSON, true)->data;
-            foreach ($results as $result) {
+            foreach ($results->data as $result) {
                 $alert = new Alert();
                 $alert['alert_date'] = $date;
                 $alert['content'] = (array) $result;

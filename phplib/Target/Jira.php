@@ -75,7 +75,7 @@ class Jira_Target extends Target {
         );
 
         if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
-            throw new TargetException(sprintf('Remote server returned %d', $curl->httpStatusCode));
+            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $ret));
         }
 
         return $ret->key;

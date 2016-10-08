@@ -49,7 +49,7 @@ class Graphite_Search extends Search {
         $raw_data = $curl->get(sprintf('%s/render?%s', $gcfg['host'], http_build_query($params)));
 
         if($curl->httpStatusCode != 200) {
-            throw new SearchException('Graphite returned a non-200 return code');
+            throw new SearchException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw_data));
         }
 
         $chunks = explode('|', $raw_data, 2);

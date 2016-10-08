@@ -30,7 +30,7 @@ class HTTP_Search extends Search {
     protected function _execute($date, $constructed_qdata) {
         $curl = new \Curl\Curl;
         $curl->get($constructed_qdata['url']);
-        $this->obj['last_status'] = sprintf('Response code = %d', $curl->httpStatusCode);
+        $this->obj['last_status'] = sprintf('Code = %d, Message = %s', $curl->httpStatusCode, $curl->httpErrorMessage);
 
         if($curl->httpStatusCode === $constructed_qdata['code']) {
             return [];

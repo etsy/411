@@ -15,6 +15,7 @@ Usage
 - [Targets](/docs/Targets.md)
 - [Alerts](/docs/Alerts.md)
 - [Lists](/docs/Lists.md)
+- [Groups](/docs/Groups.md)
 - [Renderers](/docs/Renderers.md)
 - [Misc Features](/docs/MiscFeatures.md)
 

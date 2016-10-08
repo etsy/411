@@ -59,7 +59,7 @@ abstract class Elasticsearch_Search extends Search {
     }
 
     public function isTimeBased() {
-        return static::getConfig()['date_based'];
+        return !is_null(static::getConfig()['date_field']);
     }
 
     public function isWorking($date) {

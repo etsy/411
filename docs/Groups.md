@@ -1,7 +1,7 @@
 Groups
 ======
 
-Groups let you set up collections of users. You can assign Alerts to these collections and any email Alerts will go to all members of the group.
+Groups let you set up collections of users. You can assign Alerts to groups and any email notifications will go to its members.
 
 
 Usage

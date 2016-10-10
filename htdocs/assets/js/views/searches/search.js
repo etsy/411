@@ -556,10 +556,13 @@ define(function(require) {
          * Save filters and targets.
          */
         processSaveElements: function() {
+            this.App.showLoader();
+
             $.when(
                 this.getView('filters').processSave(),
                 this.getView('targets').processSave()
-            ).then($.proxy(this.App.addMessage, this.App, 'Filters/Targets update successful', 2));
+            ).then($.proxy(this.App.addMessage, this.App, 'Filters/Targets update successful', 2)
+            ).always($.proxy(this.App.hideLoader, this.App));
             return false;
         },
         /**

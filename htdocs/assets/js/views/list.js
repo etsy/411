@@ -37,6 +37,8 @@ define(function(require) {
             this.$('.list')
                 .text('')
                 .append(frag);
+
+            this.undim();
         },
         initializeSubView: function(model, options) {
             var view = CollectionView.prototype.initializeSubView.call(this, model, options);

@@ -345,12 +345,14 @@ define(function(require) {
             }
             data.query = '(' + this.collection.base + ') AND ' + generateQuery(query);
 
+            this.dim();
             this.collection.getIds(data, {
                 success: this.cbRendered(function(resp) {
                     this.alertList = resp;
                     this.serverList = true;
                     this.updateSelection();
-                })
+                }),
+                complete: this.cbRendered(this.undim),
             });
         },
         // Populate selection data.
@@ -437,7 +439,7 @@ define(function(require) {
             }
             data.query = '(' + this.collection.base + ') AND ' + generateQuery(query);
 
-
+            this.dim();
             this.collection.updateByQuery(data, {
                 success: this.cbRendered(function(resp) {
                     for(var k in resp) {
@@ -446,7 +448,8 @@ define(function(require) {
 
                     // Rerender the alertgroup.
                     this.rerender();
-                })
+                }),
+                complete: this.cbRendered(this.undim),
             });
             return false;
         },

@@ -73,6 +73,8 @@ define(function(require) {
             } else {
                 this.$('hidden').show();
             }
+
+            this.undim();
         },
         setSelectableDisplay: function(sel, selected, down) {
             $(sel.el).toggleClass('active', selected);

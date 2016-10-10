@@ -112,6 +112,7 @@ define(function(require) {
             this.update();
         },
         update: function(params) {
+            this.dim();
             this.collection.update({
                 success: $.proxy(this.initializeCollection, this, params),
                 fail: $.proxy(this.App.hideLoader, this.App)
@@ -151,6 +152,8 @@ define(function(require) {
             this.$el
                 .text('')
                 .append(frag);
+
+            this.undim();
         },
         /**
          * Set up a sub View and return it.

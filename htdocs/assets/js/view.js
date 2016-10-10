@@ -161,6 +161,19 @@ define(function(require) {
         update: function() {},
 
         /**
+         * Apply slightly transparency to the view to indicate that it's processing
+         */
+        dim: function() {
+            this.$el.css({'opacity': 0.3});
+        },
+        /**
+         * Disable transparency effect.
+         */
+        undim: function() {
+            this.$el.css({'opacity': 1.0});
+        },
+
+        /**
          * Destroy the View.
          * @param {boolean} remove - Whether to also call remove().
          */

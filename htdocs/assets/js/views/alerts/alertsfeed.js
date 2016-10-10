@@ -62,6 +62,7 @@ define(function(require) {
                 query.reverse = 1;
                 query.count = this.initEntries;
             }
+
             this.collection.update({
                 data: query,
                 success: this.cbRendered(function(collection, resp) {

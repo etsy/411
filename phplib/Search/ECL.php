@@ -56,7 +56,7 @@ class ECL_Search extends Search {
 
         $statementlist = $parser->parse($constructed_qdata, $table);
         $sch = new \ECL\Scheduler;
-        $results = $sch->process($statementlist);
+        $results = $sch->process($statementlist, $table);
 
         $date_fields = $es_builder->getDateFields();
 

@@ -31,7 +31,7 @@ Here's a guide on setting up [Exim](https://www.digitalocean.com/community/tutor
 
 Elasticsearch:
 
-This guide assumes you already have an Elasticsearch cluster ingesting data from Logstash. You can use that cluster for storing 411 alerts or set up a separate cluster entirely. For the latter, here's a guide on setting up [Elasticsearch](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-on-an-ubuntu-vps)
+This guide assumes you already have an Elasticsearch cluster ingesting data from Logstash. You can use that cluster for storing 411 alerts or set up a separate cluster entirely. For the latter, here's a guide on setting up [Elasticsearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04)
 
 
 Set up Apache:

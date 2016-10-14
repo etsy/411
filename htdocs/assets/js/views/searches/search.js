@@ -321,6 +321,8 @@ define(function(require) {
         no_query: false,
         // Whether to hide the range field.
         no_range: false,
+        // Whether to hide the frequency field.
+        no_freq: false,
         // Additional content to insert. Check out search.html for details.
         addnFieldsATpl: _.constant(''),
         addnFieldsBTpl: _.constant(''),
@@ -374,6 +376,8 @@ define(function(require) {
                 notif_formats: Search.Data().NotifFormats,
                 no_query: this.no_query,
                 no_range: this.no_range,
+                no_freq: this.no_freq,
+                host: Data.Host,
             });
             // Render any additional content.
             vars.addn_fields_a = this.addnFieldsATpl(vars);
@@ -422,16 +426,17 @@ define(function(require) {
                 this.App.Data.Users, false
             );
             Util.initTimeSelect(
-                this.registerElement('input[name=frequency]')
-            );
-            Util.initTimeSelect(
                 this.registerElement('input[name=range]')
             );
             Util.initTimeSelect(
                 this.registerElement('input[name=autoclose_threshold]')
             );
+            var freq_elem = this.registerElement('input[name=frequency]');
+            if(freq_elem.length) {
+                Util.initTimeSelect(freq_elem);
+                this.toggleSchedule({currentTarget: this.$('input[name=schedule_type]')[0]});
+            }
 
-            this.toggleSchedule({currentTarget: this.$('input[name=schedule_type]')[0]});
             this.toggleNotif({currentTarget: this.$('input[name=notif_enabled]')[0]});
             this.toggleAutoclose({currentTarget: this.$('input[name=autoclose_enabled]')[0]});
 
@@ -465,7 +470,7 @@ define(function(require) {
             var data = Util.serializeForm(form);
 
             // schedule_type is an int.
-            data.schedule_type = data.schedule_type + 0;
+            data.schedule_type = parseInt(data.schedule_type) || 0;
 
             // Parse out the tags.
             data.tags = data.tags.split(',');

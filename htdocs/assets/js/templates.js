@@ -40,6 +40,7 @@ define(function(require) {
         'searches/search/threatexchange/a': Handlebars.compile(require('text!templatefiles/searches/search/threatexchange/a.html')),
         'searches/search/elasticsearch/b': Handlebars.compile(require('text!templatefiles/searches/search/elasticsearch/b.html')),
         'searches/search/elasticsearch/d': Handlebars.compile(require('text!templatefiles/searches/search/elasticsearch/d.html')),
+        'searches/search/push/b': Handlebars.compile(require('text!templatefiles/searches/search/push/b.html')),
         'searches/search': Handlebars.compile(require('text!templatefiles/searches/search.html')),
 
         // Alerts

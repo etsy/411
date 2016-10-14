@@ -13,6 +13,8 @@ class User extends Model {
 
     /** Invalid user. */
     const NONE = 0;
+    /** Api key length. */
+    const API_KEY_LEN = 30;
 
     protected static function generateSchema() {
         return [
@@ -22,6 +24,7 @@ class User extends Model {
             'email' => [static::T_STR, null, ''],
             'admin' => [static::T_BOOL, null, false],
             'settings' => [static::T_OBJ, null, []],
+            'api_key' => [static::T_STR, null, ''],
         ];
     }
 
@@ -73,6 +76,19 @@ class UserFinder extends ModelFinder {
      */
     public static function getByName($name) {
         $models = static::getByQuery(['name' => $name]);
+        if(!count($models)) {
+            return null;
+        }
+        return $models[0];
+    }
+
+    /**
+     * Find a user object by api key.
+     * @param string $api_key The api key.
+     * @return User|null A user object or null.
+     */
+    public static function getByAPIKey($api_key) {
+        $models = static::getByQuery(['api_key' => $api_key]);
         if(!count($models)) {
             return null;
         }

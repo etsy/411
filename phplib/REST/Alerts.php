@@ -40,6 +40,16 @@ class Alerts_REST extends Models_REST {
         return Auth::isAuthenticated();
     }
 
+    /**
+     * Override authorization check.
+     * The push endpoint can be accessed without auth, so we do that whitelisting here.
+     */
+    public function checkAuthorization() {
+        if(!Auth::isAuthenticated()) {
+            throw new UnauthorizedException('Authentication required');
+        }
+    }
+
     public function beforeStore($model, $data, $new, $delete) {
         if(!$delete) {
             return;
@@ -83,6 +93,8 @@ class Alerts_REST extends Models_REST {
                 return self::format($this->sendAlerts($data));
             case 'whitelist':
                 return self::format($this->whitelistAlerts($data));
+            case 'push':
+                return self::format($this->push($get, $data));
             default:
                 return self::format($this->create($get, $data));
         }
@@ -347,5 +359,23 @@ class Alerts_REST extends Models_REST {
         }
 
         return $ret;
+    }
+
+    public function push($get, $data) {
+        $search_id = Util::get($get, 'search_id', 0);
+        $search = SearchFinder::getById($search_id);
+
+        // Verify that we have a Push_Search and that it's enabled.
+        if(is_null($search) || $search['type'] != Push_Search::$TYPE || !$search['enabled']) {
+            throw new ForbiddenException;
+        }
+
+        $search->setResults($data);
+
+        $searchjob = new Search_Job();
+        $searchjob['target_date'] = $_SERVER['REQUEST_TIME'];
+        list($alerts, $errors) = $searchjob->_run(true, $search);
+        $this->slog(SLog::AS_EXECUTE, $search['id']);
+        return self::format($alerts, is_null($alerts), $errors);
     }
 }

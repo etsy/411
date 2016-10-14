@@ -19,6 +19,11 @@ class Jira_Target extends Target {
         ];
     }
 
+    public function isAccessible() {
+        $jiracfg = Config::get('jira');
+        return !is_null($jiracfg['host']);
+    }
+
     /**
      * Create ticket.
      *
@@ -60,7 +65,7 @@ class Jira_Target extends Target {
     public static function createIssue($issue_data) {
         $jiracfg = Config::get('jira');
         if(is_null($jiracfg['host'])) {
-            return null;
+            throw new TargetException('Jira not configured');
         }
 
         $curl = new \Curl\Curl;

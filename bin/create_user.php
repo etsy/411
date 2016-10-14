@@ -28,6 +28,7 @@ $newuser['real_name'] = FOO\Util::prompt("Real name");
 $newuser['password'] = password_hash(FOO\Util::prompt("Password"), PASSWORD_DEFAULT);
 $newuser['email'] = FOO\Util::prompt("Email");
 $newuser['admin'] = strtolower(FOO\Util::prompt("Admin (y/n)")) === 'y';
+$newuser['api_key'] = FOO\Random::base64_bytes(FOO\User::API_KEY_LEN);
 $newuser->store();
 
 printf("\nUser created! ID: %d\n", $newuser['id']);

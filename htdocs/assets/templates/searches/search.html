@@ -80,6 +80,7 @@
                 </select>
               </div>
 
+              {{#unless no_freq}}
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
                 <label for="frequency" class="frequency-label">Frequency <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The number of minutes between each run."></span></label>
                 <label for="cron_expression" class="cron-label" class="hidden">Cron Expression <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Specify the cron expression for this search."></span></label>
@@ -92,6 +93,7 @@
                   <input class="form-control hidden cron-input" type="text" name="cron_expression" value="{{ cron_expression }}" />
                 </div>
               </div>
+              {{/unless}}
 
               {{#unless no_range}}
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">

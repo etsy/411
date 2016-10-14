@@ -30,6 +30,11 @@ class Graphite_Search extends Search {
         return true;
     }
 
+    public function isAccessible() {
+        $gcfg = Config::get('graphite');
+        return !is_null($gcfg['host']);
+    }
+
     protected function constructQuery() {
         return $this->obj['query_data'];
     }

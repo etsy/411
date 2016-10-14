@@ -91,7 +91,7 @@ abstract class REST {
                 $data = $_POST;
             }
             // Check the nonce if this is not a GET request.
-            if($_SERVER['REQUEST_METHOD'] != 'GET') {
+            if($_SERVER['REQUEST_METHOD'] != 'GET' && Auth::isWeb()) {
                 $nnc1 = Util::get($_SERVER, 'HTTP_X_NONCE');
                 $nnc2 = Util::get($data, '_nonce');
                 if(strlen($nnc1) == 0 && strlen($nnc2) == 0) {

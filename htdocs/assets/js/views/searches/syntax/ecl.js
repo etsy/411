@@ -15,7 +15,7 @@ define(function(require) {
         define('atom', 'NOT AND OR TO true false');
 
         // Keywords
-        define('builtin', 'if else');
+        define('builtin', 'if else for');
 
         // Commands
         define('keyword', 'set es agg load map join sort head tail filter count');
@@ -65,7 +65,9 @@ define(function(require) {
         function tokenString(quote) {
             return function(stream, state) {
                 var next, end = false, escaped = false;
-                while ((next = stream.next()) !== null) {
+                /* jshint -W041 */
+                while ((next = stream.next()) != null) {
+                /* jshint +W041 */
                     if (next === quote && !escaped) {
                         end = true;
                         break;
@@ -101,17 +103,17 @@ define(function(require) {
             return 'def';
         };
 
-            function tokenize(stream, state) {
-                return (state.tokens[0] || tokenBase) (stream, state);
+        function tokenize(stream, state) {
+            return (state.tokens[0] || tokenBase) (stream, state);
         }
 
         return {
             startState: function() {return {tokens:[]};},
-                token: function(stream, state) {
-                    return tokenize(stream, state);
-                },
-                lineComment: '#',
-                fold: "brace"
+            token: function(stream, state) {
+                return tokenize(stream, state);
+            },
+            lineComment: '#',
+            fold: "brace"
         };
     });
 

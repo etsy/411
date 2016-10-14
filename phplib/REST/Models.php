@@ -53,6 +53,16 @@ class Models_REST extends REST {
     public function finalizeStore() {}
 
     /**
+     * Filter fields of a model and return the filtered data.
+     * @param Model $model The model
+     * @param string[] $readable A list of attributes to filter.
+     * @return array Filtered data
+     */
+    public function filterFields(Model $model, array $readable) {
+        return $model->toArray($readable);
+    }
+
+    /**
      * Constructs a new Model with data.
      * @param array $data Unused.
      * @return Model The new Model.
@@ -89,7 +99,7 @@ class Models_REST extends REST {
         $this->slog(SLog::A_CREATE, $model['id']);
 
         $this->finalizeStore();
-        return $model->toArray(static::$READABLE);
+        return $this->filterFields($model, static::$READABLE);
     }
 
     /**
@@ -116,7 +126,7 @@ class Models_REST extends REST {
         $reverse = Util::get($data, 'reverse');
 
         $ret = array_map(
-            function($x) { return $x->toArray(static::$READABLE); },
+            function($x) { return $this->filterFields($x, static::$READABLE); },
             $FINDER::getByQuery($query, $count, $offset, [], $reverse)
         );
 
@@ -232,7 +242,7 @@ class Models_REST extends REST {
                 }
             }
             $this->afterStore($model, $data[0], $new, $delete);
-            $ret[] = $model->toArray($single ? static::$READABLE:$ret_fields);
+            $ret[] = $this->filterFields($model, $single ? static::$READABLE:$ret_fields);
             Logger::info(sprintf('Modified %s', static::$MODEL), ['id' => $model['id']], self::LOG_NAMESPACE);
         }
 

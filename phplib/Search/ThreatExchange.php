@@ -25,6 +25,11 @@ class ThreatExchange_Search extends Search {
         return (bool) $raw->current->health;
     }
 
+    public function isAccessible() {
+        $tecfg = Config::get('threatexchange');
+        return !is_null($tecfg['api_token']);
+    }
+
     protected function constructQuery() {
         $query = Util::get($this->obj['query_data'], 'query', '');
         $range = Util::get($this->obj['query_data'], 'range', 10);

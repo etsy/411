@@ -15,7 +15,7 @@ $newsite->store();
 
 FOO\SiteFinder::setSite($newsite);
 $cfg = new FOO\DBConfig();
-$cfg['cookie_secret'] = FOO\Random::base64_bytes(24);
+$cfg['cookie_secret'] = FOO\Random::base64_bytes(FOO\Cookie::SECRET_LEN);
 $cfg['cron_enabled'] = 1;
 $cfg['worker_enabled'] = 1;
 $cfg['summary_enabled'] = 1;

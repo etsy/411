@@ -25,7 +25,6 @@ class Data_REST extends REST {
         $target_descs = $this->generateTypeDescs(Target::getTypes());
         $filter_descs = $this->generateTypeDescs(Filter::getTypes());
 
-        header('Content-Type: text/javascript;charset=utf-8');
         $ret = [
             'AppName' => Util::getSiteName(),
             'Host' => Util::getHost(),
@@ -103,11 +102,8 @@ class Data_REST extends REST {
     private function generateUsers() {
         $users = [];
         if(Auth::isAuthenticated()) {
-            foreach(UserFinder::getAll() as $user) {
-                $user = $user->toArray();
-                unset($user['password']);
-                $users[] = $user;
-            }
+            $c = new Users_REST;
+            $users = $c->GET()['data'];
         }
 
         return $users;

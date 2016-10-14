@@ -44,6 +44,15 @@ if(ver_cmp($old_ver, '1.0.1') < 0) {
     FOO\DB::query('CREATE INDEX `jobs_type_target_id_site_id_archived_idx` ON `jobs`(type, target_id, site_id, archived)');
 }
 
+if(ver_cmp($old_ver, '1.1.0') < 0) {
+    FOO\DB::query('ALTER TABLE `users` ADD COLUMN `api_key` VARCHAR(255) NOT NULL DEFAULT ""');
+    $user_ids = FOO\DB::query('SELECT user_id FROM users', [], FOO\DB::COL);
+    foreach($user_ids as $user_id) {
+        FOO\DB::query('UPDATE `users` SET `api_key`=? WHERE `user_id`=?', [FOO\Random::base64_bytes(FOO\User::API_KEY_LEN), $user_id]);
+    }
+    FOO\DB::query('CREATE UNIQUE INDEX `users_site_id_api_key_idx` ON `users`(`site_id`, `api_key`);');
+}
+
 /**
  * Migration logic
  */

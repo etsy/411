@@ -98,7 +98,7 @@ class Logger {
      * Format and return a backtrace string.
      * @param array $bt Backtrace array.
      * @param int $skip The number of frames to skip.
-     * @return string Backtrace string.
+     * @return array Backtrace array.
      */
     private static function bt_fmt($bt, $skip=0) {
         $bt_arr = [];

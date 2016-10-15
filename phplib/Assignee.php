@@ -13,7 +13,7 @@ class Assignee {
     const T_USER = 0;
     /** Group assignee */
     const T_GROUP = 1;
-    /** @var Mapping of types to a user-friendly string. */
+    /** @var string[] Mapping of types to a user-friendly string. */
     public static $TYPES = [
         self::T_USER => 'User',
         self::T_GROUP=> 'Group'

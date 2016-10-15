@@ -16,7 +16,7 @@ class GroupTarget extends Model {
     const T_USER = 0;
     /** Email type. */
     const T_EMAIL = 1;
-    /** @var Mapping of states to a user-friendly string. */
+    /** @var string[] Mapping of states to a user-friendly string. */
     public static $TYPES = [
         self::T_USER => 'User',
         self::T_EMAIL => 'Email'

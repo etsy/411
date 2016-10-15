@@ -14,7 +14,8 @@
         "phpunit/phpunit": "^4.8",
         "d11wtq/boris": "^1.0",
         "phpdocumentor/phpdocumentor": "^2.8",
-        "techlivezheng/phpctags": "^0.6.0"
+        "techlivezheng/phpctags": "^0.6.0",
+        "etsy/phan": "^0.6.0"
     },
     "authors": [
         {

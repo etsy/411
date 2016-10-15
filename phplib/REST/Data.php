@@ -103,7 +103,7 @@ class Data_REST extends REST {
         $users = [];
         if(Auth::isAuthenticated()) {
             $c = new Users_REST;
-            $users = $c->GET()['data'];
+            $users = $c->GET([])['data'];
         }
 
         return $users;

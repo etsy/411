@@ -10,7 +10,7 @@ use \Symfony\Component\ExpressionLanguage as SEL;
  * @package FOO
  */
 class ExpressionLanguage extends SEL\ExpressionLanguage {
-    /** @var Whitelisted functions available in ExpressionLanguage. */
+    /** @var string[] Whitelisted functions available in ExpressionLanguage. */
     private static $FUNCTIONS = ['explode', 'implode', 'trim', 'substr', 'str_replace', 'strlen', 'json_encode', 'json_decode'];
 
     /**

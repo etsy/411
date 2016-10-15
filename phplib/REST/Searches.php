@@ -35,8 +35,7 @@ class Searches_REST extends Models_REST {
     protected function construct($data=null) {
         $type = Util::get($data, 'type', '');
 
-        $MODEL = 'FOO\\' . static::$MODEL;
-        return $MODEL::newSearch($type);
+        return Search::newSearch($type);
     }
 
     public function GET(array $get) {
@@ -93,8 +92,6 @@ class Searches_REST extends Models_REST {
     }
 
     public function afterStore($model, $data, $new, $delete) {
-        $MODEL = 'FOO\\' . static::$MODEL;
-
         $fields = ['tags', 'priority', 'category', 'owner'];
 
         // Trigger a job to update any Alerts if we've changed any denormalized fields.
@@ -105,7 +102,7 @@ class Searches_REST extends Models_REST {
                 }
 
                 $syncjob = new Sync_Job();
-                $syncjob['target_id'] = $model[$MODEL::$PKEY];
+                $syncjob['target_id'] = $model[Search::$PKEY];
                 $syncjob['target_date'] = $_SERVER['REQUEST_TIME'];
                 $syncjob->store();
                 break;
@@ -122,7 +119,7 @@ class Searches_REST extends Models_REST {
 
         $log = new SearchLog();
         $log['user_id'] = Auth::getUserId();
-        $log['search_id'] = $model[$MODEL::$PKEY];
+        $log['search_id'] = $model[Search::$PKEY];
         $log['data'] = $model->toArray();
         $log['description'] = $description;
 
@@ -137,13 +134,11 @@ class Searches_REST extends Models_REST {
         $id = Util::get($data, 'id');
         $type = Util::get($data, 'type', '');
 
-        $MODEL = 'FOO\\' . static::$MODEL;
-        $FINDER = $MODEL . 'Finder';
-        $schema = $MODEL::getSchema();
+        $schema = Search::getSchema();
 
-        $search = $FINDER::getById($id);
+        $search = SearchFinder::getById($id);
         if(!$search) {
-            $search = $MODEL::newSearch($type);
+            $search = Search::newSearch($type);
         }
         foreach($data as $k=>$v) {
             if(!Util::exists($schema, $k)) {
@@ -167,11 +162,9 @@ class Searches_REST extends Models_REST {
 
         $id = Util::get($data, 'id');
 
-        $MODEL = 'FOO\\' . static::$MODEL;
-        $FINDER = $MODEL . 'Finder';
-        $schema = $MODEL::getSchema();
+        $schema = Search::getSchema();
 
-        $search = $FINDER::getById($id);
+        $search = SearchFinder::getById($id);
         foreach($data as $k=>$v) {
             if(!Util::exists($schema, $k)) {
                 continue;
@@ -193,8 +186,7 @@ class Searches_REST extends Models_REST {
         }
 
         $id = Util::get($data, 'id');
-        $FINDER = 'FOO\\' . static::$MODEL . 'Finder';
-        $model = $FINDER::getById($id);
+        $model = SearchFinder::getById($id);
         if(!$model) {
             throw new NotFoundException;
         }

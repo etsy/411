@@ -165,7 +165,7 @@ class DB {
      * Same as kPlaceholder, but accepts an array.
      * @param mixed[] $arr The array of values.
      * @param string $t The table name.
-     * @return string A placeholder fragment.
+     * @return string[] An array of placeholder fragments.
      */
     public static function kPlaceholders($arr, $t=null) {
         $ret = [];

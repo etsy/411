@@ -107,7 +107,6 @@ class AlertLogFinder extends ModelFinder {
      * @return Alert[] An array of Alerts.
      */
     public static function getRecent($date, $type, $range) {
-        $MODEL = 'FOO\\' . static::$MODEL;
         $sql = sprintf('
             SELECT * FROM `%s` INNER JOIN (
                 SELECT A.`log_id`, MAX(A.`create_date`) FROM `%s` as A INNER JOIN `%s` as B USING(`alert_id`) INNER JOIN `%s` as C USING(`search_id`)
@@ -115,9 +114,9 @@ class AlertLogFinder extends ModelFinder {
                 GROUP BY A.`alert_id`, `log_id`
                 HAVING MAX(A.`log_id`)
             ) AS `tbl` USING(`log_id`)
-        ', $MODEL::$TABLE, $MODEL::$TABLE, Alert::$TABLE, Search::$TABLE);
+        ', AlertLog::$TABLE, AlertLog::$TABLE, Alert::$TABLE, Search::$TABLE);
 
-        $objs = DB::query($sql, [SiteFinder::getCurrentId(), $type, $MODEL::A_CREATE, $date - $range, $date]);
+        $objs = DB::query($sql, [SiteFinder::getCurrentId(), $type, AlertLog::A_CREATE, $date - $range, $date]);
         return static::hydrateModels($objs);
     }
 

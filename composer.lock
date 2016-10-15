@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "112dad5c6436a242688c18d1829b2ac4",
-    "content-hash": "a55af0a0d7d824ddccbc060ecdbd64ae",
+    "hash": "f79956538d7c28bf2ca3af7e42bae7e3",
+    "content-hash": "cf774b205aec61effd17496e00961766",
     "packages": [
         {
             "name": "elasticsearch/elasticsearch",
@@ -909,6 +909,61 @@
                 "parser"
             ],
             "time": "2015-10-04 16:44:32"
+        },
+        {
+            "name": "etsy/phan",
+            "version": "0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etsy/phan.git",
+                "reference": "ea92e93008491b780fbaf3e97487845e3f60c78f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etsy/phan/zipball/ea92e93008491b780fbaf3e97487845e3f60c78f",
+                "reference": "ea92e93008491b780fbaf3e97487845e3f60c78f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ast": "*",
+                "ext-sqlite3": "0.7-dev",
+                "php": ">=7.0",
+                "symfony/console": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "dev-master",
+                "phpunit/phpunit": "~5",
+                "squizlabs/php_codesniffer": "^2.5"
+            },
+            "bin": [
+                "phan",
+                "tocheckstyle"
+            ],
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Phan\\": "src/Phan"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rasmus Lerdorf"
+                },
+                {
+                    "name": "Andrew S. Morrison"
+                }
+            ],
+            "description": "A static analyzer for PHP",
+            "keywords": [
+                "analyzer",
+                "php",
+                "static"
+            ],
+            "time": "2016-07-15 21:17:33"
         },
         {
             "name": "herrera-io/json",

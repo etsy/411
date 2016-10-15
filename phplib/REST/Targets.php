@@ -23,8 +23,7 @@ class Targets_REST extends Models_REST {
     protected function construct($data=null) {
         $type = Util::get($data, 'type', '');
 
-        $MODEL = 'FOO\\' . static::$MODEL;
-        return $MODEL::newTarget($type);
+        return Target::newTarget($type);
     }
 
     public function allowRead() {

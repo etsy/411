@@ -10,8 +10,8 @@ namespace FOO;
 class Util {
     /**
      * Return the value of a key or a default value.
-     * @param mixed $arr The array.
-     * @param string $key The key.
+     * @param array|\ArrayAccess $arr The array.
+     * @param string|int $key The key.
      * @param mixed $default The default value to return.
      * @return mixed|null The value of that key.
      */
@@ -21,8 +21,8 @@ class Util {
 
     /**
      * Determines whether an array contains a certain key.
-     * @param mixed $arr The array.
-     * @param string $key The key.
+     * @param array|\ArrayAccess $arr The array.
+     * @param string|int $key The key.
      * @return bool true if the key exists and false otherwise.
      */
     public static function exists($arr, $key) {
@@ -30,7 +30,7 @@ class Util {
         // work with the ArrayAccess interface. Otherwise, check if it implements
         // ArrayAccess and fall back to array_key_exists.
         if(is_object($arr)) {
-            return isset($arr[$key]);
+            return $arr->offsetExists($key);
         }
         if(is_array($arr)) {
             return array_key_exists($key, $arr);

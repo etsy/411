@@ -42,7 +42,7 @@ class Enricher {
      * @param mixed $data The input data.
      * @return mixed Enriched data.
      */
-    public static function process($data) {}
+    public static function process($data) { return null; }
 }
 
 /**

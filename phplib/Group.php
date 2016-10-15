@@ -16,7 +16,7 @@ class Group extends Model {
     const T_ALL = 0;
     /** Assignee rotation type. */
     const T_ROT = 1;
-    /** @var Mapping of types to a user-friendly string. */
+    /** @var string[] Mapping of types to a user-friendly string. */
     public static $TYPES = [
         self::T_ALL => 'All',
         self::T_ROT => 'Rotation'

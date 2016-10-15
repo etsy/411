@@ -442,7 +442,7 @@ class ModelFinder {
     /** Not equal to comparison. */
     const C_NEQ = 'neq';
 
-    /** @var Mapping of comparions to operators. */
+    /** @var string[] Mapping of comparions to operators. */
     private static $C_MAP = [
         self::C_GT => '>',
         self::C_LT => '<',

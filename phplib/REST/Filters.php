@@ -23,8 +23,7 @@ class Filters_REST extends Models_REST {
     protected function construct($data=null) {
         $type = Util::get($data, 'type', '');
 
-        $MODEL = 'FOO\\' . static::$MODEL;
-        return $MODEL::newFilter($type);
+        return Filter::newFilter($type);
     }
 
     public function allowRead() {

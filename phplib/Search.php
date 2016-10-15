@@ -33,7 +33,7 @@ abstract class Search extends TypeModel {
     const P_MED = 1;
     /** High priority. */
     const P_HIGH = 2;
-    /** @var Mapping of priorities to a user-friendly string. */
+    /** @var string[] Mapping of priorities to a user-friendly string. */
     public static $PRIORITIES = [
         self::P_LOW => 'Low',
         self::P_MED => 'Medium',
@@ -45,7 +45,7 @@ abstract class Search extends TypeModel {
     const SCT_FREQ = 0;
     /** Cron based frequency. */
     const SCT_CRON = 1;
-    /** @var Mapping of frequency types to a user-friendly string. */
+    /** @var string[] Mapping of frequency types to a user-friendly string. */
     public static $SCHEDULE_TYPES = [
         self::SCT_FREQ => 'Frequency',
         self::SCT_CRON => 'Cron'
@@ -60,7 +60,7 @@ abstract class Search extends TypeModel {
     const NT_HOURLY = 2;
     /** Daily. */
     const NT_DAILY = 3;
-    /** @var Mapping of notification schedules to a user-friendly string. */
+    /** @var string[] Mapping of notification schedules to a user-friendly string. */
     public static $NOTIF_TYPES = [
         self::NT_NONE => 'None',
         self::NT_ONDEMAND => 'On demand',
@@ -73,7 +73,7 @@ abstract class Search extends TypeModel {
     const NF_FULL = 0;
     /** Alert content only format. */
     const NF_CONTENTONLY = 1;
-    /** @var Mapping of formats to a user-friendly string. */
+    /** @var string[] Mapping of formats to a user-friendly string. */
     public static $NOTIF_FORMATS = [
         self::NF_FULL => 'Full',
         self::NF_CONTENTONLY => 'Content only',

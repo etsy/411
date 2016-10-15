@@ -68,7 +68,7 @@ class Models_REST extends REST {
      * @return Model The new Model.
      */
     protected function construct($data=null) {
-        $MODEL = 'FOO\\' . static::$MODEL;
+        $MODEL = '\FOO\\' . static::$MODEL;
         return new $MODEL();
     }
 

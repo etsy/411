@@ -64,10 +64,8 @@ class Reports_REST extends Models_REST {
         $id = Util::get($get, 'id');
         $mode = Util::get($get, 'mode');
 
-        $MODEL = 'FOO\\' . static::$MODEL;
-        $FINDER = $MODEL . 'Finder';
-        $schema = $MODEL::getSchema();
-        $report = $FINDER::getById($id);
+        $schema = Report::getSchema();
+        $report = ReportFinder::getById($id);
         foreach($data as $k=>$v) {
             if(!Util::exists($schema, $k)) {
                 continue;

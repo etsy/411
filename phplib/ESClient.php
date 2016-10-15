@@ -192,7 +192,7 @@ class ESClient {
 
                 do {
                     if(!array_key_exists('_scroll_id', $response)) {
-                        throw new ElasticException('No scroll id');
+                        throw new \RuntimeException('No scroll id');
                     }
 
                     $response = $client->scroll([

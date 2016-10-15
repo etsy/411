@@ -15,7 +15,7 @@ class Report extends Model {
     const T_AA = 0;
     /** Selection type. */
     const T_SEL = 1;
-    /** @var Mapping of states to a user-friendly string. */
+    /** @var string[] Mapping of states to a user-friendly string. */
     public static $TYPES = [
         self::T_AA => 'All Active',
         self::T_SEL => 'Selection'

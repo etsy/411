@@ -210,7 +210,7 @@ class Notification {
     /**
      * Send an email with a weekly summary.
      * @param string[]|string $to The destination email.
-     * @param DateTime $start_date The starting date for this week.
+     * @param \DateTime $start_date The starting date for this week.
      * @param int[] $stats New alerts, closed alerts and open alerts.
      * @param array $leaders Users who've closed the most Alerts this week w/ a count.
      * @param array $noisy_searches Searches that generate the most Alerts w/ a count.

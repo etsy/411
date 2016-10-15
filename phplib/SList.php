@@ -18,7 +18,7 @@ class SList extends Model {
     const T_CSV = 1;
     /** LSV list type. */
     const T_LSV = 2;
-    /** @var Mapping of types to a user-friendly string. */
+    /** @var string[] Mapping of types to a user-friendly string. */
     public static $TYPES = [
         self::T_JSON => 'JSON',
         self::T_CSV => 'Comma separated',

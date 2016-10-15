@@ -17,7 +17,7 @@ class Alert extends Model {
     const ST_INPROG = 1;
     /** Resolved state */
     const ST_RES = 2;
-    /** @var Mapping of states to a user-friendly string. */
+    /** @var string[] Mapping of states to a user-friendly string. */
     public static $STATES = [
         self::ST_NEW => 'New',
         self::ST_INPROG => 'In Progress',
@@ -31,7 +31,7 @@ class Alert extends Model {
     const RES_ACT = 1;
     /** Too old resolution */
     const RES_OLD = 2;
-    /** @var Mapping of resolutions to a user-friendly string. */
+    /** @var string[] Mapping of resolutions to a user-friendly string. */
     public static $RESOLUTIONS = [
         self::RES_NOT => 'Not an issue',
         self::RES_ACT => 'Action taken',
@@ -128,7 +128,7 @@ class AlertFinder extends ModelFinder {
      * @param int $search_id The Search id.
      * @param string $hash The hash.
      * @param int $since The time threshold.
-     * @return int A count of Alerts.
+     * @return int[] A count of Alerts.
      * @throws DBException
      */
     public static function getRecentSearchHashCount($search_id, $hash, $since) {

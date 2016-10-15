@@ -10,7 +10,7 @@ namespace FOO;
 abstract class TypeModel extends Model {
     // List of types. getTypes() should be used instead of referencing this directly.
     public static $TYPES = [];
-    /** @var Sub-type of this model. */
+    /** @var string Sub-type of this model. */
     public static $TYPE = '';
 
     /**

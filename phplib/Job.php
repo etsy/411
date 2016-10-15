@@ -26,7 +26,7 @@ abstract class Job extends TypeModel {
     const ST_CANC = 3;
     /** Running job state. */
     const ST_RUN = 4;
-    /** @var Mapping of states to a user-friendly string. */
+    /** @var string[] Mapping of states to a user-friendly string. */
     public static $STATES = [
         self::ST_PEND => 'Pending',
         self::ST_SUCC => 'Success',
@@ -127,22 +127,21 @@ class JobFinder extends TypeModelFinder {
      * @throws DBException
      */
     public static function fail($date) {
-        $MODEL = 'FOO\\' . static::$MODEL;
         $threshold = $date - (20 * 60);
 
         // Cancel any jobs that have failed more than MAX_TRIES times.
         $sql = sprintf('
             UPDATE `%s` SET `state` = ?, `update_date` = ?
             WHERE `site_id` = ? AND `archived` = 0 AND `state` IN %s AND `update_date` < ? AND `tries` > ?',
-        $MODEL::$TABLE, DB::inPlaceholder(2));
-        DB::query($sql, [$MODEL::ST_CANC, $date, SiteFinder::getCurrentId(), $MODEL::ST_RUN, $MODEL::ST_FAIL, $threshold, $MODEL::MAX_TRIES]);
+        Job::$TABLE, DB::inPlaceholder(2));
+        DB::query($sql, [Job::ST_CANC, $date, SiteFinder::getCurrentId(), Job::ST_RUN, Job::ST_FAIL, $threshold, Job::MAX_TRIES]);
 
         // Fail any jobs that have failed less than MAX_TRIES times.
         $sql = sprintf('
             UPDATE `%s` SET `state` = ?, `update_date` = ?
             WHERE `site_id` = ? AND `archived` = 0 AND `state` IN %s AND `update_date` < ? AND `tries` <= ?',
-        $MODEL::$TABLE, DB::inPlaceholder(2));
-        DB::query($sql, [$MODEL::ST_PEND, $date, SiteFinder::getCurrentId(), $MODEL::ST_RUN, $MODEL::ST_FAIL, $threshold, $MODEL::MAX_TRIES]);
+        Job::$TABLE, DB::inPlaceholder(2));
+        DB::query($sql, [Job::ST_PEND, $date, SiteFinder::getCurrentId(), Job::ST_RUN, Job::ST_FAIL, $threshold, Job::MAX_TRIES]);
     }
 
     /**
@@ -150,12 +149,11 @@ class JobFinder extends TypeModelFinder {
      * @return int[] A list of pending ids.
      */
     public static function getPendingIds() {
-        $MODEL = 'FOO\\' . static::$MODEL;
         $sql = sprintf(
             "SELECT `%s` FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND `state` = ?",
-            $MODEL::$PKEY, $MODEL::$TABLE
+            Job::$PKEY, Job::$TABLE
         );
-        $ret = DB::query($sql, [SiteFinder::getCurrentId(), $MODEL::ST_PEND], DB::COL);
+        $ret = DB::query($sql, [SiteFinder::getCurrentId(), Job::ST_PEND], DB::COL);
 
         return $ret;
     }
@@ -167,12 +165,11 @@ class JobFinder extends TypeModelFinder {
      * @return Job|null A Job if successful or null.
      */
     public static function getAndLock($id, $date) {
-        $MODEL = 'FOO\\' . static::$MODEL;
         $sql = sprintf(
             "UPDATE `%s` SET `state` = ?, `update_date` = ?, `tries` = `tries` + 1, `completion` = 0, `last_execution_date` = ? WHERE `site_id` = ? AND `archived` = 0 AND `state` = ? AND `%s` = ? LIMIT 1",
-            $MODEL::$TABLE, $MODEL::$PKEY
+            Job::$TABLE, Job::$PKEY
         );
-        $ret = DB::query($sql, [$MODEL::ST_RUN, $_SERVER['REQUEST_TIME'], $_SERVER['REQUEST_TIME'], SiteFinder::getCurrentId(), $MODEL::ST_PEND, $id], DB::CNT);
+        $ret = DB::query($sql, [Job::ST_RUN, $_SERVER['REQUEST_TIME'], $_SERVER['REQUEST_TIME'], SiteFinder::getCurrentId(), Job::ST_PEND, $id], DB::CNT);
 
         return $ret ? static::getById($id):null;
     }
@@ -182,13 +179,12 @@ class JobFinder extends TypeModelFinder {
      * @return array The counts of Jobs.
      */
     public static function getCounts() {
-        $MODEL = 'FOO\\' . static::$MODEL;
         $sql = sprintf(
             'SELECT `state`, COUNT(*) as `count` FROM `%s` WHERE `site_id` = ? AND `archived` = 0 GROUP BY `state`',
-            $MODEL::$TABLE
+            Job::$TABLE
         );
 
-        $ret = array_fill(0, count($MODEL::$STATES), 0);
+        $ret = array_fill(0, count(Job::$STATES), 0);
         foreach(DB::query($sql, [SiteFinder::getCurrentId()]) as $row) {
             $ret[$row['state']] = (int)$row['count'];
         }
@@ -210,11 +206,10 @@ class JobFinder extends TypeModelFinder {
      * @param int $date The current date.
      */
     public static function optimize($date) {
-        $MODEL = 'FOO\\' . static::$MODEL;
         $sql = sprintf('
             UPDATE `%s` SET `archived` = 1 WHERE `site_id` = ? AND `archived` = 0 AND `state` = ? AND `update_date` < ?',
-        $MODEL::$TABLE);
-        DB::query($sql, [SiteFinder::getCurrentId(), $MODEL::ST_SUCC, $date - (30 * 24 * 60 * 60)]);
+        Job::$TABLE);
+        DB::query($sql, [SiteFinder::getCurrentId(), Job::ST_SUCC, $date - (30 * 24 * 60 * 60)]);
     }
 }
 

@@ -29,6 +29,7 @@ How Tos
 Internals
 ---------
 
+- [API](/docs/API.md)
 - [Scheduling](/docs/Scheduling.md)
 - [Notification Emails](/docs/Notifications.md)
 

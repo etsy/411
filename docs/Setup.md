@@ -57,7 +57,7 @@ Move the 411 directory into `/var/www`. You may have to fix permissions on the d
 
 Install dependencies:
 ```
-$ composer install
+$ composer install --no-dev --optimize-autoloader
 ```
 
 Rename `config_example.php` to `config.php` and modify:

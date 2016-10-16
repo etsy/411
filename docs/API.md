@@ -7,7 +7,7 @@ To submit an API request, send the key via the `X-API-KEY` header. You can test 
 
 Example:
 ```
-$ curl -v -H 'X-API-KEY: API_KEY_HERE' https://HOSTNAME/api/ping
+$ curl -H 'X-API-KEY: API_KEY_HERE' https://HOSTNAME/api/ping
 {"data":"pong","success":true,"message":"","authenticated":true}
 ```
 

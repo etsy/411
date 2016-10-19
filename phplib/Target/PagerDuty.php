@@ -43,7 +43,7 @@ class PagerDuty_Target extends Target {
 
         $ret = self::createEvent(
             [
-                'service_key' => sprintf('%s', $pdcfg['service_key']),
+                'service_key' => $this->obj['data']['service_key'],
                 'event_type' => 'trigger',
                 'client' => '411',
                 'description' => sprintf('[%s] %s', $site['name'], $search['name']),

@@ -25,20 +25,19 @@ class PagerDuty_Target extends Target {
      */
     public function process(Alert $alert, $date) {
         $site = SiteFinder::getCurrent();
-        $desc = [];
-        $desc[] = sprintf('Date: %s', gmdate(DATE_RSS, $alert['alert_date']));
+        $desc = [
+          'date' => sprintf('%s', gmdate(DATE_RSS, $alert['alert_date'])),
 
-        $pdcfg = Config::get('pagerduty');
+        ];
 
         // Don't show the link if this event isn't persisted.
         if(!$alert->isNew()) {
-            $desc[] = sprintf('[Link to Alert|https://%s/alert/%d]', $site['host'], $alert['alert_id']);
+            $desc['link_to_alert'] = sprintf('https://%s/alert/%d', $site['host'], $alert['alert_id']);
         }
-        $desc[] = '';
-        $desc[] = '||Key||Value||';
         foreach($alert['content'] as $key=>$value) {
-            $desc[] = sprintf('|%s|%s|', $key, $value);
+            $desc[$key] = $value;
         }
+
         $search = SearchFinder::getById($alert['search_id']);
 
         $ret = self::createEvent(
@@ -47,7 +46,7 @@ class PagerDuty_Target extends Target {
                 'event_type' => 'trigger',
                 'client' => '411',
                 'description' => sprintf('[%s] %s', $site['name'], $search['name']),
-                'details' => $desc,
+                'details' => json_encode($desc),
             ]
         );
         if(!$ret) {

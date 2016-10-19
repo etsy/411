@@ -12,16 +12,20 @@ class Auth {
     private static $api_auth = false;
 
     public static function init() {
+        $user = null;
         if(array_key_exists('HTTP_X_API_KEY', $_SERVER)) {
             self::$api_auth = true;
-            if(strlen($_SERVER['HTTP_X_API_KEY']) < 30) {
+            if(strlen($_SERVER['HTTP_X_API_KEY']) < User::API_KEY_LEN) {
                 return;
             }
 
-            self::$user = UserFinder::getByAPIKey($_SERVER['HTTP_X_API_KEY']);
+            $user = UserFinder::getByAPIKey($_SERVER['HTTP_X_API_KEY']);
         } else {
-            self::$user = UserFinder::getById(Cookie::get('id'));
+            $user = UserFinder::getById(Cookie::get('id'));
         }
+
+        list($user) = Hook::call('auth.init', [$user]);
+        self::$user = $user;
     }
 
     /**
@@ -109,6 +113,6 @@ class Auth {
      * @return int A user id.
      */
     public static function getUserId() {
-        return is_null(self::$user) ? 0:self::$user['id'];
+        return is_null(self::$user) ? User::NONE:self::$user['id'];
     }
 }

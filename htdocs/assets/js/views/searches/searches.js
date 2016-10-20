@@ -227,7 +227,7 @@ define(function(require) {
         selectable: true,
         initializeCollectionData: function(params) {
             var arr = CollectionView.prototype.initializeCollectionData.call(this);
-            var children = arr[1].children;
+            var children = arr[1].childNodes;
             var count = children.length;
 
             // Insert a div after every 3 Views to line up the results.

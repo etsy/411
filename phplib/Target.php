@@ -9,7 +9,7 @@ namespace FOO;
  * @package FOO
  */
 abstract class Target extends Element {
-    public static $TYPES = ['Null_Target', 'WebHook_Target', 'Jira_Target', 'Slack_Target'];
+    public static $TYPES = ['Null_Target', 'WebHook_Target', 'Jira_Target', 'Slack_Target', 'PagerDuty_Target'];
     public static $TABLE = 'search_targets';
     public static $PKEY = 'target_id';
 

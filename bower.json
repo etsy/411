@@ -22,7 +22,7 @@
     "backbone": "^1.2.2",
     "bootstrap": "^3.3.4",
     "bootswatch": "^3.3.5",
-    "codemirror": "^5.10.0",
+    "codemirror": "~5.19.0",
     "eonasdan-bootstrap-datetimepicker": "~3.1.0",
     "false": "~0.1.0",
     "handlebars": "~3.0.3",

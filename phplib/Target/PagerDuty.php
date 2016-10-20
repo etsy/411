@@ -4,12 +4,12 @@ namespace FOO;
 
 /**
  * PagerDuty Target Class
- * Creates an event for an Alert.
+ * Creates an incident for an Alert.
  */
 class PagerDuty_Target extends Target {
     public static $TYPE = 'pagerduty';
 
-    public static $DESC = 'Create a incident for this alert and assign to <assignee>.';
+    public static $DESC = 'Create an incident for this alert.';
 
     protected static function generateDataSchema() {
         return [
@@ -67,8 +67,8 @@ class PagerDuty_Target extends Target {
             json_encode($event_data)
         );
 
-        if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
-            return null;
+        if($curl->httpStatusCode != 200) {
+             throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $ret));
         }
 
         return $ret->incident_key;

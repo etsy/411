@@ -8,45 +8,56 @@ namespace FOO;
  */
 class Jira_Data_REST extends REST {
     public function GET(array $get) {
-        $jira_data = [];
+        $jira_data = [
+            'Issues' => [],
+            'Users' => [],
+        ];
 
-        $raw_data = self::getJiraIssueMeta();
+        $issue_raw_data = self::getData('issue/createmeta');
+        $user_raw_data = self::getData('user/search?username=%&maxResults=100000');
 
         // Format the metadata for the frontend.
-        if(!is_null($raw_data)) {
-            foreach($raw_data->projects as $project) {
+        if(!is_null($issue_raw_data)) {
+            foreach($issue_raw_data['projects'] as $project) {
                 $issuetypes = [];
-                foreach($project->issuetypes as $issuetype) {
-                    $issuetypes[$issuetype->id] = [
-                        'name' => $issuetype->name
+                foreach($project['issuetypes'] as $issuetype) {
+                    $issuetypes[$issuetype['id']] = [
+                        'name' => $issuetype['name']
                     ];
                 }
-                $jira_data[$project->key] = [
-                    'name' => $project->name,
+                $jira_data['Issues'][$project['key']] = [
+                    'name' => $project['name'],
                     'issuetypes' => $issuetypes,
                 ];
+            }
+        }
+
+        // Format the metadata for the frontend.
+        if(!is_null($user_raw_data)) {
+            foreach($user_raw_data as $user) {
+                $jira_data['Users'][$user['name']] = $user['displayName'];
             }
         }
 
         return $jira_data;
     }
 
-    private static function getJiraIssueMeta() {
+    private static function getData($endpoint) {
         $jiracfg = Config::get('jira');
         if(is_null($jiracfg['host'])) {
             return null;
         }
 
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         if(!is_null($jiracfg['user']) && !is_null($jiracfg['pass'])) {
             $curl->setBasicAuthentication($jiracfg['user'], $jiracfg['pass']);
         }
-        $ret = $curl->get(sprintf('%s/rest/api/2/issue/createmeta', $jiracfg['host']));
+        $raw_data = $curl->get(sprintf('%s/rest/api/2/%s', $jiracfg['host'], $endpoint));
 
         if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
             return null;
         }
 
-        return $ret;
+        return $raw_data;
     }
 }

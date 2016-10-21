@@ -23,7 +23,9 @@ define(function(require) {
             }
         },
         ___render: function() {
-            var projects = Data.Jira;
+            var projects = Data.Jira.Issues;
+            var users = Data.Jira.Users;
+            console.log(Data.Jira);
             var issuetypes = {};
 
             var project_search = function(q) {
@@ -63,9 +65,27 @@ define(function(require) {
                 }
             };
 
+            var assignee_search = function(q) {
+                var results = [];
+                for(var k in users) {
+                    if(users[k].toLowerCase().indexOf(q.term) !== -1) {
+                        results.push({id: k, text: users[k]});
+                    }
+                }
+
+                q.callback({results: results});
+            };
+            var assignee_init = function(elem, callback) {
+                var k = elem.val();
+                if(users[k]) {
+                    callback({id: k, text: users[k]});
+                }
+            };
+
             // Update the available list of issuetypes.
             var project_select = this.registerElement('input[name=project]');
             var issuetype_select = this.registerElement('input[name=type]');
+            var assignee_select = this.registerElement('input[name=assignee]');
             project_select.on('change', function(e) {
                 issuetypes = e.added ? projects[e.added.id].issuetypes:[];
                 issuetype_select.select2('val', '');
@@ -78,6 +98,10 @@ define(function(require) {
             Util.initSelect(issuetype_select, {
                 initSelection: issuetype_init,
                 query: issuetype_search
+            }, true);
+            Util.initSelect(assignee_select, {
+                initSelection: assignee_init,
+                query: assignee_search
             }, true);
         }
     });

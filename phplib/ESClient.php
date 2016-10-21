@@ -413,9 +413,11 @@ class ESClient {
 
         $ret = [];
         $date = new \DateTime('@' . $_SERVER['REQUEST_TIME']);
+        $date->sub(new \DateInterval(sprintf('P%dD', $range)));
         for($i = 0; $i < $range; ++$i) {
-            $date_str = $date->sub(new \DateInterval('P10D'))->format('Y-m-d');
+            $date_str = $date->format('Y-m-d');
             $ret[$date_str] = [$date_str, 0];
+            $date->add(new \DateInterval('P1D'));
         }
 
         foreach($data['aggregations']['agg']['buckets'] as $x) {

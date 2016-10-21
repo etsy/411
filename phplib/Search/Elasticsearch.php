@@ -41,6 +41,11 @@ abstract class Elasticsearch_Search extends Search {
         return $config;
     }
 
+    public function isAccessible() {
+        $cfg = Config::get('elasticsearch');
+        return array_key_exists(static::$CONFIG_NAME, $cfg);
+    }
+
     protected function _getLink(Alert $alert) {
         return $this->generateLink(
             Util::get($this->obj['query_data'], 'query'),

@@ -15,9 +15,7 @@ class Dashboard_REST extends REST {
         $meta = new DBMeta;
         $client = new ESClient;
 
-        $func = function($data) {
-            return [$data['date'], Util::get($data, 'count', 0)];
-        };
+        $dates = $this->dateRange(-self::RANGE);
 
         // Get a count of how many Searches are failing.
         $sql = sprintf('SELECT COUNT(*) FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND `enabled` = ? AND `last_execution_date` = `last_failure_date` AND `last_execution_date` > 0',
@@ -62,7 +60,6 @@ class Dashboard_REST extends REST {
               ) AS `tbl` USING(`alert_id`, `create_date`) GROUP BY 1, 2;
               ', AlertLog::$TABLE, AlertLog::$TABLE);
         }
-        $dates = $this->dateRange(self::RANGE);
         $ret = DB::query($sql, [
             SiteFinder::getCurrentId(),
             AlertLog::A_ESCALATE,
@@ -84,6 +81,9 @@ class Dashboard_REST extends REST {
                     break;
             }
         }
+        $func = function($data) {
+            return [$data['date'], Util::get($data, 'count', 0)];
+        };
         $data['historical_actions'] = [
             $this->fillDates($groups[0], $dates, $func),
             $this->fillDates($groups[1], $dates, $func),
@@ -96,7 +96,7 @@ class Dashboard_REST extends REST {
         return self::format($data);
     }
 
-    private function dateRange($delta=-20) {
+    private function dateRange($delta) {
         $start = $delta > 0 ? 0:$delta;
         $end = $delta > 0 ? $delta:0;
         return array_map(function($x) { return date('Y-m-d', strtotime("now $x days")); }, range($start, $end));

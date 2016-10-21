@@ -37,7 +37,7 @@ class Users_REST extends Models_REST {
         return Auth::isAdmin();
     }
 
-    public function filterFields(Model $model, array $readable) {
+    public function filterFields(Model $model, array $readable=null) {
         $data = parent::filterFields($model, $readable);
         if(!Auth::isAdmin() && $model['id'] !== Auth::getUserId()) {
             unset($data['api_key']);

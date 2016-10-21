@@ -55,10 +55,10 @@ class Models_REST extends REST {
     /**
      * Filter fields of a model and return the filtered data.
      * @param Model $model The model
-     * @param string[] $readable A list of attributes to filter.
+     * @param string[]|null $readable A list of attributes to filter.
      * @return array Filtered data
      */
-    public function filterFields(Model $model, array $readable) {
+    public function filterFields(Model $model, array $readable=null) {
         return $model->toArray($readable);
     }
 

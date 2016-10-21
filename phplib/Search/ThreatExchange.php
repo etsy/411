@@ -17,12 +17,12 @@ class ThreatExchange_Search extends Search {
     const THREATS = "threats";
 
     public function isWorking($date) {
-        $curl = new \Curl\Curl;
-        $raw = $curl->get('https://www.facebook.com/feeds/api_status.php');
-        if($curl->httpStatusCode != 200 || !is_object($raw)) {
+        $curl = new Curl;
+        $raw_data = $curl->get('https://www.facebook.com/feeds/api_status.php');
+        if($curl->httpStatusCode != 200 || !is_array($raw_data)) {
             return false;
         }
-        return (bool) $raw->current->health;
+        return (bool) $raw_data['current']['health'];
     }
 
     public function isAccessible() {
@@ -57,28 +57,28 @@ class ThreatExchange_Search extends Search {
             throw new SearchException('Threatexchange not configured');
         }
 
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         $since = $date - ($constructed_qdata['range'] * 60);
-        $results = $curl->get($constructed_qdata, array(
+        $raw_data = $curl->get($constructed_qdata, [
            'access_token' => self::API_TOKEN . "|" . self::API_SECRET,
            'text'         => $constructed_qdata['query'],
            'limit'        => '1000',
            'since'        => $since,
            'until'        => $date,
-        ));
+        ]);
 
         if($curl->httpStatusCode != 200) {
-            throw new SearchException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $results));
+            throw new SearchException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw_data));
         }
 
         $alerts = [];
         if ($constructed_qdata['id']) {
             $alert = new Alert();
             $alert['alert_date'] = $date;
-            $alert['content'] = $results;
+            $alert['content'] = $raw_data;
             $alerts[] = $alert;
         } else {
-            foreach ($results->data as $result) {
+            foreach ($raw_data['data'] as $result) {
                 $alert = new Alert();
                 $alert['alert_date'] = $date;
                 $alert['content'] = (array) $result;

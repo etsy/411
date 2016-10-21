@@ -11,12 +11,12 @@ class IP_Enricher extends Enricher {
     public static $TYPE = 'ip';
 
     public static function process($data) {
-        $curl = new \Curl\Curl;
-        $ret = $curl->get(sprintf('https://freegeoip.net/json/%s', $data));
+        $curl = new Curl;
+        $raw_data = $curl->get(sprintf('https://freegeoip.net/json/%s', $data));
         if($curl->httpStatusCode != 200) {
             throw new EnricherException('Error retrieving data');
         }
 
-        return $ret;
+        return $raw_data;
     }
 }

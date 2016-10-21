@@ -40,7 +40,7 @@ class PagerDuty_Target extends Target {
 
         $search = SearchFinder::getById($alert['search_id']);
 
-        $ret = self::createEvent(
+        $incident_key = self::createEvent(
             [
                 'service_key' => $this->obj['data']['service_key'],
                 'event_type' => 'trigger',
@@ -49,9 +49,6 @@ class PagerDuty_Target extends Target {
                 'details' => json_encode($desc),
             ]
         );
-        if(!$ret) {
-            throw new TargetException(sprintf('Failed to send Event:%d to PagerDuty', $alert['alert_id']));
-        }
     }
 
     /**
@@ -60,17 +57,17 @@ class PagerDuty_Target extends Target {
      * @return string|null The incident key or null.
      */
     public static function createEvent($event_data) {
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         $curl->setHeader('Content-type', 'application/json');
-        $ret = $curl->post(
+        $raw_data = $curl->post(
             'https://events.pagerduty.com/generic/2010-04-15/create_event.json',
             json_encode($event_data)
         );
 
         if($curl->httpStatusCode != 200) {
-             throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $ret));
+            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw_data));
         }
 
-        return $ret->incident_key;
+        return $raw_data['incident_key'];
     }
 }

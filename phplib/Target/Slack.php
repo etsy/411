@@ -58,9 +58,9 @@ class Slack_Target extends Target {
             $alert->isNew() ? '[N/A]':sprintf('[<%s|Alert>]', $alert_link)
         ]);
 
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         $curl->setHeader('Content-Type', 'application/json; charset=utf-8');
-        $raw = $curl->post(
+        $raw_data = $curl->post(
             $scfg['webhook_url'],
             json_encode([
                 'channel' => $this->obj['data']['channel'],
@@ -76,7 +76,7 @@ class Slack_Target extends Target {
         );
 
         if($curl->httpStatusCode != 200) {
-            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw));
+            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw_data));
         }
     }
 }

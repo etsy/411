@@ -71,18 +71,18 @@ abstract class Elasticsearch_Search extends Search {
         $cfg = static::getConfig();
         $client = ESClient::getClient(static::$CONFIG_NAME);
 
-        $ret = false;
+        $working = false;
         try {
             if(is_null($cfg['index']) || !$this->isTimeBased()) {
                 $client->cat()->health();
-                $ret = true;
+                $working = true;
             } else {
                 $dt = new \DateTime("@$date");
                 $index = sprintf('%s-%s', $cfg['index'], $dt->format('Y.m.d'));
-                $ret = $client->indices()->exists(['index' => $index]);
+                $working = $client->indices()->exists(['index' => $index]);
             }
         } catch(\Exception $e) {}
-        return $ret;
+        return $working;
     }
 
     protected function constructQuery() {

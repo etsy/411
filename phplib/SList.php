@@ -38,30 +38,32 @@ class SList extends Model {
      * @return array|null The data from the list.
      */
     public function getData() {
-        $curl = new \Curl\Curl;
-        $raw = $curl->get($this->obj['url']);
+        $curl = new Curl;
+        $raw_data = $curl->get($this->obj['url']);
+
         $ret = null;
-        if($curl->httpStatusCode == 200 && $raw) {
+        if($curl->httpStatusCode == 200 && $raw_data) {
             switch($this->obj['type']) {
                 case self::T_JSON:
-                    if(is_array($raw)) {
-                        $ret = $raw;
+                    if(is_array($raw_data)) {
+                        $ret = $raw_data;
                     }
                     break;
                 case self::T_CSV:
-                    $ret = explode(',', $raw);
+                    $ret = explode(',', $raw_data);
                     if(array_slice($ret, -1)[0] == '') {
                         array_pop($ret);
                     }
                     break;
                 case self::T_LSV:
-                    $ret = explode("\n", $raw);
+                    $ret = explode("\n", $raw_data);
                     if(array_slice($ret, -1)[0] == '') {
                         array_pop($ret);
                     }
                     break;
             }
         }
+
         return $ret;
     }
 

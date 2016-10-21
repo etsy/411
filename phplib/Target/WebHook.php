@@ -63,11 +63,11 @@ class WebHook_Target extends Target {
             return;
         }
 
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         $curl->setHeader('Content-Type', 'application/json; charset=utf-8');
-        $raw = $curl->post($this->obj['data']['url'], json_encode($this->list));
+        $raw_data = $curl->post($this->obj['data']['url'], json_encode($this->list));
         if($curl->httpStatusCode != 200) {
-            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw));
+            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw_data));
         }
         $this->list = [];
     }

@@ -46,7 +46,7 @@ class Jira_Target extends Target {
         }
         $search = SearchFinder::getById($alert['search_id']);
 
-        $ret = self::createIssue(
+        $issue_key = self::createIssue(
             [
                 'project' => ['key' => $this->obj['data']['project']],
                 'issuetype' => ['id' => $this->obj['data']['type']],
@@ -68,21 +68,21 @@ class Jira_Target extends Target {
             throw new TargetException('Jira not configured');
         }
 
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         $curl->setHeader('X-Atlassian-Token', 'nocheck');
         $curl->setHeader('Content-type', 'application/json');
         if(!is_null($jiracfg['user']) && !is_null($jiracfg['pass'])) {
             $curl->setBasicAuthentication($jiracfg['user'], $jiracfg['pass']);
         }
-        $ret = $curl->post(
+        $raw_data = $curl->post(
             sprintf('%s/rest/api/2/issue', $jiracfg['host']),
             json_encode(['fields' => $issue_data])
         );
 
         if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
-            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $ret));
+            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw_data));
         }
 
-        return $ret->key;
+        return $raw_data['key'];
     }
 }

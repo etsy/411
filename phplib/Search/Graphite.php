@@ -21,7 +21,7 @@ class Graphite_Search extends Search {
         if(is_null($gcfg['host'])) {
             return false;
         }
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         $curl->head(sprintf('%s/render', $gcfg['host']));
         return $curl->httpStatusCode == 200;
     }
@@ -44,7 +44,7 @@ class Graphite_Search extends Search {
         if(is_null($gcfg['host'])) {
             throw new SearchException('Graphite not configured');
         }
-        $curl = new \Curl\Curl;
+        $curl = new Curl;
         $params = [
             'target' => sprintf('transformNull(%s)', $constructed_qdata['query']),
             'format' => 'raw',

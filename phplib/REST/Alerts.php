@@ -297,11 +297,7 @@ class Alerts_REST extends Models_REST {
 
         // Apply changes to the Alerts, and keep track of each Alert.
         $alert_groups = [[], []];
-        foreach($ids as $id) {
-            $alert = AlertFinder::getById($id);
-            if(is_null($alert)) {
-                continue;
-            }
+        foreach(AlertFinder::getByQuery(['id' => $ids]) as $alert) {
             foreach($fields as $field) {
                 $alert[$field] = Util::get($data, $field);
             }

@@ -20,6 +20,9 @@ class Autoclose_Job extends Job {
             ModelFinder::C_GT => 0
         ]]);
 
+        // Grab an ESClient instance so we can update Alerts in the index.
+        $client = new ESClient;
+
         for($i = 0; $i < count($searches); ++$i) {
             $search = $searches[$i];
 
@@ -43,10 +46,14 @@ class Autoclose_Job extends Job {
                 $log['a'] = Alert::ST_RES;
                 $log['b'] = Alert::RES_OLD;
                 $log->store();
+
+                $client->update($alert);
             }
 
             $this->setCompletion((($i + 1) / count($searches)) * 100);
         }
+
+        $client->finalize();
 
         return [null, []];
     }

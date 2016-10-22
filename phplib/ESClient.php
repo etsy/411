@@ -9,7 +9,7 @@ namespace FOO;
  */
 class ESClient {
     /** Number of Alerts to batch into a single request. */
-    const BATCH_SIZE = 1000;
+    const BATCH_SIZE = 5000;
 
     /** Name of the ES mapping template. */
     const MAPPING_TEMPLATE = '411_alerts_wildcard';

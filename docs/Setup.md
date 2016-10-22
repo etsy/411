@@ -6,7 +6,7 @@ Dependencies
 
 - Apache 2
 - PHP 5.5 with SQLite3 support
-- Sqlite 3.3+
+- Sqlite 3.3+/MySQL
 - Composer
 - Elasticsearch 2.0+
 
@@ -60,34 +60,20 @@ Install dependencies:
 $ composer install --no-dev --optimize-autoloader
 ```
 
-Rename `config_example.php` to `config.php` and modify:
-```
-# If Elasticsearch is set up locally, you might not have to make any changes.
-$config['elasticsearch'] = [
-    # Used by 411 to store Alerts
-    'alerts' => [
-        'hosts' => ['localhost:9200'], # Host to retrieve Alerts from.
-        'index_hosts' => [], # Host to push Alerts to. (If different)
-        'ssl_cert' => null, # Path to SSL certificate if self-signed.
-    ],
-
-    # Data source for the Logstash Search
-    'logstash' => [
-        'hosts' => ['localhost:9200'], # Hosts to query for results.
-        'index_hosts' => [], # Hosts to push lookup tables to. (If different)
-        'ssl_cert' => null, # Path to SSL certificate if self-signed.
-        'index' => 'logstash', # Index name (Without the date).
-        'date_based' => true, # Whether to append a date to the index (`logstash` becomes `logstash-2016.01.01`).
-        'date_field' => '@timestamp', # Field to use for date based queries.
-        'src_url' => null, # Link to Kibana instance.
-    ],
-];
-```
-
-Create the database:
+Create the database (sqlite):
 ```
 $ sqlite3 data.db < db.sql
 ```
+
+Create the database (mysql):
+```
+$ mysql
+> create database fouroneone
+> use fouroneone
+> source ./db_mysql.sql
+```
+
+Rename `config_example.php` to `config.php` and make changes as necessary.
 
 Run the db migration script:
 ```

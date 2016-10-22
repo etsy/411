@@ -26,8 +26,10 @@ Ping endpoint.
 
 #### `POST /api/login` ####
 
-Login endpoint.
+Login endpoint. (You'll probably never need to hit this)
 
+- `name`: Username.
+- `password`: Password.
 
 #### `* /api/admin` ####
 
@@ -62,6 +64,89 @@ Get health data.
 
 CRUD methods for Alerts.
 
+#### `GET /api/alert/ids` ####
+
+Get the ids of matching Alerts.
+
+- `query`: A Lucene query.
+- `from`: From timestamp.
+- `to`: To timestamp.
+
+#### `GET /api/alert/:id/link` ####
+
+Get the source link for this Alert.
+
+#### `GET /api/alert/bootstrap` ####
+
+Get Alert bootstrapping data.
+
+- `query`: A Lucene query.
+- `from`: From timestamp.
+- `to`: To timestamp.
+
+#### `GET /api/alert/query` ####
+
+Get matching Alerts.
+
+- `query`: A Lucene query.
+- `from`: From timestamp.
+- `to`: To timestamp.
+
+#### `POST /api/alert/send` ####
+
+Send a list of Alerts to a Target.
+
+- `target`: Target configuration data.
+- `ids`: A list of Alerts ids.
+
+#### `POST /api/alert/whitelist` ####
+
+Whitelist the specified Alerts.
+
+- `lifetime`: Lifetime of this whitelist in seconds.
+- `description`: Description
+- `ids`: A list of Alerts ids.
+
+#### `PUT /api/alert/escalate` ####
+
+Change escalation state of the specified Alerts.
+
+- `note`: Description
+- `escalated`: The new escalation state.
+- `ids`: A list of Alerts ids.
+
+#### `PUT /api/alert/switch` ####
+
+Change state of the specified Alerts.
+
+- `note`: Description
+- `state`: The new state.
+- `ids`: A list of Alerts ids.
+
+#### `PUT /api/alert/assign` ####
+
+Change assignee of the specified Alerts.
+
+- `note`: Description
+- `assignee_type`: The type of assignee.
+- `assignee`: The assignee id.
+- `ids`: A list of Alerts ids.
+
+#### `PUT /api/alert/note` ####
+
+Add a note to the specified Alerts.
+
+- `note`: Description
+- `ids`: A list of Alerts ids.
+
+#### `POST /api/alert/push?search_id=:id` ####
+
+Push Alerts into 411.
+
+An array of alerts.
+
+
+### Alert Logs ###
 
 #### `* /api/alertlog` ####
 
@@ -79,20 +164,54 @@ Apply enrichers to field data.
 
 CRUD methods for Searches.
 
+#### `GET /api/search/:id/stats` ####
 
-#### `* /api/search/SEARCH_ID/log` ####
+Get stats on this Search.
+
+#### `POST /api/search/:id/test` ####
+
+Test this Search.
+
+- Changed fields.
+
+#### `POST /api/search/:id/execute` ####
+
+Execute this Search.
+
+- Changed fields.
+
+
+### Search Logs ##
+
+#### `* /api/search/:id/log` ####
 
 CRUD methods for Search change logs.
 
 
-#### `* /api/search/SEARCH_ID/filter` ####
+### Search Filters ###
+
+#### `* /api/search/:id/filter` ####
 
 CRUD methods for Search filters.
 
+#### `POST /api/search/:id/filter/validate` ####
 
-#### `* /api/search/SEARCH_ID/target` ####
+Validate the filter.
+
+- Modified fields.
+
+
+### Search Targets ###
+
+#### `* /api/search/:id/target` ####
 
 CRUD methods for Search targets.
+
+#### `POST /api/search/:id/target/validate` ####
+
+Validate the target.
+
+- Modified fields.
 
 
 ### Groups ###
@@ -101,8 +220,7 @@ CRUD methods for Search targets.
 
 CRUD methods for Groups.
 
-
-#### `* /api/group/GROUP_ID/target` ####
+#### `* /api/group/:id/target` ####
 
 CRUD methods for Group targets.
 
@@ -120,8 +238,20 @@ CRUD methods for Jobs.
 
 CRUD methods for Reports.
 
+#### `GET /api/report/:id/generate` ####
 
-#### `* /api/report/REPORT_ID/target` ####
+Generate this report.
+
+- `mode`: `csv` or `pdf`.
+
+#### `POST /api/report/:id/generate` ####
+
+Generate this report.
+
+- `mode`: `csv` or `pdf`.
+- Modified fields.
+
+#### `* /api/report/:id/target` ####
 
 CRUD methods for Report target.
 
@@ -131,6 +261,10 @@ CRUD methods for Report target.
 #### `* /api/list` ####
 
 CRUD methods for Lists.
+
+#### `GET /api/list/:id/info` ####
+
+Get information on a list.
 
 
 ### Users ###

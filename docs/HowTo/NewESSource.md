@@ -23,7 +23,7 @@ $config['es'] = [
 Fields
 ------
 
-- `hosts`: A list of hosts in your ES cluster to query.
+- `hosts`: A list of hosts in your ES cluster to query. You can pass HTTP Basic auth credentials via the URL.
 - `index_hosts`: A list of hosts in your ES cluster to create documents on. If empty, defaults to `hosts`.
 - `ssl_cert`: The full path to the ssl certificate of the server (if using self signed certs).
 - `index`: The index to query. If `null`, will query all indices.

@@ -135,3 +135,9 @@ Fires off an ICMP ping against a host. If the ping fails, generates an Alert.
 
 - Host: The host to test.
 
+
+### Push ###
+
+![Push Search](/docs/imgs/search_push.png?raw=true)
+
+Allows you to push Alerts into 411 from an external source. See the [How To](/docs/HowTo/NewPushSearch.md) for details.

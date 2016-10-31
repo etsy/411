@@ -27,12 +27,16 @@ class PagerDuty_Target extends Target {
         $site = SiteFinder::getCurrent();
         $desc = [
           'date' => sprintf('%s', gmdate(DATE_RSS, $alert['alert_date'])),
-
         ];
 
         // Don't show the link if this event isn't persisted.
+        $contexts = [];
         if(!$alert->isNew()) {
-            $desc['link_to_alert'] = sprintf('https://%s/alert/%d', $site['host'], $alert['alert_id']);
+            $contexts[] = [
+                'type' => 'link',
+                'href' => sprintf('https://%s/alert/%d', $site['host'], $alert['alert_id']),
+                'text' => '411 Alert'
+            ];
         }
         foreach($alert['content'] as $key=>$value) {
             $desc[$key] = $value;
@@ -47,6 +51,7 @@ class PagerDuty_Target extends Target {
                 'client' => '411',
                 'description' => sprintf('[%s] %s', $site['name'], $search['name']),
                 'details' => json_encode($desc),
+                'contexts' => $contexts,
             ]
         );
     }

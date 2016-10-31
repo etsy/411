@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * 411 configuration file
+ *
+ * Rename this to 'config.php' and modify.
+ */
 $config = [];
 
 /**

@@ -4,11 +4,16 @@ Table of Contents
 Welcome to the 411 documentation! These pages are still a WIP. If information on a topic is lacking or you find any issues, please open an issue and we'll get it resolved ASAP!
 
 
-Usage
------
+Config
+------
 
 - [Setup](/docs/Setup.md)
 - [Upgrading](/docs/Upgrading.md)
+
+
+Usage
+-----
+
 - [Getting Started](/docs/GettingStarted.md)
 - [Searches](/docs/Searches.md)
 - [Filters](/docs/Filters.md)
@@ -20,8 +25,8 @@ Usage
 - [Misc Features](/docs/MiscFeatures.md)
 
 
-How Tos
--------
+HowTos
+------
 
 - [Adding a new Elasticsearch source](/docs/HowTo/NewESSource.md)
 
@@ -30,6 +35,7 @@ Internals
 ---------
 
 - [API](/docs/API.md)
+- [Hooks](/docs/Hooks.md)
 - [Scheduling](/docs/Scheduling.md)
 - [Notification Emails](/docs/Notifications.md)
 

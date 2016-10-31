@@ -322,11 +322,12 @@ class Notification {
      */
     public static function mail($to, $from, $title, $message, $file=null) {
         list($to, $from, $title, $message, $file) = Hook::call('mail', [$to, $from, $title, $message, $file]);
+        $to = (array) $to;
 
         $bnd = uniqid();
         $headers = "From: $from\r\n";
+        $headers.= "Reply-To: $to[0]\r\n";
         $headers.= "MIME-Version: 1.0\r\n";
-        $to = (array) $to;
         if (count($to) > 1) {
             $headers .= sprintf("CC: %s\r\n", implode(', ', array_slice($to, 1)));
         }

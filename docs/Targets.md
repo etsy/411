@@ -55,3 +55,13 @@ Generate a JIRA ticket off of an Alert. The contents of the Alert and a link bac
 - Project: The project to create the ticket under.
 - Type: The type of ticket to create.
 - Assignee: The user to assign the ticket to.
+
+
+### Pagerduty ###
+
+Create a new incident in Pagerduty based off of an Alert. The contents of the Alert and a link back to 411 will be included in the incident.
+
+#### Parameters ####
+
+- Service Key: The key for the service to generate incidents for.
+

@@ -20,6 +20,7 @@ tar cvzf release.tgz \
   composer.lock \
   config_example.php \
   db.sql \
+  db_mysql.sql \
   htdocs \
   phplib \
   templates \

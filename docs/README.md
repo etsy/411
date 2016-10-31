@@ -29,6 +29,7 @@ HowTos
 ------
 
 - [Adding a new Elasticsearch source](/docs/HowTo/NewESSource.md)
+- [Adding a new Push search](/docs/HowTo/NewPushSearch.md)
 
 
 Internals

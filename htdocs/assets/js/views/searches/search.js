@@ -402,6 +402,8 @@ define(function(require) {
                 );
             }
 
+            Util.autosize(this.registerElement('textarea[name=description]'));
+
             // Initialize selects.
             var tag_elems = this.registerElement('.tags');
             Util.initTags(tag_elems);

@@ -166,7 +166,7 @@ class JobFinder extends TypeModelFinder {
      */
     public static function getAndLock($id, $date) {
         $sql = sprintf(
-            "UPDATE `%s` SET `state` = ?, `update_date` = ?, `tries` = `tries` + 1, `completion` = 0, `last_execution_date` = ? WHERE `site_id` = ? AND `archived` = 0 AND `state` = ? AND `%s` = ? LIMIT 1",
+            "UPDATE `%s` SET `state` = ?, `update_date` = ?, `tries` = `tries` + 1, `completion` = 0, `last_execution_date` = ? WHERE `site_id` = ? AND `archived` = 0 AND `state` = ? AND `%s` = ?",
             Job::$TABLE, Job::$PKEY
         );
         $ret = DB::query($sql, [Job::ST_RUN, $_SERVER['REQUEST_TIME'], $_SERVER['REQUEST_TIME'], SiteFinder::getCurrentId(), Job::ST_PEND, $id], DB::CNT);

@@ -149,3 +149,15 @@ $config['slack'] = [
      */
     'webhook_url' => null
 ];
+
+/**
+ *
+ * Proxy Auth
+ *
+ *
+ */
+$config['proxy_auth'] = [
+    'enabled' => null,
+    'auto_sign_up' => null,
+    'header_name' => null,
+];

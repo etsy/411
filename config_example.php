@@ -160,4 +160,6 @@ $config['proxy_auth'] = [
     'enabled' => null,
     'auto_sign_up' => null,
     'header_name' => null,
+    'subject_is_email' => null,
+    'domain' => null,
 ];

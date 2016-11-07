@@ -12,6 +12,8 @@ class ProxyAuth {
     public static $enabled = false;
     public static $header_name = null;
     public static $auto_sign_up = false;
+    public static $subject_is_email = false;
+    public static $domain = null;
 
     public static function init() {
       $cfg = Config::get('proxy_auth');
@@ -19,18 +21,29 @@ class ProxyAuth {
       if(is_null($cfg['enabled']) || !$cfg['enabled']){
         return;
       }
-      if(!is_null($cfg['auto_sign_up'])) {
-        $auto_sign_up = $cfg['auto_sign_up'];
+      self::$enabled = true;
+
+      if(!is_null($cfg['subject_is_email'])) {
+        self::$subject_is_email = $cfg['subject_is_email'];
       }
-      $header_name = sprintf('HTTP_%s', strtoupper(str_replace("-","_", $cfg['header_name'])));
+
+      if(!is_null($cfg['auto_sign_up'])) {
+        self::$auto_sign_up = $cfg['auto_sign_up'];
+      }
+
+      if(!is_null($cfg['domain'])) {
+        self::$domain = $cfg['domain'];
+      }
+
+      self::$header_name = sprintf('HTTP_%s', strtoupper(str_replace("-","_", $cfg['header_name'])));
     }
 
     public static function isEnabled() {
-      return $enabled;
+      return self::$enabled;
     }
 
     public static function autoSignup() {
-      return $auto_sign_up;
+      return self::$auto_sign_up;
     }
 
     public static function createUser() {
@@ -59,7 +72,17 @@ class ProxyAuth {
       return false;
     }
 
-    public static function getUserName(){
-      return $_SERVER[$header_name];
+    public static function getUserName() {
+      if(self::$subject_is_email){
+        return explode('@', $_SERVER[self::$header_name])[0];
+      }
+      return $_SERVER[self::$header_name];
+    }
+
+    public static function getEmailAddress() {
+      if(self::$subject_is_email){
+        return $_SERVER[self::$header_name];
+      }
+      return sprintf("%s@%s", $_SERVER[self::$header_name], self::$domain);
     }
 }

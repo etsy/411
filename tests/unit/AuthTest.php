@@ -2,14 +2,14 @@
 
 class AuthTest extends DBTestCase {
     public function testLogout() {
-        FOO\Auth::setUserId(1);
+        TestHelper::becomeAdmin();
         FOO\Auth::logout();
         $this->assertFalse(FOO\Auth::isAuthenticated());
     }
 
     public function testLogin() {
         TestHelper::populateDB([
-            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', password_hash('pass', PASSWORD_DEFAULT), 'test@test.com', true, '', 0, 0, 0],
+            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', password_hash('pass', PASSWORD_DEFAULT), 'test@test.com', true, '', '', 0, 0, 0],
         ]);
 
         $this->assertNull(FOO\Auth::login('admin', ''));

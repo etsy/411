@@ -18,7 +18,7 @@ class TestHelper {
     }
 
     public static function teardownDB() {
-        FOO\Auth::setUserId(0);
+        FOO\Auth::setUser(null);
         FOO\Cookie::setWrite(true);
         FOO\DB::disconnect();
     }
@@ -32,17 +32,19 @@ class TestHelper {
 
     public static function populateUsers() {
         self::populateDB([
-            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', '', 'test@test.com', true, '', 0, 0, 0],
-            [FOO\User::$TABLE, 2, 0, 'user', 'User', '', 'test@test.com', false, '', 0, 0, 0],
+            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', '', 'test@test.com', true, '', 'a', 0, 0, 0],
+            [FOO\User::$TABLE, 2, 0, 'user', 'User', '', 'test@test.com', false, '', 'u', 0, 0, 0],
         ]);
     }
 
     public static function becomeAdmin() {
-        FOO\Auth::setUserId(1);
+        $user = FOO\UserFinder::getById(1);
+        FOO\Auth::setUser($user);
     }
 
     public static function becomeUser() {
-        FOO\Auth::setUserId(2);
+        $user = FOO\UserFinder::getById(2);
+        FOO\Auth::setUser($user);
     }
 
     public static function populateSite() {

@@ -5,24 +5,24 @@ class AlertLogTest extends DBTestCase {
         $alertlog = new FOO\AlertLog();
 
         $alertlog['action'] = FOO\AlertLog::A_NOTE;
-        $this->assertSame('Unknown added a note', $alertlog->getDescription());
+        $this->assertSame('System added a note', $alertlog->getDescription());
 
         $alertlog['action'] = FOO\AlertLog::A_ESCALATE;
         $alertlog['a'] = 1;
-        $this->assertSame('Unknown escalated', $alertlog->getDescription());
+        $this->assertSame('System escalated', $alertlog->getDescription());
 
         $alertlog['action'] = FOO\AlertLog::A_ASSIGN;
         $alertlog['a'] = 1;
-        $this->assertSame('Unknown assigned to Unknown', $alertlog->getDescription());
+        $this->assertSame('System assigned to System', $alertlog->getDescription());
         $alertlog['a'] = 0;
-        $this->assertSame('Unknown unassigned', $alertlog->getDescription());
+        $this->assertSame('System unassigned', $alertlog->getDescription());
 
         $alertlog['action'] = FOO\AlertLog::A_SWITCH;
         $alertlog['a'] = 0;
-        $this->assertSame('Unknown marked New', $alertlog->getDescription());
+        $this->assertSame('System marked New', $alertlog->getDescription());
         $alertlog['a'] = 2;
         $alertlog['b'] = 0;
-        $this->assertSame('Unknown marked Resolved (Not an issue)', $alertlog->getDescription());
+        $this->assertSame('System marked Resolved (Not an issue)', $alertlog->getDescription());
     }
 
     public function testFinderGetRecentForRollup() {

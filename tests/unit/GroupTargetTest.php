@@ -3,7 +3,7 @@
 class GroupTargetTest extends DBTestCase {
     public function testGetEmail() {
         TestHelper::populateDB([
-            [FOO\User::$TABLE, 1, 0, 'user', 'User', '', 'user@test.com', false, '', 0, 0, 0]
+            [FOO\User::$TABLE, 1, 0, 'user', 'User', '', 'user@test.com', false, '', '', 0, 0, 0]
         ]);
 
         $grouptarget = new FOO\GroupTarget();

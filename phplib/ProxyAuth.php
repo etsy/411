@@ -60,11 +60,11 @@ class ProxyAuth {
     }
 
     public static function available() {
-      if(!$enabled){
+      if(!self::$enabled){
         return false;
       }
-      if(array_key_exists($header_name, $_SERVER)) {
-        if(strlen($_SERVER[$header_name]) == 0) {
+      if(array_key_exists(self::$header_name, $_SERVER)) {
+        if(strlen($_SERVER[self::$header_name]) == 0) {
           return false;
         }
         return true;

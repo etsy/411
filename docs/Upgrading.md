@@ -3,14 +3,7 @@ Upgrading
 
 Update dependencies
 ```
-$ npm update
-$ bower update
-$ composer update
-```
-
-Rebuild
-```
-$ grunt prod
+$ composer update --no-dev --optimize-autoloader
 ```
 
 Run the db migration script:

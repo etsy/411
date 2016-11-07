@@ -22,7 +22,7 @@ class ProxyAuth {
       if(!is_null($cfg['$auto_sign_up']) {
         $auto_sign_up = $cfg['$auto_sign_up'];
       }
-      $header_name = sprintf('HTTP_%s', strtoupper(str_replace("-","_", $cfg['header_name'])))
+      $header_name = sprintf('HTTP_%s', strtoupper(str_replace("-","_", $cfg['header_name'])));
     }
 
     public static function isEnabled() {
@@ -30,7 +30,7 @@ class ProxyAuth {
     }
 
     public static function autoSignup() {
-      return $auto_sign_up
+      return $auto_sign_up;
     }
 
     public static function createUser() {
@@ -48,7 +48,7 @@ class ProxyAuth {
 
     public static function available() {
       if(!$enabled){
-        return false
+        return false;
       }
       if(array_key_exists($header_name, $_SERVER) {
         if(strlen($_SERVER[$header_name]) == 0) {

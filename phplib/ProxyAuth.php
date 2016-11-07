@@ -4,7 +4,7 @@ namespace FOO;
 
 /**
  * Class ProxyAuth
- * Handles authentication related functionality.
+ * Handles authentication when run behind a SAML Proxy.
  * @package FOO
  */
 class ProxyAuth {
@@ -38,14 +38,6 @@ class ProxyAuth {
       self::$header_name = sprintf('HTTP_%s', strtoupper(str_replace("-","_", $cfg['header_name'])));
     }
 
-    public static function isEnabled() {
-      return self::$enabled;
-    }
-
-    public static function autoSignup() {
-      return self::$auto_sign_up;
-    }
-
     public static function createUser() {
       $user = new User();
       $user['name'] = self::getUserName();
@@ -59,6 +51,10 @@ class ProxyAuth {
       return $user;
     }
 
+    /**
+     * Returns whether Proxy Auth is available via config and headers passed.
+     * @return bool Whether Proxy Auth is available.
+     */
     public static function available() {
       if(!self::$enabled){
         return false;
@@ -72,6 +68,10 @@ class ProxyAuth {
       return false;
     }
 
+    /**
+     * Returns Username from SAML Header.
+     * @return string Username.
+     */
     public static function getUserName() {
       if(self::$subject_is_email){
         return explode('@', $_SERVER[self::$header_name])[0];
@@ -79,6 +79,10 @@ class ProxyAuth {
       return $_SERVER[self::$header_name];
     }
 
+    /**
+     * Returns Email from SAML Header plus configuration.
+     * @return string Email.
+     */
     public static function getEmailAddress() {
       if(self::$subject_is_email){
         return $_SERVER[self::$header_name];

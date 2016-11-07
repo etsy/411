@@ -67,7 +67,7 @@ class ECL_Search extends Search {
                 $alert_date = $date;
 
                 $has_date_field = false;
-                foreach($date_fields as $date_field) {
+                foreach($date_fields as $date_field=>$date_type) {
                     if(array_key_exists($date_field, $entry)) {
                         $has_date_field = true;
                         break;
@@ -76,11 +76,7 @@ class ECL_Search extends Search {
 
                 if ($has_date_field) {
                     // Extract the date field.
-                    if(ctype_digit($entry[$date_field])) {
-                        $alert_date = (int) $entry[$date_field];
-                    } else {
-                        $alert_date = strtotime($entry[$date_field]);
-                    }
+                    $alert_date = Util::parseDates($date_type, [$entry[$date_field]])[0] / 1000;
                     unset($entry[$date_field]);
                 }
                 $alert['alert_date'] = $alert_date;
@@ -99,11 +95,7 @@ class Builder extends \ECL\Command\Elasticsearch\Builder {
     public function build($source, array $query=[], $agg=null, array $settings=[]) {
         $cfg = Util::get($this->sources, $source);
         $date_field = Util::get($cfg, 'date_field');
-
-        if(!is_null($date_field)) {
-            $this->date_fields[] = $date_field;
-            $this->date_fields = array_unique($this->date_fields);
-        }
+        $this->date_fields[$date_field] = Util::get($cfg, 'date_type');
 
         return parent::build($source, $query, $agg, $settings);
     }

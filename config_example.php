@@ -50,10 +50,10 @@ $config['elasticsearch'] = [
      * 'date_based': Whether to generate an index name according to a date-based index pattern.
      * 'date_field': The field to use for doing date-based queries.
      * 'date_type': The format of the date field.
-     *              Leave as null to detect the date format. Should work most of the time.
-     *              Specify a DateTime format to force its use.
-     *              Specify '@' to force parsing the date as a unix timestamp.
-     *              Specify '#' to force parsing the date as a unix timestamp (in milliseconds).
+     *              null - Automatically detect and parse. Should work most of the time!
+     *              '@' - Parse as a UNIX timestamp.
+     *              '#' - Parse as a UNIX timestamps (in milliseconds).
+     *              All other strings are interpretted via PHP's date formatting syntax.
      * 'src_url': A format string for generating default source links.
      *            Requires the following format specifiers: 's', 'd', 'd'.
      *            Ex: 'https://localhost/?query=%s&from=%d&to=%d'
@@ -67,6 +67,7 @@ $config['elasticsearch'] = [
         'index' => null,
         'date_based' => false,
         'date_field' => 'alert_date',
+        'date_type' => null,
         'src_url' => null,
     ],
     # Configuration for the logstash index that 411 queries.
@@ -77,6 +78,7 @@ $config['elasticsearch'] = [
         'index' => 'logstash',
         'date_based' => true,
         'date_field' => '@timestamp',
+        'date_type' => null,
         'src_url' => null,
     ],
 ];

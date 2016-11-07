@@ -103,7 +103,7 @@ abstract class Elasticsearch_Search extends Search {
         if(!is_null($cfg['date_field'])) {
             $event_time_based = Util::get($this->obj['query_data'], 'event_time_based', false);
 
-            $settings['date_field'] = $cfg['date_field']; // F_DIS $event_time_based ? '@timestamp':'index_timestamp';
+            $settings['date_field'] = $cfg['date_field'];
             // If a timestamp field was specified, make sure to always request it.
             if(count($fields)) {
                 $fields[] = $cfg['date_field'];
@@ -113,14 +113,14 @@ abstract class Elasticsearch_Search extends Search {
             $settings['fields'] = $fields;
         }
         return [
-            $settings, $query_list, $fields, $cfg['date_field'],
+            $settings, $query_list, $fields, $cfg['date_field'], $cfg['date_format'],
             Util::get($this->obj['query_data'], 'result_type', 0),
             Util::get($this->obj['query_data'], 'filter_range', 0),
         ];
     }
 
     protected function _execute($date, $constructed_qdata) {
-        list($settings, $query_list, $fields, $date_field, $result_type, $filter_range) = $constructed_qdata;
+        list($settings, $query_list, $fields, $date_field, $date_format, $result_type, $filter_range) = $constructed_qdata;
 
         // If our last_success_date is within 10 seconds of the start time, use that
         // as the start time.
@@ -137,7 +137,7 @@ abstract class Elasticsearch_Search extends Search {
 
         return $this->search($date,
             $settings, $query_list,
-            $fields, $date_field,
+            $fields, $date_field, $date_format,
             $result_type, $filter_range
         );
     }
@@ -167,12 +167,13 @@ abstract class Elasticsearch_Search extends Search {
      * @param array $query_list The query list.
      * @param array $fields A list of fields to include.
      * @param string $date_field The date field to pull the date from.
+     * @param string $date_format The format of the date field.
      * @param int $result_type The type of result to return.
      * @param array[] $filter_range The lower and upper bounds for results. Use null to represent an unbounded side.
      * @return Alert[] A list of Alert results.
      * @throws SearchException
      */
-    public function search($date, $settings, $query_list, $fields, $date_field, $result_type, $filter_range) {
+    public function search($date, $settings, $query_list, $fields, $date_field, $date_format, $result_type, $filter_range) {
         // If we're looking for no results, set filter to (< 1)
         if($result_type == self::R_NO_RESULTS) {
             $filter_range = [0, 0];
@@ -274,11 +275,7 @@ abstract class Elasticsearch_Search extends Search {
                                     $alert_date = $date;
                                     if (array_key_exists($date_field, $row)) {
                                         // Extract the date field.
-                                        if(ctype_digit($row[$date_field])) {
-                                            $alert_date = (int) $row[$date_field];
-                                        } else {
-                                            $alert_date = strtotime($row[$date_field]);
-                                        }
+                                        $alert_date = Util::parseDates($date_format, [$row[$date_field]])[0] / 1000;
                                         unset($row[$date_field]);
                                     }
                                     $alert['alert_date'] = $alert_date;

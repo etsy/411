@@ -150,4 +150,38 @@ class Util {
         }
         return $host;
     }
+
+    /**
+     * Convert dates to unix timestamps (in milliseconds).
+     * @param string|null Format.
+     * @param int[]|string[] Dates.
+     * @return int[] Timestamps.
+     */
+    public static function parseDates($format, array $dates) {
+        $ret = [];
+        switch($format) {
+        case '#':
+            $ret = $dates;
+            break;
+        case '@':
+            foreach($dates as $date) {
+                $ret[] = $date * 1000;
+            }
+            break;
+        default:
+            foreach($dates as $date) {
+                if(!$format) {
+                    $ret[] = strtotime($date) * 1000;
+                } else {
+                    $dt = \DateTime::createFromFormat($format, $date);
+                    if($dt) {
+                        $ret[] = $dt->getTimestamp() * 1000;
+                    }
+                }
+            }
+            break;
+        }
+
+        return $ret;
+    }
 }

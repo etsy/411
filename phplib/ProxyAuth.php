@@ -52,7 +52,7 @@ class ProxyAuth {
       $user['real_name'] = 'Proxy Auth';
       $user['password'] = password_hash(Random::base64_bytes(12), PASSWORD_DEFAULT);
       $user['email'] = self::getEmailAddress();
-      $user['admin'] = 'n';
+      $user['admin'] = false;
       $user['api_key'] = Random::base64_bytes(User::API_KEY_LEN);
       $user->store();
 

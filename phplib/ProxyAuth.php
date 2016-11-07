@@ -52,6 +52,14 @@ class ProxyAuth {
     }
 
     /**
+     * Returns whether Proxy Auth configured to automatically create new users.
+     * @return bool Whether to create unknown users.
+     */
+    public static function autoSignup(){
+      return self::$auto_sign_up;
+    }
+
+    /**
      * Returns whether Proxy Auth is available via config and headers passed.
      * @return bool Whether Proxy Auth is available.
      */

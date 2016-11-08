@@ -3,7 +3,7 @@ Upgrading
 
 Update dependencies
 ```
-$ composer update --no-dev --optimize-autoloader
+$ composer install --no-dev --optimize-autoloader
 ```
 
 Run the db migration script:

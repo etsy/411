@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v2.2.2",
+            "version": "v2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elastic/elasticsearch-php.git",
-                "reference": "2f54f5c5301075b993da5505e406d2a4d6113222"
+                "reference": "588ede911141543f5b43e9f605931d5e6490a3d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/2f54f5c5301075b993da5505e406d2a4d6113222",
-                "reference": "2f54f5c5301075b993da5505e406d2a4d6113222",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/588ede911141543f5b43e9f605931d5e6490a3d6",
+                "reference": "588ede911141543f5b43e9f605931d5e6490a3d6",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2016-10-17 19:43:19"
+            "time": "2016-11-04 17:59:06"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -168,12 +168,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/ecl.git",
-                "reference": "4167f0349e0aff789e256978fc3766dba832c4de"
+                "reference": "93a7ad3309a8267077457aacbca0f7c47c9938be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/4167f0349e0aff789e256978fc3766dba832c4de",
-                "reference": "4167f0349e0aff789e256978fc3766dba832c4de",
+                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/93a7ad3309a8267077457aacbca0f7c47c9938be",
+                "reference": "93a7ad3309a8267077457aacbca0f7c47c9938be",
                 "shasum": ""
             },
             "require": {
@@ -192,7 +192,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "ECL",
-            "time": "2016-10-28 20:55:38"
+            "time": "2016-11-03 03:16:13"
         },
         {
             "name": "kiwiz/esquery",
@@ -1172,16 +1172,16 @@
         },
         {
             "name": "jms/serializer",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "aa49d7e436a29eb492f7dab5a55d0d4495e2ed0b"
+                "reference": "c0c1af0d9f1a710c7fbae1732dadc4d913980299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/aa49d7e436a29eb492f7dab5a55d0d4495e2ed0b",
-                "reference": "aa49d7e436a29eb492f7dab5a55d0d4495e2ed0b",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/c0c1af0d9f1a710c7fbae1732dadc4d913980299",
+                "reference": "c0c1af0d9f1a710c7fbae1732dadc4d913980299",
                 "shasum": ""
             },
             "require": {
@@ -1243,7 +1243,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2016-10-31 11:41:07"
+            "time": "2016-11-02 16:15:37"
         },
         {
             "name": "justinrainbow/json-schema",

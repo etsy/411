@@ -25,7 +25,6 @@ define(function(require) {
         ___render: function() {
             var projects = Data.Jira.Issues;
             var users = Data.Jira.Users;
-            console.log(Data.Jira);
             var issuetypes = {};
 
             var project_search = function(q) {
@@ -77,9 +76,7 @@ define(function(require) {
             };
             var assignee_init = function(elem, callback) {
                 var k = elem.val();
-                if(users[k]) {
-                    callback({id: k, text: users[k]});
-                }
+                callback({id: k, text: users[k] || k});
             };
 
             // Update the available list of issuetypes.
@@ -100,6 +97,9 @@ define(function(require) {
                 query: issuetype_search
             }, true);
             Util.initSelect(assignee_select, {
+                createSearchChoice: function(term) {
+                    return {id: term, text: term};
+                },
                 initSelection: assignee_init,
                 query: assignee_search
             }, true);

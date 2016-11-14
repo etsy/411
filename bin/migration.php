@@ -45,7 +45,7 @@ if(ver_cmp($old_ver, '1.0.1') < 0) {
 }
 
 if(ver_cmp($old_ver, '1.1.0') < 0) {
-    FOO\DB::query('ALTER TABLE `users` ADD COLUMN `api_key` VARCHAR(255) NOT NULL DEFAULT ""');
+    FOO\DB::query('ALTER TABLE `users` ADD COLUMN `api_key` VARCHAR(64) NOT NULL DEFAULT ""');
     $user_ids = FOO\DB::query('SELECT user_id FROM users', [], FOO\DB::COL);
     foreach($user_ids as $user_id) {
         FOO\DB::query('UPDATE `users` SET `api_key`=? WHERE `user_id`=?', [FOO\Random::base64_bytes(FOO\User::API_KEY_LEN), $user_id]);

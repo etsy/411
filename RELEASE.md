@@ -1,3 +1,12 @@
+# v1.2.0 #
+
+- Added support for index patterns
+- Added options for parsing date fields
+
+## Breaking changes ##
+
+- The config syntax for specifying indices has changed. See `config_example.php` for details.
+
 # v1.1.0 #
 
 - Added support for API keys

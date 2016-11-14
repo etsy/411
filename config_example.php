@@ -47,7 +47,17 @@ $config['elasticsearch'] = [
      * 'index_hosts': An array of hosts to use for indexing (if different from 'hosts').
      * 'ssl_cert': Path to an ssl certificate if your cluster uses HTTPS.
      * 'index': The index to query. Leave as null to query all indices.
+     *          If the index is date_based, accepts index patterns. (Otherwise, it's taken literally)
+     *          Any characters wrapped by [] will be taken literally.
+     *          All other characters are interpretted via PHP's date formatting syntax.
+     *          See https://secure.php.net/manual/en/function.date.php for details.
      * 'date_based': Whether to generate an index name according to a date-based index pattern.
+     * 'date_interval': If the index is date_based, this defines the indexing pattern interval.
+     *                  'h' - Hourly.
+     *                  'd' - Daily.
+     *                  'w' - Weekly.
+     *                  'm' - Monthly.
+     *                  'y' - Yearly.
      * 'date_field': The field to use for doing date-based queries.
      * 'date_type': The format of the date field.
      *              null - Automatically detect and parse. Should work most of the time!
@@ -66,6 +76,7 @@ $config['elasticsearch'] = [
         'ssl_cert' => null,
         'index' => null,
         'date_based' => false,
+        'date_interval' => null,
         'date_field' => 'alert_date',
         'date_type' => null,
         'src_url' => null,
@@ -75,8 +86,9 @@ $config['elasticsearch'] = [
         'hosts' => ['http://localhost:9200'],
         'index_hosts' => [],
         'ssl_cert' => null,
-        'index' => 'logstash',
+        'index' => '[logstash-]Y.m.d',
         'date_based' => true,
+        'date_interval' => 'd',
         'date_field' => '@timestamp',
         'date_type' => null,
         'src_url' => null,

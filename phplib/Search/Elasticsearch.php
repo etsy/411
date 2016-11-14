@@ -28,13 +28,7 @@ abstract class Elasticsearch_Search extends Search {
     public static function getConfig() {
         static $config = null;
         if(is_null($config)) {
-            /**
-             * $config is an associative array with following values:
-             *  src_url: Base source url. Used to generate source urls in the UI.
-             *  hosts: Array of hosts in the elasticsearch cluster.
-             *  index: Index to search. Optional.
-             *  date_based: Whether this index is time-based. Auto-mangles index names if so.
-             */
+            // Check config_example.php for details on the options in this array.
             $config = Config::get('elasticsearch')[static::$CONFIG_NAME];
         }
 
@@ -64,7 +58,7 @@ abstract class Elasticsearch_Search extends Search {
     }
 
     public function isTimeBased() {
-        return !is_null(static::getConfig()['date_field']);
+        return !is_null(Util::get(static::getConfig(), 'date_field'));
     }
 
     public function isWorking($date) {
@@ -77,8 +71,10 @@ abstract class Elasticsearch_Search extends Search {
                 $client->cat()->health();
                 $working = true;
             } else {
-                $dt = new \DateTime("@$date");
-                $index = sprintf('%s-%s', $cfg['index'], $dt->format('Y.m.d'));
+                $index = $cfg['index'];
+                if(Util::get($cfg, 'date_based', false)) {
+                    $index = \ECL\Util::generateDateIndices($cfg['index'], Util::get($cfg, 'date_based'), $date, $date)[0];
+                }
                 $working = $client->indices()->exists(['index' => $index]);
             }
         } catch(\Exception $e) {}
@@ -113,14 +109,14 @@ abstract class Elasticsearch_Search extends Search {
             $settings['fields'] = $fields;
         }
         return [
-            $settings, $query_list, $fields, $cfg['date_field'], $cfg['date_format'],
+            $settings, $query_list, $fields, Util::get($cfg, 'date_field'), Util::get($cfg, 'date_type'),
             Util::get($this->obj['query_data'], 'result_type', 0),
             Util::get($this->obj['query_data'], 'filter_range', 0),
         ];
     }
 
     protected function _execute($date, $constructed_qdata) {
-        list($settings, $query_list, $fields, $date_field, $date_format, $result_type, $filter_range) = $constructed_qdata;
+        list($settings, $query_list, $fields, $date_field, $date_type, $result_type, $filter_range) = $constructed_qdata;
 
         // If our last_success_date is within 10 seconds of the start time, use that
         // as the start time.
@@ -137,7 +133,7 @@ abstract class Elasticsearch_Search extends Search {
 
         return $this->search($date,
             $settings, $query_list,
-            $fields, $date_field, $date_format,
+            $fields, $date_field, $date_type,
             $result_type, $filter_range
         );
     }
@@ -167,13 +163,13 @@ abstract class Elasticsearch_Search extends Search {
      * @param array $query_list The query list.
      * @param array $fields A list of fields to include.
      * @param string $date_field The date field to pull the date from.
-     * @param string $date_format The format of the date field.
+     * @param string $date_type The format of the date field.
      * @param int $result_type The type of result to return.
      * @param array[] $filter_range The lower and upper bounds for results. Use null to represent an unbounded side.
      * @return Alert[] A list of Alert results.
      * @throws SearchException
      */
-    public function search($date, $settings, $query_list, $fields, $date_field, $date_format, $result_type, $filter_range) {
+    public function search($date, $settings, $query_list, $fields, $date_field, $date_type, $result_type, $filter_range) {
         // If we're looking for no results, set filter to (< 1)
         if($result_type == self::R_NO_RESULTS) {
             $filter_range = [0, 0];
@@ -275,7 +271,7 @@ abstract class Elasticsearch_Search extends Search {
                                     $alert_date = $date;
                                     if (array_key_exists($date_field, $row)) {
                                         // Extract the date field.
-                                        $alert_date = Util::parseDates($date_format, [$row[$date_field]])[0] / 1000;
+                                        $alert_date = Util::parseDates($date_type, [$row[$date_field]])[0] / 1000;
                                         unset($row[$date_field]);
                                     }
                                     $alert['alert_date'] = $alert_date;

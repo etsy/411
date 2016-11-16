@@ -73,7 +73,7 @@ abstract class Elasticsearch_Search extends Search {
             } else {
                 $index = $cfg['index'];
                 if(Util::get($cfg, 'date_based', false)) {
-                    $index = \ECL\Util::generateDateIndices($cfg['index'], Util::get($cfg, 'date_based'), $date, $date)[0];
+                    $index = \ECL\Util::generateDateIndices($cfg['index'], Util::get($cfg, 'date_interval', 'd'), $date, $date)[0];
                 }
                 $working = $client->indices()->exists(['index' => $index]);
             }

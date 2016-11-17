@@ -322,12 +322,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/ecl.git",
-                "reference": "13605ecf29906d1363143907da9e5a6e3673833b"
+                "reference": "bc5570750d9ec7c73ff55b047d17bc2d185c63c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/13605ecf29906d1363143907da9e5a6e3673833b",
-                "reference": "13605ecf29906d1363143907da9e5a6e3673833b",
+                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/bc5570750d9ec7c73ff55b047d17bc2d185c63c2",
+                "reference": "bc5570750d9ec7c73ff55b047d17bc2d185c63c2",
                 "shasum": ""
             },
             "require": {
@@ -347,7 +347,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "ECL",
-            "time": "2016-11-09 23:05:30"
+            "time": "2016-11-17 22:26:49"
         },
         {
             "name": "kiwiz/esquery",
@@ -355,12 +355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "a72b9d639e942b35e09e489b44181f0fac0dd451"
+                "reference": "b3af807e9afff01e5db680f9a8d84fba7525ff63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/a72b9d639e942b35e09e489b44181f0fac0dd451",
-                "reference": "a72b9d639e942b35e09e489b44181f0fac0dd451",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/b3af807e9afff01e5db680f9a8d84fba7525ff63",
+                "reference": "b3af807e9afff01e5db680f9a8d84fba7525ff63",
                 "shasum": ""
             },
             "require": {
@@ -387,7 +387,7 @@
             ],
             "description": "Elasticsearch querying library",
             "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2016-11-09 23:11:40"
+            "time": "2016-11-17 22:26:04"
         },
         {
             "name": "mtdowling/cron-expression",

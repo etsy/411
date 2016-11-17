@@ -472,7 +472,7 @@ define(function(require) {
             var data = Util.serializeForm(form);
 
             // schedule_type is an int.
-            data.schedule_type = parseInt(data.schedule_type) || 0;
+            data.schedule_type = data.schedule_type ? 1:0;
 
             // Parse out the tags.
             data.tags = data.tags.split(',');

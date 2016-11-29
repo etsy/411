@@ -43,6 +43,10 @@ define(function(require) {
             this.registerElement('.generate-key').click($.proxy(this.generateKey, this));
             Util.initSelectAll(this.registerElement('.select-all'));
 
+            if(this.model.isNew()) {
+                this.generateKey();
+            }
+
             this.detectChanges();
 
             this.App.hideLoader();

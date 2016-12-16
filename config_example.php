@@ -8,6 +8,37 @@
 $config = [];
 
 /**
+ * Authentication configuration
+ */
+$config['auth'] = [
+    'proxy' => [
+        /**
+         * Whether to enable proxy auth.
+         * IT IS VERY INSECURE TO ENABLE THIS IF 411 is not run behind an auth proxy.
+         */
+        'enabled' => false,
+        /**
+         * The name of the header the proxy is setting.
+         */
+        'header' => null,
+        /**
+         * Whether to automatically create users who are authenticated.
+         */
+        'auto_create' => false,
+        /**
+         * Email domain for automatically created users.
+         */
+        'domain' => null,
+    ],
+    'api' => [
+        /**
+         * Whether to enable api access to 411.
+         */
+        'enabled' => true
+    ]
+];
+
+/**
  * Database configuration
  */
 $config['db'] = [
@@ -162,36 +193,4 @@ $config['slack'] = [
      * See https://api.slack.com/incoming-webhooks for details.
      */
     'webhook_url' => null
-];
-
-/**
- *
- * Proxy Auth
- *
- * Configuration options for when running 411 behind a SAML auth proxy
- */
-$config['proxy_auth'] = [
-    /**
-     * Whether to enable proxy_auth.
-     * IT IS VERY INSECURE TO ENABLE THIS IF 411 is not run behind an auth proxy.
-     */
-    'enabled' => null,
-    /**
-     * Whether to automatically create users who are authenticated.
-     */
-    'auto_sign_up' => null,
-    /**
-     * The name of the header the proxy is setting; X-SAML-Subject.
-     */
-    'header_name' => null,
-    /**
-     * Whether the data in the header is an email address.
-     */
-    'subject_is_email' => null,
-    /**
-     * If the subject is not an email address and auto_sign_up is true
-     * this will used user to create the email address for the user;
-     * <subject>@<domain>.
-     */
-    'domain' => null,
 ];

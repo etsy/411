@@ -63,6 +63,5 @@ Logger::init();
 DB::init();
 Cookie::init();
 Nonce::init();
-ProxyAuth::init();
 Auth::init();
 Hook::call('init.post');

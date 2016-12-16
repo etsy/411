@@ -55,6 +55,14 @@ class User extends Model {
         $data['admin'] = (bool)$data['admin'];
         return parent::deserialize($data);
     }
+
+    /**
+     * Change the password for this user.
+     * @param string $password The new password.
+     */
+    public function setPassword($password) {
+        $this->obj['password'] = password_hash($password, PASSWORD_DEFAULT);
+    }
 }
 
 /**

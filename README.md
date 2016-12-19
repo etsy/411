@@ -44,7 +44,7 @@ Links
 
 - [CaC post](https://codeascraft.com/2016/09/15/introducing-411-a-new-open-source-framework-for-handling-alerting/)
 - Defcon presentation (Not available yet)
-- [Slides](https://speakerdeck.com/kennysan/411-a-framework-for-managing-security-alerts)
+- [Slides](https://speakerdeck.com/kennysan/building-effective-security-alerting)
 - [Demo](https://demo.fouroneone.io) (User: user, Pass: user)
 
 

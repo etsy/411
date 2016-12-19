@@ -13,10 +13,15 @@ define(function(require) {
         tagName: 'tr',
         template: Handlebars.compile('<td>{{date time}}</td><td class="{{ type }}">{{ str }}</td>'),
         _render: function() {
+            var message = this.model.get('message');
+            if(_.isArray(message)) {
+                message = message.join('<br>');
+            }
+
             this.$el.html(this.template({
                 type: Util.getLevel(this.model.get('level')),
                 time: this.model.get('date'),
-                str: this.model.get('message')
+                str: message,
             }));
         }
     });

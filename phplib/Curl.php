@@ -21,4 +21,11 @@ class Curl extends \Curl\Curl {
         });
         $this->setUserAgent(sprintf('411/%s (+https://github.com/etsy/411)', VERSION));
     }
+
+    /**
+     * @suppress PhanTypeMismatchArgument
+     */
+    public function post($url, $data) {
+        return parent::post($url, $data);
+    }
 }

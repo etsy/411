@@ -113,7 +113,7 @@ class Data_REST extends REST {
     /**
      * Generate type names for enums.
      * @param string[] $types The list of enum values.
-     * @return array A mapping of values to names.
+     * @return object A mapping of values to names.
      */
     private function generateEnumData($types) {
         return (object) (Auth::isAuthenticated() ? $types:[]);

@@ -159,7 +159,7 @@ abstract class Elasticsearch_Search extends Search {
     /**
      * Execute an Elasticsearch query and return the results.
      * @param int $date What time this query was started.
-     * @param string $settings The query settings.
+     * @param array $settings The query settings.
      * @param array $query_list The query list.
      * @param array $fields A list of fields to include.
      * @param string $date_field The date field to pull the date from.

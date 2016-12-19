@@ -128,7 +128,7 @@ class AlertFinder extends ModelFinder {
      * @param int $search_id The Search id.
      * @param string $hash The hash.
      * @param int $since The time threshold.
-     * @return int[] A count of Alerts.
+     * @return int A count of Alerts.
      * @throws DBException
      */
     public static function getRecentSearchHashCount($search_id, $hash, $since) {
@@ -159,7 +159,7 @@ class AlertFinder extends ModelFinder {
      * Get a count of recent Alerts.
      * @param int $from The lower time threshold
      * @param int $to The upper time threshold
-     * @return int A count of Alerts from each Search.
+     * @return int[] A count of Alerts from each Search.
      * @throws DBException
      */
     public static function getRecentSearchCounts($from, $to) {

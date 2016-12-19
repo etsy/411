@@ -53,7 +53,7 @@ class SiteFinder extends ModelFinder {
 
     /**
      * Returns the currently active Site.
-     * @return Site The currently active Site.
+     * @return Site|int The currently active Site.
      */
     public static function getCurrent() {
         $host =

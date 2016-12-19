@@ -145,7 +145,7 @@ abstract class REST {
      * Format data for output.
      * @param array $data The output data.
      * @param bool $success Whether the request was successful.
-     * @param string $message The message.
+     * @param string[]|string $message The message.
      * @return array Formatted data.
      */
     public function format($data=null, $success=true, $message='') {
@@ -171,6 +171,7 @@ abstract class REST {
      * @param array $get The url parameters.
      * @return array Data.
      * @throws NotImplementedException
+     * @suppress PhanTypeMissingReturn
      */
     public function GET(array $get) {
         throw new NotImplementedException('Method not supported');
@@ -182,6 +183,7 @@ abstract class REST {
      * @param array $data The body parameters.
      * @return array Data.
      * @throws NotImplementedException
+     * @suppress PhanTypeMissingReturn
      */
     public function POST(array $get, array $data) {
         throw new NotImplementedException('Method not supported');
@@ -193,6 +195,7 @@ abstract class REST {
      * @param array $data The body parameters.
      * @return array Data.
      * @throws NotImplementedException
+     * @suppress PhanTypeMissingReturn
      */
     public function PUT(array $get, array $data) {
         throw new NotImplementedException('Method not supported');
@@ -204,6 +207,7 @@ abstract class REST {
      * @param array $data The body parameters.
      * @return array Data.
      * @throws NotImplementedException
+     * @suppress PhanTypeMissingReturn
      */
     public function DELETE(array $get, array $data) {
         throw new NotImplementedException('Method not supported');

@@ -608,7 +608,7 @@ class ModelFinder {
      * Generate conditions for a single row.
      * @param string $key The row name.
      * @param mixed $value The value to find.
-     * @return string[] A list of SQL fragments.
+     * @return array[] A list of SQL fragments.
      */
     protected static function generateClause($key, $value) {
         $val_cmp = true;

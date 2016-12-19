@@ -20,6 +20,7 @@ return [
     // Thus, both first-party and third-party code being used by
     // your application should be included in this list.
     'directory_list' => [
+        'phplib/411bootstrap.php',
         'bin',
         'phplib',
         'vendor',
@@ -82,7 +83,7 @@ return [
     // the call and rescan test()'s code block that we can
     // detect that it is actually returning the passed in
     // `string` instead of an `int` as declared.
-    'quick_mode' => true,
+    'quick_mode' => false,
     // By default, Phan will not analyze all node types
     // in order to save time. If this config is set to true,
     // Phan will dig deeper into the AST tree and do an
@@ -90,12 +91,12 @@ return [
     //
     // See \Phan\Analysis::shouldVisit for the set of skipped
     // nodes.
-    'should_visit_all_nodes' => false,
+    'should_visit_all_nodes' => true,
     // If enabled, check all methods that override a
     // parent method to make sure its signature is
     // compatible with the parent's. This check
     // can add quite a bit of time to the analysis.
-    'analyze_signature_compatibility' => false,
+    'analyze_signature_compatibility' => true,
     // The minimum severity level to report on. This can be
     // set to Issue::SEVERITY_LOW, Issue::SEVERITY_NORMAL or
     // Issue::SEVERITY_CRITICAL. Setting it to only
@@ -107,7 +108,7 @@ return [
     // error message if there is an attempt to write
     // to a class property that wasn't explicitly
     // defined.
-    'allow_missing_properties' => true,
+    'allow_missing_properties' => false,
     // Allow null to be cast as any type and for any
     // type to be cast to null. Setting this to false
     // will cut down on false positives.
@@ -150,7 +151,7 @@ return [
     'progress_bar_sample_rate' => 0.005,
     // The number of processes to fork off during the analysis
     // phase.
-    'processes' => 2,
+    'processes' => 4,
     // Add any issue types (such as 'PhanUndeclaredMethod')
     // to this black-list to inhibit them from being reported.
     'suppress_issue_types' => [

@@ -148,8 +148,13 @@ class Searches_REST extends Models_REST {
         }
         $search->validate();
 
+        $execution_time = (int) Util::get($data, 'execution_time', 0);
+        if($execution_time == 0) {
+            $execution_time = $_SERVER['REQUEST_TIME'];
+        }
+
         $searchjob = new Search_Job();
-        $searchjob['target_date'] = $_SERVER['REQUEST_TIME'];
+        $searchjob['target_date'] = $execution_time;
         list($alerts, $errors) = $searchjob->_run(false, $search);
         $this->slog(SLog::AS_TEST, $search['id']);
         return self::format($alerts, is_null($alerts), $errors);
@@ -173,8 +178,13 @@ class Searches_REST extends Models_REST {
         }
         $search->validate();
 
+        $execution_time = (int) Util::get($data, 'execution_time', 0);
+        if($execution_time == 0) {
+            $execution_time = $_SERVER['REQUEST_TIME'];
+        }
+
         $searchjob = new Search_Job();
-        $searchjob['target_date'] = $_SERVER['REQUEST_TIME'];
+        $searchjob['target_date'] = $execution_time;
         list($alerts, $errors) = $searchjob->_run(true, $search);
         $this->slog(SLog::AS_EXECUTE, $search['id']);
         return self::format($alerts, is_null($alerts), $errors);

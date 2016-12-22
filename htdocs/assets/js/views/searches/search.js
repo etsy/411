@@ -2,6 +2,7 @@
 define(function(require) {
     var _ = require('underscore'),
         Dragula = require('dragula'),
+        Moment = require('moment'),
         NavbarView = require('views/navbar'),
         ModalView = require('views/modal'),
         ModelView = require('views/model'),
@@ -23,6 +24,8 @@ define(function(require) {
         FilterCollection = require('collections/filter'),
         TargetCollection = require('collections/target');
 
+
+    var TIME_FMT = 'YYYY/MM/DD HH:mm:00';
 
     var ResultsModalView = ModalView.extend({
         title: 'Results',
@@ -121,11 +124,44 @@ define(function(require) {
         }
     });
 
+    var ExecutionConfigModalView = ModalView.extend({
+        title: 'Config',
+        subTemplate: Templates['searches/executionmodal'],
+        buttons: [
+            {name: 'Run', type: 'success', icon: 'play', action: 'run'}
+        ],
+        events: {
+            'click .run-button': 'run',
+        },
+        _render: function() {
+            ModalView.prototype._render.call(this);
+
+            // Initialize the datetime pickers.
+            var dtp_config = {
+                useStrict: true,
+                useSeconds: false,
+                format: TIME_FMT
+            };
+            this.registerElement('.time').datetimepicker(dtp_config);
+        },
+        run: function() {
+            var val = this.$('.time input').val();
+            var ts = 0;
+            // Only parse if we have content. An empty string should be taken as 0 or 'current time'.
+            if(val.length > 0) {
+                ts = Moment(val, TIME_FMT, true).unix();
+            }
+            this.trigger('run', {'execution_time': ts});
+
+            return false;
+        }
+    });
+
     var SearchNavbarView = NavbarView.extend({
         title: 'Search',
         events: {
             'click .stats-button': 'stats',
-            'click .changelog-button': 'changelog',
+            'click .changelog-button': 'showchangelog',
             'click .jobs-button': 'jobs',
             'click .alerts-button': 'gotoAlerts',
         },
@@ -340,6 +376,8 @@ define(function(require) {
             'click #save-elements-button': 'processSaveElements',
             'click #test-button': 'processTest',
             'click #execute-button': 'processExecute',
+            'click #custom-test-button': 'processCustomTest',
+            'click #custom-execute-button': 'processCustomExecute',
             'click #create-button': 'processSave',
             'click #update-button': 'processSave',
             'click #delete-button': 'showDelete',
@@ -525,20 +563,43 @@ define(function(require) {
          * Process the form and test the Search.
          */
         processTest: function() {
-            this.processPreview();
+            this.processPreview(false);
         },
         /**
          * Process the form and execute the Search.
          */
-        processExecute: function() {
+        processExecute: function(options) {
             this.processPreview(true);
+        },
+        /**
+         * Open the modal for configuring a test run of the Search.
+         */
+        processCustomTest: function() {
+            var modal = new ExecutionConfigModalView(this.App);
+            this.App.setModal(modal);
+            this.listenTo(modal, 'run', $.proxy(function(data) {
+                this.processPreview(false, data);
+            }, this));
+        },
+        /**
+         * Open the modal for configuring execution of the Search.
+         */
+        processCustomExecute: function() {
+            var modal = new ExecutionConfigModalView(this.App);
+            this.App.setModal(modal);
+            this.listenTo(modal, 'run', $.proxy(function(data) {
+                this.processPreview(true, data);
+            }, this));
         },
         /**
          * Implementation for test/execute.
          * They use the exact same logic, so it's consolidated here.
          */
-        processPreview: function(execute) {
+        processPreview: function(execute, options) {
             var data = this.readForm();
+            if(options) {
+                _.extend(data, options);
+            }
             this.App.showLoader();
 
             this.model[execute ? 'execute':'test'](data, {

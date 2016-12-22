@@ -81,9 +81,7 @@ define(function(require) {
             }
 
             if('tags' in query) {
-                console.log(query.tags[0]);
                 query.tags = query.tags.split(',');
-                console.log(query.tags);
             }
 
             this.trigger('search', AlertGroupView.generateQuery(query));

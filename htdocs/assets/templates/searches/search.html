@@ -211,13 +211,23 @@
 
       <div class="panel-footer clearfix">
         <div class="pull-right">
-          <button id="test-button" type="button" class="btn btn-info">
-            <span class="glyphicon glyphicon-list-alt"></span> Test
-          </button>
+          <div class="btn-group">
+            <button id="test-button" type="button" class="btn btn-info">
+              <span class="glyphicon glyphicon-list-alt"></span> Test
+            </button>
+            <button id="custom-test-button" type="button" class="btn btn-info">
+              <span class="glyphicon glyphicon-wrench"></span>
+            </button>
+          </div>
           {{#unless new_search}}
-          <button id="execute-button" type="button" class="btn btn-primary">
-            <span class="glyphicon glyphicon-play"></span> Execute
-          </button>
+          <div class="btn-group">
+            <button id="execute-button" type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-play"></span> Execute
+            </button>
+            <button id="custom-execute-button" type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-wrench"></span>
+            </button>
+          </div>
           {{/unless}}
           {{#if new_search}}
           <button id="create-button" type="submit" class="btn btn-success">

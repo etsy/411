@@ -28,6 +28,7 @@ define(function(require) {
         'searches/searchtableentry': Handlebars.compile(require('text!templatefiles/searches/searchtableentry.html')),
         'searches/searchmodal': Handlebars.compile(require('text!templatefiles/searches/searchmodal.html')),
         'searches/createmodal': Handlebars.compile(require('text!templatefiles/searches/createmodal.html')),
+        'searches/executionmodal': Handlebars.compile(require('text!templatefiles/searches/executionmodal.html')),
 
         'searches/changelogmodal': Handlebars.compile(require('text!templatefiles/searches/changelogmodal.html')),
         'searches/statisticsmodal': Handlebars.compile(require('text!templatefiles/searches/statisticsmodal.html')),

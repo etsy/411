@@ -46,7 +46,7 @@ define(function(require) {
 
     // Turn a datestring into a timestamp.
     var getTimestamp = function(str) {
-        var date = _.isUndefined(str) ? new Date():new Date(str);
+        var date = _.isUndefined(str) || str.length == 0 ? new Date():new Date(str);
         return parseInt(date.getTime() / 1000, 10);
     };
 

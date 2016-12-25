@@ -10,6 +10,7 @@ tar cvzf release.tgz \
   --exclude bin/generate_release.sh \
   --exclude htdocs/index-src.html \
   --exclude htdocs/assets \
+  411.conf \
   docs \
   CONTRIBUTING.md \
   LICENSE \

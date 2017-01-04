@@ -403,6 +403,8 @@ define(function(require) {
             this.listenTo(this.App.Bus, 'changelog', this.showChangelog);
             this.listenTo(this.App.Bus, 'jobs', this.showJobs);
             this.listenTo(this.App.Bus, 'viewlog',  this.loadLog);
+            var sources = Search.Data().Sources[this.model.get('type')];
+            console.log(sources);
 
             var vars = this.model.toJSON();
             _.extend(vars, {
@@ -410,11 +412,13 @@ define(function(require) {
                 types: Search.Data().Types,
                 priorities: Search.Data().Priorities,
                 categories: Search.Data().Categories,
+                sources: sources,
                 notif_types: Search.Data().NotifTypes,
                 notif_formats: Search.Data().NotifFormats,
                 no_query: this.no_query,
                 no_range: this.no_range,
                 no_freq: this.no_freq,
+                has_sources: _.isArray(sources),
                 host: Data.Host,
             });
             // Render any additional content.

@@ -9,9 +9,12 @@ namespace FOO;
  * @package FOO
  */
 abstract class Search extends TypeModel {
-    public static $TYPES = ['Null_Search', 'Logstash_Search', 'ECL_Search', 'ThreatExchange_Search', 'Ping_Search', 'HTTP_Search', 'Alert_Search', 'Graphite_Search', 'Push_Search'];
+    public static $TYPES = ['Null_Search', 'ES_Search', 'Logstash_Search', 'ECL_Search', 'ThreatExchange_Search', 'Ping_Search', 'HTTP_Search', 'Alert_Search', 'Graphite_Search', 'Push_Search'];
     public static $TABLE = 'searches';
     public static $PKEY = 'search_id';
+    /** @var bool Whether this Search type has multiple sources. */
+    public static $SOURCES = false;
+    public static $CONFIG_KEY = '';
 
     // Categories.
     public static $CATEGORIES = [
@@ -82,6 +85,7 @@ abstract class Search extends TypeModel {
     protected static function generateSchema() {
         return [
             'name' => [self::T_STR, null, ''],
+            'source' => [self::T_STR, null, ''],
             'query_data' => [self::T_OBJ, null, []],
             'state_data' => [self::T_OBJ, null, []],
             'renderer_data' => [self::T_OBJ, null, []],
@@ -120,6 +124,39 @@ abstract class Search extends TypeModel {
      */
     public static function newSearch($type, $data=null) {
         return self::newObject($type, $data);
+    }
+
+    /**
+     * Return a list of configured data sources for this Search type.
+     * If the Search type doesn't support multiple sources, this returns null.
+     * @return string[]|null A list of sources or null.
+     */
+    public static function getSources() {
+        if(static::$SOURCES) {
+            return array_keys(Config::get(static::$CONFIG_KEY));
+        }
+        return null;
+    }
+
+    public function isAccessible() {
+        $cfg = Config::get(static::$CONFIG_KEY);
+        if(static::$SOURCES) {
+            return count($cfg) > 0;
+        }
+        return !static::$CONFIG_KEY || !is_null($cfg);
+    }
+
+    /**
+     * Returns the config for this Search type.
+     * @return array Config data.
+     */
+    public function getConfig() {
+        $cfg = Config::get(static::$CONFIG_KEY, []);
+        if(static::$SOURCES) {
+            $cfg = Util::get($cfg, $this->obj['source'], null);
+        }
+
+        return $cfg;
     }
 
     protected function serialize(array $data) {
@@ -180,6 +217,11 @@ abstract class Search extends TypeModel {
             if(preg_match('/^\w+$/', $tag) === false) {
                 throw new ValidationException(sprintf('Invalid tag: %s', $tag));
             }
+        }
+
+        $sources = static::$SOURCES ? static::getSources():[''];
+        if(!in_array($data['source'], $sources)) {
+            throw new ValidationException(sprintf('Invalid source: %s', $data['source']));
         }
     }
 

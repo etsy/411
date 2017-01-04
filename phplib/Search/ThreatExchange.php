@@ -9,6 +9,7 @@ namespace FOO;
  */
 class ThreatExchange_Search extends Search {
     public static $TYPE = 'threatexchange';
+    public static $CONFIG_KEY = 'threatexchange';
 
     const THREATEXCHANGE_QUERY_URL = "https://graph.facebook.com";
     const MALWARE_URL = "/malware_analyses";
@@ -26,7 +27,7 @@ class ThreatExchange_Search extends Search {
     }
 
     public function isAccessible() {
-        $tecfg = Config::get('threatexchange');
+        $tecfg = $this->getConfig();
         return !is_null($tecfg['api_token']);
     }
 
@@ -52,7 +53,7 @@ class ThreatExchange_Search extends Search {
     }
 
     protected function _execute($date, $constructed_qdata) {
-        $tecfg = Config::get('threatexchange');
+        $tecfg = $this->getConfig();
         if(is_null($tecfg['api_token']) || is_null($tecfg['api_secret'])) {
             throw new SearchException('Threatexchange not configured');
         }

@@ -9,16 +9,17 @@ namespace FOO;
  */
 class Alert_Search extends Elasticsearch_Search {
     public static $TYPE = 'alert';
-    public static $CONFIG_NAME = 'alerts';
+    public static $SOURCES = false;
 
-    public static function getConfig() {
-        static $config = null;
-        if(is_null($config)) {
-            $config = parent::getConfig();
-            $config['index'] = ESClient::getIndexName();
-        }
+    public function getConfig() {
+        $cfg = Config::get(static::$CONFIG_KEY);
+        $cfg = Util::get($cfg, 'alerts');
+        $cfg['index'] = ESClient::getIndexName();
+        return $cfg;
+    }
 
-        return $config;
+    protected function getClientConfigKey() {
+        return 'alerts';
     }
 
     protected function constructQuery() {
@@ -30,6 +31,7 @@ class Alert_Search extends Elasticsearch_Search {
                 'assignee_type',
                 'assignee',
                 'content',
+                'source',
                 'search_id',
                 'state',
                 'resolution',

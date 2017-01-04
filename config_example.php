@@ -102,9 +102,13 @@ $config['elasticsearch'] = [
  */
 $config['graphite'] = [
     /**
-     * The hostname for your Graphite instance.
+     * Each entry in this array represents a Graphite source that 411 can query.
+     *
+     * 'host': The hostname for your Graphite instance.
      */
-    'host' => null,
+    'graphite' => [
+        'host' => null,
+    ],
 ];
 
 /**

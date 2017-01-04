@@ -12,18 +12,18 @@ class Searches_REST extends Models_REST {
 
     protected static $MODEL = 'Search';
     protected static $CREATABLE = [
-        'name', 'type', 'query_data', 'description', 'category', 'tags',
+        'name', 'source', 'type', 'query_data', 'description', 'category', 'tags',
         'priority', 'schedule_type', 'frequency', 'cron_expression', 'range',
         'notif_type', 'notif_format', 'notif_data', 'autoclose_threshold',
         'enabled', 'owner', 'assignee_type', 'assignee'
     ];
     protected static $QUERYABLE = [
-        'type', 'tags', 'category', 'enabled', 'owner', 'assignee_type',
+        'type', 'source', 'tags', 'category', 'enabled', 'owner', 'assignee_type',
         'assignee'
     ];
     protected static $READABLE = null;
     protected static $UPDATEABLE = [
-        'name', 'query_data', 'description', 'category', 'tags', 'priority',
+        'name', 'source', 'query_data', 'description', 'category', 'tags', 'priority',
         'schedule_type', 'frequency', 'cron_expression', 'notif_type',
         'notif_format', 'notif_data', 'autoclose_threshold', 'range',
         'enabled', 'owner', 'assignee_type', 'assignee', 'renderer_data'

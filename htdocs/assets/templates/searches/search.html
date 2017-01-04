@@ -29,6 +29,19 @@
             <p>{{ dict types key=type default='Unknown' }}</p>
           </div>
 
+          {{#if has_sources}}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+            <label for="source">Source</label>
+            <select class="form-control" name="source">
+              {{#each sources}}
+              <option value="{{ this }}" {{#ifeq this ../source}}selected{{/ifeq}}>{{ this }}</option>
+              {{/each}}
+            </select>
+          </div>
+          {{/if}}
+      </div>
+
+        <div class="row">
           <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a href="#basic" data-toggle="tab">Basic</a></li>
             <li role="presentation"><a href="#notif" data-toggle="tab">Notif<span class="hidden-xs">ications</span></a></li>

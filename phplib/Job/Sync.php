@@ -17,7 +17,7 @@ class Sync_Job extends Job {
      * @return array null and an array of errors.
      */
     public function run() {
-        $client = new ESClient;
+        $client = new ESClient(false);
 
         $id = 0;
         $curr = 0;
@@ -25,6 +25,10 @@ class Sync_Job extends Job {
         $query = [];
         if($target > 0) {
             $query['search_id'] = $target;
+            $client->initializeIndex();
+        } else {
+            $client->destroyIndex();
+            $client->initializeIndex();
         }
         $count = AlertFinder::countByQuery($query);
 

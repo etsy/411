@@ -1,11 +1,19 @@
 # v1.2.0 #
 
+- Added Search execution options on the configuration page
 - Added support for index patterns
 - Added options for parsing date fields
+- Refactored Search code to support multiple 'sources' per Search type.
+- More UX tweaks
 
 ## Breaking changes ##
 
-- The config syntax for specifying indices has changed. See `config_example.php` for details.
+- The `Logstash` Search type has been replaced by the `ES` Search type.
+- The config syntax for specifying indices has changed.
+- The config syntax for defining Search sources has changed.
+
+See the [upgrade guide](/docs/Upgrading.md) for details.
+
 
 # v1.1.0 #
 

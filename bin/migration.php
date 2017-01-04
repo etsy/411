@@ -33,6 +33,7 @@ if(file_exists(VER_FN)) {
 
 printf("Migrating from %s to %s\n", $old_ver, VERSION);
 
+
 /**
  * Migration logic
  */
@@ -51,6 +52,13 @@ if(ver_cmp($old_ver, '1.1.0') < 0) {
         FOO\DB::query('UPDATE `users` SET `api_key`=? WHERE `user_id`=?', [FOO\Random::base64_bytes(FOO\User::API_KEY_LEN), $user_id]);
     }
     FOO\DB::query('CREATE UNIQUE INDEX `users_site_id_api_key_idx` ON `users`(`site_id`, `api_key`);');
+}
+
+if(ver_cmp($old_ver, '1.2.0') < 0) {
+    FOO\DB::query('ALTER TABLE `searches` ADD COLUMN `source` VARCHAR(64) NOT NULL DEFAULT ""');
+    FOO\DB::query('CREATE INDEX `searches_source_idx` ON `searches`(`source`)');
+
+    FOO\DB::query('UPDATE `searches` SET `source`="logstash", `type`="es" WHERE `type`="logstash"');
 }
 
 /**

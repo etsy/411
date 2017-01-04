@@ -8,6 +8,10 @@ namespace FOO;
  * @package FOO
  */
 abstract class Elasticsearch_Search extends Search {
+    public static $TYPE = 'elasticsearch';
+    public static $CONFIG_KEY = 'elasticsearch';
+    public static $SOURCES = true;
+
     // Result types.
     /** Field data result type. */
     const R_FIELDS = 0;
@@ -15,30 +19,6 @@ abstract class Elasticsearch_Search extends Search {
     const R_COUNT = 1;
     /** No results result type. */
     const R_NO_RESULTS = 2;
-
-    // Search type. Specify a unique string.
-    public static $TYPE = 'elasticsearch';
-    // Default config source.
-    public static $CONFIG_NAME = '';
-
-    /**
-     * Return the configuration for this Search.
-     * @return array Config data.
-     */
-    public static function getConfig() {
-        static $config = null;
-        if(is_null($config)) {
-            // Check config_example.php for details on the options in this array.
-            $config = Config::get('elasticsearch')[static::$CONFIG_NAME];
-        }
-
-        return $config;
-    }
-
-    public function isAccessible() {
-        $cfg = Config::get('elasticsearch');
-        return array_key_exists(static::$CONFIG_NAME, $cfg);
-    }
 
     protected function _getLink(Alert $alert) {
         return $this->generateLink(
@@ -49,7 +29,7 @@ abstract class Elasticsearch_Search extends Search {
     }
 
     public function generateLink($query, $start, $end) {
-        $cfg = static::getConfig();
+        $cfg = $this->getConfig();
         if(is_null($cfg['src_url'])) {
             return null;
         }
@@ -58,12 +38,16 @@ abstract class Elasticsearch_Search extends Search {
     }
 
     public function isTimeBased() {
-        return !is_null(Util::get(static::getConfig(), 'date_field'));
+        return !is_null(Util::get($this->getConfig(), 'date_field'));
+    }
+
+    protected function getClientConfigKey() {
+        return $this->obj['source'];
     }
 
     public function isWorking($date) {
-        $cfg = static::getConfig();
-        $client = ESClient::getClient(static::$CONFIG_NAME);
+        $cfg = $this->getConfig();
+        $client = ESClient::getClient($this->getClientConfigKey());
 
         $working = false;
         try {
@@ -87,7 +71,7 @@ abstract class Elasticsearch_Search extends Search {
         $parser = new \ESQuery\Parser;
         list($settings, $query_list) = $parser->parse($query);
 
-        $cfg = static::getConfig();
+        $cfg = $this->getConfig();
 
         if(count($cfg['hosts']) > 0) {
             $settings['host'] = $cfg['hosts'][array_rand($cfg['hosts'])];
@@ -143,7 +127,7 @@ abstract class Elasticsearch_Search extends Search {
     }
 
     public function getConnection($host) {
-        $cfg = static::getConfig();
+        $cfg = $this->getConfig();
 
         $cb = \Elasticsearch\ClientBuilder::create();
         if(!is_null($cfg['ssl_cert'])) {

@@ -43,6 +43,7 @@ class Data_REST extends REST {
                 'NotifTypes' => $this->generateEnumData(Search::$NOTIF_TYPES),
                 'NotifFormats' => $this->generateEnumData(Search::$NOTIF_FORMATS),
                 'Defaults' => $this->generateDefaultData(Search::getSchema()),
+                'Sources' => $this->generateSearchSources(),
             ],
             'SearchLog' => [
                 'Defaults' => $this->generateDefaultData(SearchLog::getSchema()),
@@ -191,5 +192,20 @@ class Data_REST extends REST {
         }
 
         return $defaults;
+    }
+
+    /**
+     * Generate sources lists for Searches.
+     * @return array[] An array of sources.
+     */
+    private function generateSearchSources() {
+        $sources = [];
+        if(Auth::isAuthenticated()) {
+            foreach(Search::getTypes() as $type) {
+                $sources[$type::$TYPE] = $type::getSources();
+            }
+        }
+
+        return $sources;
     }
 }

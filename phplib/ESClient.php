@@ -80,6 +80,7 @@ class ESClient {
                                 'assignee_type' => ['type' => 'long'],
                                 'assignee' => ['type' => 'long'],
                                 'content' => ['type' => 'object'],
+                                'source' => ['type' => 'string'],
                                 'search_id' => ['type' => 'long'],
                                 'state' => ['type' => 'long'],
                                 'resolution' => ['type' => 'long'],
@@ -98,6 +99,17 @@ class ESClient {
         // Create index.
         if(!$client->indices()->exists(['index' => self::getIndexName()])) {
             $client->indices()->create(['index' => self::getIndexName()]);
+        }
+    }
+
+    public function destroyIndex() {
+        $client = self::getClient('alerts', true);
+
+        if($client->indices()->existsTemplate(['name' => self::MAPPING_TEMPLATE])) {
+            $client->indices()->deleteTemplate(['name' => self::MAPPING_TEMPLATE]);
+        }
+        if($client->indices()->exists(['index' => self::getIndexName()])) {
+            $client->indices()->delete(['index' => self::getIndexName()]);
         }
     }
 
@@ -520,6 +532,7 @@ class ESClient {
             'priority' => Util::get($search, 'priority', Search::P_LOW),
             'category' => Util::get($search, 'category', Search::$CATEGORIES['general']),
             'owner' => Util::get($search, 'owner', 0),
+            'source' => Util::get($search, 'source', ''),
         ];
 
         // Populate note data.

@@ -9,6 +9,8 @@ namespace FOO;
  */
 class Graphite_Search extends Search {
     public static $TYPE = 'graphite';
+    public static $CONFIG_KEY = 'graphite';
+    public static $SOURCES = true;
 
     // Threshold type.
     /** Alert on values greater than. */
@@ -17,7 +19,7 @@ class Graphite_Search extends Search {
     const F_LESS_THAN    = 1;
 
     public function isWorking($date) {
-        $gcfg = Config::get('graphite');
+        $gcfg = $this->getConfig();
         if(is_null($gcfg['host'])) {
             return false;
         }
@@ -30,17 +32,12 @@ class Graphite_Search extends Search {
         return true;
     }
 
-    public function isAccessible() {
-        $gcfg = Config::get('graphite');
-        return !is_null($gcfg['host']);
-    }
-
     protected function constructQuery() {
         return $this->obj['query_data'];
     }
 
     protected function _execute($date, $constructed_qdata) {
-        $gcfg = Config::get('graphite');
+        $gcfg = $this->getConfig();
         if(is_null($gcfg['host'])) {
             throw new SearchException('Graphite not configured');
         }
@@ -96,7 +93,7 @@ class Graphite_Search extends Search {
     }
 
     public function generateLink($query, $threshold, $start, $end) {
-        $gcfg = Config::get('graphite');
+        $gcfg = $this->getConfig();
         if(is_null($gcfg['host'])) {
             return null;
         }

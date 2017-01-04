@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS `searches`;
 DROP INDEX IF EXISTS `searches_type_idx`;
+DROP INDEX IF EXISTS `searches_source_idx`;
 DROP INDEX IF EXISTS `searches_category_idx`;
 DROP INDEX IF EXISTS `searches_tags_idx`;
 DROP INDEX IF EXISTS `searches_priority_idx`;
@@ -18,6 +19,7 @@ CREATE TABLE `searches` (
     `site_id` INTEGER NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `type` VARCHAR(64) NOT NULL,
+    `source` VARCHAR(64) NOT NULL,
     `query_data` TEXT NOT NULL,
     `state_data` TEXT NOT NULL,
     `renderer_data` TEXT NOT NULL,
@@ -49,6 +51,7 @@ CREATE TABLE `searches` (
     `update_date` UNSIGNED INTEGER NOT NULL
 );
 CREATE INDEX `searches_type_idx` ON `searches`(`type`);
+CREATE INDEX `searches_source_idx` ON `searches`(`source`);
 CREATE INDEX `searches_category_idx` ON `searches`(`category`);
 CREATE INDEX `searches_tags_idx` ON `searches`(`tags`);
 CREATE INDEX `searches_priority_idx` ON `searches`(`priority`);

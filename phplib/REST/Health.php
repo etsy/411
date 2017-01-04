@@ -14,12 +14,17 @@ class Health_REST extends REST {
 
         $search_health = [];
         foreach(Search::getTypes() as $MODEL) {
-            $search = new $MODEL;
-            $working = false;
-            try {
-                $working = $search->isWorking($_SERVER['REQUEST_TIME']);
-            } catch(\Exception $e) {}
-            $search_health[$MODEL::$TYPE] = $working;
+            $sources = $MODEL::getSources();
+            if(is_null($sources)) {
+                $search_health[$MODEL::$TYPE] = $this->isWorking(new $MODEL);
+            } else {
+                foreach($sources as $source) {
+                    $model = new $MODEL;
+                    $model['source'] = $source;
+                    $key = sprintf('%s[%s]', $MODEL::$TYPE, $source);
+                    $search_health[$key] = $this->isWorking($model);
+                }
+            }
         }
 
         $ret = [
@@ -30,5 +35,14 @@ class Health_REST extends REST {
         ];
 
         return self::format($ret);
+    }
+
+    private function isWorking($search) {
+        $working = false;
+        try {
+            $working = $search->isWorking($_SERVER['REQUEST_TIME']);
+        } catch(\Exception $e) {}
+
+        return $working;
     }
 }

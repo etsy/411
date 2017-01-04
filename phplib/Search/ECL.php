@@ -10,6 +10,7 @@ namespace FOO;
 class ECL_Search extends Search {
     // Search type. Specify a unique string.
     public static $TYPE = 'ecl';
+    public static $CONFIG_KEY = 'elasticsearch';
 
     protected function _getLink(Alert $alert) {
         return null;
@@ -49,7 +50,7 @@ class ECL_Search extends Search {
         $table['from'] = $from;
 
         $es_builder = new Builder;
-        $es_builder->setSources(Config::get('elasticsearch'));
+        $es_builder->setSources($this->getConfig());
         $es_builder->setSettings($settings);
         $parser = new \ECL\Parser;
         $parser->setESBuilder($es_builder);

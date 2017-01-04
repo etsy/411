@@ -1,6 +1,6 @@
 <?php
 
-class ScriptFilterTest extends DBTestCase {
+class ScriptFilterTest extends TestCase {
     public function testProcess() {
         $filter = new FOO\Script_Filter();
         $filter['data']['script'] = 'null';

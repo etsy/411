@@ -1,6 +1,6 @@
 <?php
 
-class CreateAndRunReport extends DBTestCase {
+class CreateAndRunReport extends TestCase {
     public function testMain() {
         TestHelper::populateUsers();
         TestHelper::becomeUser();

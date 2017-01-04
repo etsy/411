@@ -1,6 +1,6 @@
 <?php
 
-class GroupTest extends DBTestCase {
+class GroupTest extends TestCase {
     public function testGetDescription() {
         TestHelper::populateDB([
             [FOO\GroupTarget::$TABLE, 1, 0, 1, FOO\GroupTarget::T_EMAIL, 1, 'test@example.com', 0, 0, 0],

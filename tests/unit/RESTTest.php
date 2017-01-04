@@ -2,7 +2,7 @@
 
 class Test_REST extends FOO\REST {}
 
-class RESTTest extends DBTestCase {
+class RESTTest extends TestCase {
     public function testFormat() {
         $rest = new Test_REST();
 

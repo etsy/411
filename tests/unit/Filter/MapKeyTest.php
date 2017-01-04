@@ -1,6 +1,6 @@
 <?php
 
-class MapKeyFilterTest extends DBTestCase {
+class MapKeyFilterTest extends TestCase {
     public function testProcess() {
         $filter = new FOO\MapKey_Filter();
         $filter['data']['key_regex'] = 'x';

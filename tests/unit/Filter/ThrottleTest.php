@@ -1,6 +1,6 @@
 <?php
 
-class ThrottleFilterTest extends DBTestCase {
+class ThrottleFilterTest extends TestCase {
     public function testProcess() {
         $alert = new FOO\Alert();
         $search = new FOO\Null_Search();

@@ -1,17 +1,30 @@
 <?php
 
-class DBTestCase extends PHPUnit_Framework_TestCase {
+class TestCase extends PHPUnit_Framework_TestCase {
     protected $requestTime;
+    protected $config;
 
     public function setUp() {
+        $GLOBALS['TESTING'] = true;
+
         $this->requestTime = $_SERVER['REQUEST_TIME'];
+        $this->config = FOO\Config::getData();
+
+        FOO\Config::init([]);
         $_SERVER['REQUEST_TIME'] = 1460000000;
+
         TestHelper::setupDB();
     }
     public function tearDown() {
         TestHelper::teardownDB();
+
         $_SERVER['REQUEST_TIME'] = $this->requestTime;
+        FOO\Config::init($this->config);
+
+        $this->config = null;
         $this->requestTime = null;
+
+        $GLOBALS['TESTING'] = false;
     }
 
     public function getMockObject($type, $arr) {

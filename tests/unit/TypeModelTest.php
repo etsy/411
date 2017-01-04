@@ -17,7 +17,7 @@ class TwoTypeModel extends TestTypeModel {
 }
 
 namespace {
-class TypeModelTest extends DBTestCase {
+class TypeModelTest extends TestCase {
     public function testNewObject() {
         $obj = FOO\TestTypeModel::newObject('one');
         $this->assertInstanceOf('FOO\\OneTypeModel', $obj);

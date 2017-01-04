@@ -1,6 +1,6 @@
 <?php
 
-class ExpressionFilterTest extends DBTestCase {
+class ExpressionFilterTest extends TestCase {
     public function testProcess() {
         $filter = new FOO\Expression_Filter();
         $filter['data']['include'] = true;

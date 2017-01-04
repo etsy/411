@@ -1,6 +1,6 @@
 <?php
 
-class SearchTest extends DBTestCase {
+class SearchTest extends TestCase {
     public function testShouldRun() {
         $search = new FOO\Null_Search();
         $search['schedule_type'] = FOO\Search::SCT_FREQ;

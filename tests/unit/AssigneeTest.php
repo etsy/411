@@ -1,6 +1,6 @@
 <?php
 
-class AssigneeTest extends DBTestCase {
+class AssigneeTest extends TestCase {
     public function testGet() {
         $this->assertSame('System', FOO\Assignee::getName(0, 0));
 

@@ -15,7 +15,7 @@ class TestElement extends Element {
 }
 
 namespace {
-class ElementTest extends DBTestCase {
+class ElementTest extends TestCase {
     public function testSerialize() {
         $element = new FOO\TestElement();
 

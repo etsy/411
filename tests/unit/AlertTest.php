@@ -1,6 +1,6 @@
 <?php
 
-class AlertTest extends DBTestCase {
+class AlertTest extends TestCase {
     public function testFinderGenerateWhere() {
         $expected = [
             ['`site_id` = ?', '`archived` = ?', '`alert_date` > ?', '`alert_date` < ?'],

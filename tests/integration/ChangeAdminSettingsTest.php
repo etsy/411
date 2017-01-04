@@ -1,6 +1,6 @@
 <?php
 
-class ChangeAdminSettings extends DBTestCase {
+class ChangeAdminSettings extends TestCase {
     /**
      * @expectedException FOO\UnauthorizedException
      */

@@ -1,6 +1,6 @@
 <?php
 
-class HashFilterTest extends DBTestCase {
+class HashFilterTest extends TestCase {
     public function testProcess() {
         $alert = new FOO\Alert();
         $search = new FOO\Null_Search();

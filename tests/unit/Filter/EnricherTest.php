@@ -1,6 +1,6 @@
 <?php
 
-class EnricherFilterTest extends DBTestCase {
+class EnricherFilterTest extends TestCase {
     public function testProcess() {
         $filter = new FOO\Enricher_Filter();
         $filter['data']['key'] = 'test';

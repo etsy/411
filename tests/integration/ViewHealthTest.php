@@ -1,6 +1,6 @@
 <?php
 
-class ViewHealth extends DBTestCase {
+class ViewHealth extends TestCase {
     /**
      * @expectedException FOO\UnauthorizedException
      */

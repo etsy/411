@@ -1,6 +1,6 @@
 <?php
 
-class ESClientTest extends DBTestCase {
+class ESClientTest extends TestCase {
     public function unflattenProvider() {
         return [
             [[], []],

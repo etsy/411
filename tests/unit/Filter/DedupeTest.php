@@ -1,6 +1,6 @@
 <?php
 
-class DedupeFilterTest extends DBTestCase {
+class DedupeFilterTest extends TestCase {
     public function testProcess() {
         $alert = new FOO\Alert();
         $search = new FOO\Null_Search();

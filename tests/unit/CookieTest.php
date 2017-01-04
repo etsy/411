@@ -1,6 +1,6 @@
 <?php
 
-class CookieTest extends DBTestCase {
+class CookieTest extends TestCase {
     /**
      * @expectedException FOO\CookieException
      */

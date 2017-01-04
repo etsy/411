@@ -1,6 +1,6 @@
 <?php
 
-class DBArrayTest extends DBTestCase {
+class DBArrayTest extends TestCase {
     public function testSet() {
         $cfg = new FOO\DBMeta();
         $cfg['x'] = 'y';

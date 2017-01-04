@@ -1,6 +1,6 @@
 <?php
 
-class RegexFilterTest extends DBTestCase {
+class RegexFilterTest extends TestCase {
     public function testProcess() {
         $filter = new FOO\Regex_Filter();
         $filter['data']['include'] = true;

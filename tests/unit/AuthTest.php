@@ -1,6 +1,6 @@
 <?php
 
-class AuthTest extends DBTestCase {
+class AuthTest extends TestCase {
     public function testLogout() {
         TestHelper::becomeAdmin();
         FOO\Auth::logout();

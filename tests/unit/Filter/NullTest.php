@@ -1,6 +1,6 @@
 <?php
 
-class NullFilterTest extends DBTestCase {
+class NullFilterTest extends TestCase {
     public function testProcess() {
         $filter = new FOO\Null_Filter();
         $alert = new FOO\Alert();

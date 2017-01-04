@@ -1,6 +1,6 @@
 <?php
 
-class DBTest extends DBTestCase {
+class DBTest extends TestCase {
     public function testInsertId() {
         $sql = sprintf('INSERT INTO `%s` VALUES (0, ?, ?)', FOO\DBMeta::$TABLE);
         FOO\DB::query($sql, ['a', 'b']);

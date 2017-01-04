@@ -1,6 +1,6 @@
 <?php
 
-class DBConfigTest extends DBTestCase {
+class DBConfigTest extends TestCase {
     public function testGet() {
         TestHelper::populateDB([
             [FOO\DBConfig::$TABLE, 0, 'a', 'b'],

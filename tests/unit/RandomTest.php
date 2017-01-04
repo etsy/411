@@ -1,6 +1,6 @@
 <?php
 
-class RandomTest extends PHPUnit_Framework_TestCase {
+class RandomTest extends TestCase {
     const NUM_BYTES = 16;
 
     public function testBytes() {

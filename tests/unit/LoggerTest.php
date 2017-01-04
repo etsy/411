@@ -1,6 +1,6 @@
 <?php
 
-class LoggerTest extends PHPUnit_Framework_TestCase {
+class LoggerTest extends TestCase {
     public function serializeProvider() {
         return [
             [null, 'null'],

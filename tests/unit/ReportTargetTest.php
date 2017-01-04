@@ -1,6 +1,6 @@
 <?php
 
-class ReportTargetTest extends DBTestCase {
+class ReportTargetTest extends TestCase {
     public function testFinderGetByGroup() {
         TestHelper::populateDB([
             [FOO\ReportTarget::$TABLE, 1, 0, 1, 1, 0, 0, 0, 0],

@@ -1,6 +1,6 @@
 <?php
 
-class CreateAndTestSearch extends DBTestCase {
+class CreateAndTestSearch extends TestCase {
     public function testMain() {
         TestHelper::populateUsers();
         TestHelper::becomeUser();

@@ -19,6 +19,13 @@ class Config {
     }
 
     /**
+     * Get config array. For testing.
+     */
+    public static function getData() {
+        return self::$cfg;
+    }
+
+    /**
      * Get a config value.
      * @param string $key
      * @return mixed The config value.

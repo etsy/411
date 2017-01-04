@@ -1,6 +1,6 @@
 <?php
 
-class TimerTest extends PHPUnit_Framework_TestCase {
+class TimerTest extends TestCase {
     public function testTaken() {
         $timer = new FOO\Timer();
         $timer->start();

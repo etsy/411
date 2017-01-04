@@ -1,6 +1,6 @@
 <?php
 
-class NotificationTest extends DBTestCase {
+class NotificationTest extends TestCase {
 
     public function setUp() {
         parent::setUp();

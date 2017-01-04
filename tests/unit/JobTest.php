@@ -9,7 +9,7 @@ class TestJob extends Job {
 }
 
 namespace {
-class JobTest extends DBTestCase {
+class JobTest extends TestCase {
 
     public function testFinderFail() {
         TestHelper::populateDB([

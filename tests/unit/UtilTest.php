@@ -1,6 +1,6 @@
 <?php
 
-class UtilTest extends PHPUnit_Framework_TestCase {
+class UtilTest extends TestCase {
     public function getProvider() {
         return [
             [[], null, null, null],

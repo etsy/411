@@ -35,7 +35,7 @@ class TestModelFinder extends ModelFinder {
 }
 
 namespace {
-class ModelTest extends DBTestCase {
+class ModelTest extends TestCase {
     public function setUp() {
         parent::setUp();
         FOO\DB::query('

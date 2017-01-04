@@ -1,6 +1,6 @@
 <?php
 
-class ExpressionLanguageTest extends PHPUnit_Framework_TestCase {
+class ExpressionLanguageTest extends TestCase {
     const NUM_BYTES = 16;
 
     public function testEvaluate() {

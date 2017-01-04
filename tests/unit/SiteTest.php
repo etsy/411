@@ -1,6 +1,6 @@
 <?php
 
-class SiteTest extends DBTestCase {
+class SiteTest extends TestCase {
     public function setUp() {
         parent::setUp();
     }

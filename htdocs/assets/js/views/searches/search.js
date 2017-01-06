@@ -404,7 +404,6 @@ define(function(require) {
             this.listenTo(this.App.Bus, 'jobs', this.showJobs);
             this.listenTo(this.App.Bus, 'viewlog',  this.loadLog);
             var sources = Search.Data().Sources[this.model.get('type')];
-            console.log(sources);
 
             var vars = this.model.toJSON();
             _.extend(vars, {

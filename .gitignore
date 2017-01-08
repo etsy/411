@@ -12,6 +12,13 @@
 !/htdocs/assets/imgs/nc.gif
 !/htdocs/assets/imgs/nca.gif
 !/htdocs/assets/imgs/ncs.gif
+/htdocs/assets/css/bootstrap.css
+/htdocs/assets/css/codemirror.css
+/htdocs/assets/css/datetimepicker.css
+/htdocs/assets/css/dragula.css
+/htdocs/assets/css/select2-bootstrap.css
+/htdocs/assets/css/select2.css
+/htdocs/assets/css/tablesorter-bootstrap.css
 /htdocs/assets/js/templates.compiled.js
 /phpdoc
 /config.php

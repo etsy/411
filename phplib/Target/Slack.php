@@ -50,11 +50,14 @@ class Slack_Target extends Target {
             ];
         }
 
-        $host = Util::getHost();
-        $alert_link = $alert->isNew() ? null:sprintf('https://%s/alert/%d', $host, $alert['id']);
+        $site = SiteFinder::getCurrent();
+        $alert_link = $alert->isNew() ? null:$site->urlFor(sprintf('/alert/%d', $alert['alert_id']));
 
         $message = implode(' ', [
-            is_null($search) ? 'Unknown':sprintf('<https://%s/search/%d|%s>', $host, $search['id'], $search['name']),
+            is_null($search) ? 'Unknown':sprintf('<%s|%s>', $site->urlFor(
+                sprintf('/search/%d', $search['id']),
+                $search['name']
+            )),
             $alert->isNew() ? '[N/A]':sprintf('[<%s|Alert>]', $alert_link)
         ]);
 

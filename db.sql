@@ -460,6 +460,7 @@ CREATE TABLE `sites` (
     `site_id` INTEGER PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
     `host` VARCHAR(128) NOT NULL,
+    `secure` BOOLEAN NOT NULL,
 
     `archived` UNSIGNED INTEGER NOT NULL,
     `create_date` UNSIGNED INTEGER NOT NULL,

@@ -11,6 +11,7 @@ echo "Creating new site\n";
 $newsite = new FOO\Site();
 $newsite['name'] = FOO\Util::prompt("Site name");
 $newsite['host'] = FOO\Util::prompt("Hostname");
+$newsite['secure'] = strtolower(FOO\Util::prompt("Https (y/n)")) === 'y';
 $newsite->store();
 
 FOO\SiteFinder::setSite($newsite);

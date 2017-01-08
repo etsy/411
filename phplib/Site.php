@@ -18,8 +18,32 @@ class Site extends Model {
     protected static function generateSchema() {
         return [
             'host' => [static::T_STR, null, ''],
-            'name' => [static::T_STR, null, '']
+            'name' => [static::T_STR, null, ''],
+            'secure' => [static::T_BOOL, null, true],
         ];
+    }
+
+    /**
+     * Generate a url.
+     * @param string $path The path.
+     * @param string[] $params URL query parameters.
+     * @return string The generated url.
+     */
+    public function urlFor($path='', $params=[]) {
+        $url_parts = [
+            $this->obj['secure'] ? 'https':'http', '://',
+            $this->obj['host']
+        ];
+        if(strlen($path) > 0 && $path != '/') {
+            $url_parts[] = '/';
+            $url_parts[] = $path;
+        }
+        if(count($params) > 0) {
+            $url_parts[] = '?';
+            $url_parts[] = http_build_query($params);
+        }
+
+        return implode('', $url_parts);
     }
 }
 

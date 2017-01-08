@@ -55,6 +55,8 @@ if(ver_cmp($old_ver, '1.1.0') < 0) {
 }
 
 if(ver_cmp($old_ver, '1.2.0') < 0) {
+    FOO\DB::query('ALTER TABLE `sites` ADD COLUMN `secure` BOOLEAN NOT NULL DEFAULT 1');
+
     FOO\DB::query('ALTER TABLE `searches` ADD COLUMN `source` VARCHAR(64) NOT NULL DEFAULT ""');
     FOO\DB::query('CREATE INDEX `searches_source_idx` ON `searches`(`source`)');
 

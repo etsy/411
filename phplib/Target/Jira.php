@@ -37,7 +37,9 @@ class Jira_Target extends Target {
 
         // Don't show the link if this Alert isn't persisted.
         if(!$alert->isNew()) {
-            $desc[] = sprintf('[Link to Alert|https://%s/alert/%d]', $site['host'], $alert['alert_id']);
+            $desc[] = sprintf('[Link to Alert|%s', $site->urlFor(
+                sprintf('/alert/%d', $alert['alert_id'])
+            ));
         }
         $desc[] = '';
         $desc[] = '||Key||Value||';

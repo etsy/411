@@ -34,7 +34,7 @@ class PagerDuty_Target extends Target {
         if(!$alert->isNew()) {
             $contexts[] = [
                 'type' => 'link',
-                'href' => sprintf('https://%s/alert/%d', $site['host'], $alert['alert_id']),
+                'href' => $site->urlFor(sprintf('/alert/%d', $alert['alert_id'])),
                 'text' => '411 Alert'
             ];
         }

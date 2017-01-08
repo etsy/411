@@ -279,9 +279,11 @@ class Notification {
      * @throws \Exception
      */
     public static function render($tpl, $vars, $debug_data=[]) {
+        $site = SiteFinder::getCurrent();
+
         // Embedded CSS. This is unfortunately necessary as most (all?) mail clients only allow inline CSS.
         $font = "font-family: 'Myriad Pro','Helvetica Neue',Helvetica,Tahoma,Arial,sans-serif;";
-        $base_url = sprintf('https://%s', Util::getHost());
+        $base_url = $site->urlFor('/');
         $large_style = "font-size: 1.6em;";
         $panel_style = "border-radius: 3px; background-color: #f5f5f5; color: #333; border: 1px solid #ddd;";
         $panel_content_style = "padding: 0px 15px; margin: 5px 0px; text-size: 1.5em;";

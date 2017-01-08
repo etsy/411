@@ -5,6 +5,9 @@ What is 411?
 ============
 
 [![Join the chat at https://gitter.im/411/Lobby](https://badges.gitter.im/411/Lobby.svg)](https://gitter.im/411/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/etsy/411.svg?branch=master)](https://travis-ci.org/etsy/411)
+[![Code Climate](https://codeclimate.com/github/etsy/411/badges/gpa.svg)](https://codeclimate.com/github/etsy/411)
+[![Test Coverage](https://codeclimate.com/github/etsy/411/badges/coverage.svg)](https://codeclimate.com/github/etsy/411/coverage)
 
 Search scheduling
 -----------------

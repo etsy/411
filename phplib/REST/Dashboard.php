@@ -26,13 +26,6 @@ class Dashboard_REST extends REST {
         // Get a count of active Alerts and their priorities.
         $data['active_alerts'] = $client->getActiveAlertCounts();
 
-        // Get a count of stale Alerts.
-        $data['stale_alerts'] = AlertFinder::countByQuery([
-            'state' => [Alert::ST_NEW, Alert::ST_INPROG],
-            'update_date' => [
-                ModelFinder::C_LT => $_SERVER['REQUEST_TIME'] - (60 * 60 * 24 * 7)
-        ]]);
-
         // Generate data for an Alert creation histogram.
         $data['historical_alerts'] = $client->getAlertActivityCounts(self::RANGE);
 

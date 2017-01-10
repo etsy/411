@@ -313,7 +313,7 @@ class ESClient {
     }
 
     /**
-     * Get counts of active Alerts grouped by priority.
+     * Get counts of active Alerts.
      * @return array Count data.
      */
     public function getActiveAlertCounts() {
@@ -325,7 +325,7 @@ class ESClient {
             ]
         ];
         $aggs = [
-            'st' => [
+            'stt' => [
                 'terms' => [ 'field' => 'state' ]
             ],
             'esc' => [
@@ -337,6 +337,15 @@ class ESClient {
                         'field' => 'priority'
                     ]
                 ]]
+            ],
+            'stl' => [
+                'date_range' => [
+                    'field' => 'update_date',
+                    'format' => 'x',
+                    'ranges' => [
+                        ['to' => 'now-7d']
+                    ]
+                ]
             ]
         ];
 
@@ -355,7 +364,7 @@ class ESClient {
             ]);
 
             $states = [0, 0];
-            foreach($data['aggregations']['st']['buckets'] as $row) {
+            foreach($data['aggregations']['stt']['buckets'] as $row) {
                 if(array_key_exists($row['key'], $states)) {
                     $states[$row['key']] = $row['doc_count'];
                 }
@@ -374,7 +383,12 @@ class ESClient {
                     $escalated[0] = $row['doc_count'];
                 }
             }
-            $data = array_merge($priorities, $escalated, $states);
+
+            $stale = [0];
+            if(count($data['aggregations']['stt']['buckets']) > 0) {
+                $stale[0] = $data['aggregations']['stt']['buckets'][0]['doc_count'];
+            }
+            $data = array_merge($priorities, $escalated, $states, $stale);
         } catch(\Elasticsearch\Common\Exceptions\BadRequest400Exception $e) {
             throw new \RuntimeException('Error getting active count data');
         }

@@ -9,7 +9,7 @@ namespace FOO;
  * @package FOO
  */
 abstract class Search extends TypeModel {
-    public static $TYPES = ['Null_Search', 'ES_Search', 'Logstash_Search', 'ECL_Search', 'ThreatExchange_Search', 'Ping_Search', 'HTTP_Search', 'Alert_Search', 'Graphite_Search', 'Push_Search'];
+    public static $TYPES = ['Null_Search', 'ES_Search', 'ECL_Search', 'ThreatExchange_Search', 'Ping_Search', 'HTTP_Search', 'Alert_Search', 'Graphite_Search', 'Push_Search'];
     public static $TABLE = 'searches';
     public static $PKEY = 'search_id';
     /** @var bool Whether this Search type has multiple sources. */

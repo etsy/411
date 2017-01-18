@@ -105,6 +105,7 @@ class Searches_REST extends Models_REST {
                 $syncjob['target_id'] = $model[Search::$PKEY];
                 $syncjob['target_date'] = $_SERVER['REQUEST_TIME'];
                 $syncjob->store();
+                // We don't want to schedule a Sync for every field that's changed.
                 break;
             }
         }

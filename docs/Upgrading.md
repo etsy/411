@@ -16,6 +16,8 @@ Migrating from A.B.C to D.E.F
 Migration complete!
 ```
 
+If you have any issues upgrading, you can open a ticket or get help on our Gitter.
+
 ## v1.2 ##
 
 With the introduction of Search sources, changes were made to the following Searches:
@@ -25,6 +27,7 @@ With the introduction of Search sources, changes were made to the following Sear
 - `Graphite`: Modified to support sources.
 
 If you're using any `Logstash` or `Graphite` Searches, you'll need to make some changes:
+
 
 ### Graphite ###
 

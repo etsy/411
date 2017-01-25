@@ -169,17 +169,15 @@ class ESClient {
                 'range' => [ 'alert_date' => $conds ]
             ];
         }
+        $filter['query_string'] = [ 'query' => $query ];
 
         $body = [
             'query' => [
-                'filtered' => [
-                    'query' => [
-                        'query_string' => [ 'query' => $query ],
-                    ],
+                'bool' => [
                     'filter' => $filter
                 ],
             ],
-            'sort' => [ 'alert_date' => [ 'order' => 'desc', 'ignore_unmapped' => true ] ]
+            'sort' => [ 'alert_date' => [ 'order' => 'desc', 'unmapped_type' => 'date' ] ]
         ];
 
         if(!is_null($offset)) {
@@ -242,14 +240,14 @@ class ESClient {
         $aggs = [];
         $node = &$aggs;
         foreach($fields as $field) {
-            $node['aggs'] = ['agg' => ['terms' => [ 'field' => $field, 'size' => 0 ]]];
+            $node['aggs'] = ['agg' => ['terms' => [ 'field' => $field, 'size' => 2**31 - 1 ]]];
             $node = &$node['aggs']['agg'];
         }
 
         $node['aggs'] = ['hits' => [
             'top_hits' => [
                 'size' => 10,
-                'sort' => [ 'alert_date' => [ 'order' => 'desc', 'ignore_unmapped' => true ] ]
+                'sort' => [ 'alert_date' => [ 'order' => 'desc', 'unmapped_type' => 'date' ] ]
             ]
         ]];
 
@@ -266,16 +264,14 @@ class ESClient {
                 'range' => [ 'alert_date' => $conds ]
             ];
         }
+        $filter['query_string'] = [ 'query' => $query ];
 
         try {
             $data = $client->search([
                 'index' => $this->index,
                 'body' => [
                     'query' => [
-                        'filtered' => [
-                            'query' => [
-                                'query_string' => [ 'query' => $query ],
-                            ],
+                        'bool' => [
                             'filter' => $filter
                         ],
                     ],
@@ -354,7 +350,7 @@ class ESClient {
                 'index' => $this->index,
                 'body' => [
                     'query' => [
-                        'filtered' => [
+                        'bool' => [
                             'filter' => $filter
                         ],
                     ],
@@ -425,7 +421,7 @@ class ESClient {
                 'index' => $this->index,
                 'body' => [
                     'query' => [
-                        'filtered' => [
+                        'bool' => [
                             'filter' => $filter
                         ],
                     ],

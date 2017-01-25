@@ -25,7 +25,7 @@ class Curl extends \Curl\Curl {
     /**
      * @suppress PhanTypeMismatchArgument
      */
-    public function post($url, $data) {
-        return parent::post($url, $data);
+    public function post($url, $data=[], $follow_303_with_post=false) {
+        return parent::post($url, $data, $follow_303_with_post);
     }
 }

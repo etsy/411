@@ -37,6 +37,7 @@ class Script_Filter extends Filter {
         $spec = [
             0 => ['pipe', 'r'],
             1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
         ];
         $script_dir_list = [
             sprintf('%s/extlib/Filter/Script/%s', BASE_DIR, $script),
@@ -57,13 +58,14 @@ class Script_Filter extends Filter {
 
                 // Read output from STDOUT.
                 $output = stream_get_contents($pipes[1]);
-                //Logger::info($output); // for debugging script issues
+                $err = stream_get_contents($pipes[2]);
                 fclose($pipes[1]);
+                fclose($pipes[2]);
 
                 // Ensure success.
                 $ret = proc_close($process);
                 if($ret != 0) {
-                    throw new FilterException(sprintf('Return code: %d', $ret));
+                    throw new FilterException(sprintf('Return code: %d, Output: %s', $ret, $err));
                 }
 
                 if($output == 'null') {

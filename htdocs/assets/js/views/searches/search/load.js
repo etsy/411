@@ -19,7 +19,7 @@ define(function(require) {
     SearchView.registerSubclass('http', HTTPSearchView);
     SearchView.registerSubclass('graphite', GraphiteSearchView);
     SearchView.registerSubclass('threatexchange', ThreatexchangeSearchView);
-    SearchView.registerSubclass('logstash', ElasticsearchSearchView);
+    SearchView.registerSubclass('es', ElasticsearchSearchView);
     SearchView.registerSubclass('alert', ElasticsearchSearchView);
     SearchView.registerSubclass('ecl', ECLSearchView);
     SearchView.registerSubclass('push', PushSearchView);

@@ -161,7 +161,7 @@ define(function(require) {
 
             var level = Util.getLevel(lvl);
             var message_elem = $(Templates['message']({
-                level: level, message: str
+                level: level, message: str.replace(/\n/g, '<br>')
             }));
             this.Elem.Message.append(message_elem);
             message_elem.delay(3000).slideUp(message_elem.remove);

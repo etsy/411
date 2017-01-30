@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "327a4085249b5a7ade202d6ead9b098a",
+    "content-hash": "ba45406c7b88821fb12d8f154be8fa60",
     "packages": [
         {
             "name": "codeclimate/php-test-reporter",
@@ -66,30 +66,32 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v2.3.0",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elastic/elasticsearch-php.git",
-                "reference": "12a400656e4cf4c231d83cb56af3f50a27dcde93"
+                "reference": "a05b8bbe91353a453685cee91a23a5fe7624cd3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/12a400656e4cf4c231d83cb56af3f50a27dcde93",
-                "reference": "12a400656e4cf4c231d83cb56af3f50a27dcde93",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/a05b8bbe91353a453685cee91a23a5fe7624cd3f",
+                "reference": "a05b8bbe91353a453685cee91a23a5fe7624cd3f",
                 "shasum": ""
             },
             "require": {
+                "ext-json": ">=1.3.7",
                 "guzzlehttp/ringphp": "~1.0",
-                "php": ">=5.4",
+                "php": "^5.6.6|^7.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
                 "cpliakas/git-wrapper": "~1.0",
+                "doctrine/inflector": "^1.1",
                 "mockery/mockery": "0.9.4",
-                "phpunit/phpunit": "~4.7",
+                "phpunit/phpunit": "^4.7|^5.4",
                 "sami/sami": "~3.2",
-                "symfony/yaml": "2.4.3 as 2.4.2",
-                "twig/twig": "1.*"
+                "symfony/finder": "^2.8",
+                "symfony/yaml": "^2.8"
             },
             "suggest": {
                 "ext-curl": "*",
@@ -116,7 +118,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2016-11-30T17:15:05+00:00"
+            "time": "2017-01-06T22:32:21+00:00"
         },
         {
             "name": "guzzle/guzzle",
@@ -317,21 +319,21 @@
         },
         {
             "name": "kiwiz/ecl",
-            "version": "dev-master",
+            "version": "dev-es-5.x",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/ecl.git",
-                "reference": "3ac14e0e4b6f33ea6504661511ac12ee4891fb03"
+                "reference": "99c2dd34437b64dc30a010bfb1ce4039d5fd7608"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/3ac14e0e4b6f33ea6504661511ac12ee4891fb03",
-                "reference": "3ac14e0e4b6f33ea6504661511ac12ee4891fb03",
+                "url": "https://api.github.com/repos/kiwiz/ecl/zipball/99c2dd34437b64dc30a010bfb1ce4039d5fd7608",
+                "reference": "99c2dd34437b64dc30a010bfb1ce4039d5fd7608",
                 "shasum": ""
             },
             "require": {
                 "codeclimate/php-test-reporter": "^0.3.2",
-                "elasticsearch/elasticsearch": "^2.2",
+                "elasticsearch/elasticsearch": "^5.0",
                 "symfony/expression-language": "^3.1"
             },
             "require-dev": {
@@ -346,24 +348,24 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "ECL",
-            "time": "2017-01-08 07:13:05"
+            "time": "2017-02-02 17:15:14"
         },
         {
             "name": "kiwiz/esquery",
-            "version": "dev-master",
+            "version": "dev-es-5.x",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "315e5773e87a8826e3cc0f82f8eac4b9d1be6310"
+                "reference": "9a1521e3cdb5ab2c80eb3f148eaf16c4ac540033"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/315e5773e87a8826e3cc0f82f8eac4b9d1be6310",
-                "reference": "315e5773e87a8826e3cc0f82f8eac4b9d1be6310",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/9a1521e3cdb5ab2c80eb3f148eaf16c4ac540033",
+                "reference": "9a1521e3cdb5ab2c80eb3f148eaf16c4ac540033",
                 "shasum": ""
             },
             "require": {
-                "elasticsearch/elasticsearch": "^2.0"
+                "elasticsearch/elasticsearch": "^5.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8"
@@ -386,20 +388,20 @@
             ],
             "description": "Elasticsearch querying library",
             "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2016-11-18 16:31:01"
+            "time": "2017-01-26 22:56:32"
         },
         {
             "name": "mtdowling/cron-expression",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mtdowling/cron-expression.git",
-                "reference": "c9ee7886f5a12902b225a1a12f36bb45f9ab89e5"
+                "reference": "9504fa9ea681b586028adaaa0877db4aecf32bad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mtdowling/cron-expression/zipball/c9ee7886f5a12902b225a1a12f36bb45f9ab89e5",
-                "reference": "c9ee7886f5a12902b225a1a12f36bb45f9ab89e5",
+                "url": "https://api.github.com/repos/mtdowling/cron-expression/zipball/9504fa9ea681b586028adaaa0877db4aecf32bad",
+                "reference": "9504fa9ea681b586028adaaa0877db4aecf32bad",
                 "shasum": ""
             },
             "require": {
@@ -410,8 +412,8 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Cron": "src/"
+                "psr-4": {
+                    "Cron\\": "src/Cron/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -430,7 +432,7 @@
                 "cron",
                 "schedule"
             ],
-            "time": "2016-01-26T21:23:30+00:00"
+            "time": "2017-01-23T04:29:33+00:00"
         },
         {
             "name": "php-curl-class/php-curl-class",
@@ -2934,16 +2936,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.31",
+            "version": "4.8.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "98b2b39a520766bec663ff5b7ff1b729db9dbfe3"
+                "reference": "7eb45205d27edd94bd2b3614085ea158bd1e2bca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/98b2b39a520766bec663ff5b7ff1b729db9dbfe3",
-                "reference": "98b2b39a520766bec663ff5b7ff1b729db9dbfe3",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7eb45205d27edd94bd2b3614085ea158bd1e2bca",
+                "reference": "7eb45205d27edd94bd2b3614085ea158bd1e2bca",
                 "shasum": ""
             },
             "require": {
@@ -3002,7 +3004,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-12-09T02:45:31+00:00"
+            "time": "2017-01-26T16:15:36+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3108,16 +3110,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "1.2.2",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "6a1ed12e8b2409076ab22e3897126211ff8b1f7f"
+                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
-                "reference": "6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
+                "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
                 "shasum": ""
             },
             "require": {
@@ -3168,7 +3170,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2016-11-19T09:18:40+00:00"
+            "time": "2017-01-29T09:50:25+00:00"
         },
         {
             "name": "sebastian/diff",

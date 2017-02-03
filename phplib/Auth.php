@@ -22,13 +22,14 @@ class Auth {
         $api_auth = Util::get($auth_config['api'], 'enabled', true);
         $proxy_auth = Util::get($auth_config['proxy'], 'enabled', true);
         $proxy_auth_header = sprintf('HTTP_%s', strtoupper(Util::get($auth_config['proxy'], 'header', '')));
+        $proxy_username_is_email = Util::get($auth_config['proxy'], 'subject_is_email', false);
 
         if($api_auth && array_key_exists('HTTP_X_API_KEY', $_SERVER)) {
             self::$auth_type = self::T_API;
             $user = self::getAPIUser($_SERVER['HTTP_X_API_KEY']);
         } else if($proxy_auth && array_key_exists($proxy_auth_header, $_SERVER)) {
             self::$auth_type = self::T_PROXY;
-            $user = self::getProxyUser($_SERVER[$proxy_auth_header]);
+            $user = self::getProxyUser($_SERVER[$proxy_auth_header], $proxy_username_is_email);
         } else {
             self::$auth_type = self::T_COOKIE;
             $user = self::getCookieUser(Cookie::get('id'));
@@ -47,10 +48,16 @@ class Auth {
         return $user;
     }
 
-    private function getProxyUser($username) {
+    private function getProxyUser($username, $username_is_email) {
         $auth_config = Config::get('auth');
         $auto_create = Util::get($auth_config['proxy'], 'auto_create', false);
-        $domain = Util::get($auth_config['proxy'], 'domain', '411');
+        if ($username_is_email) {
+          $parts = explode('@', $username);
+          $username = $parts[0];
+          $domain = $parts[1];
+        } else {
+          $domain = Util::get($auth_config['proxy'], 'domain', '411');
+        }
 
         $user = UserFinder::getByName($username);
         if (is_null($user) && $auto_create) {

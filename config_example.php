@@ -29,6 +29,10 @@ $config['auth'] = [
          * Email domain for automatically created users.
          */
         'domain' => null,
+        /**
+         * If the subject in the header is an email address.
+         */
+        'subject_is_email' => false,
     ],
     'api' => [
         /**

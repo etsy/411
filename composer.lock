@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "9f7cac532dd7e343502dcedc9a7d5018381abba4"
+                "reference": "bf52a0eaf857da2a4754cea2751d66c592c3dd16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/9f7cac532dd7e343502dcedc9a7d5018381abba4",
-                "reference": "9f7cac532dd7e343502dcedc9a7d5018381abba4",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/bf52a0eaf857da2a4754cea2751d66c592c3dd16",
+                "reference": "bf52a0eaf857da2a4754cea2751d66c592c3dd16",
                 "shasum": ""
             },
             "require": {
@@ -386,7 +386,7 @@
             ],
             "description": "Elasticsearch querying library",
             "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2017-02-06 19:23:30"
+            "time": "2017-02-06 23:44:54"
         },
         {
             "name": "mtdowling/cron-expression",

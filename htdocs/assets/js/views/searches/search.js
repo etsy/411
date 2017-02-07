@@ -161,7 +161,7 @@ define(function(require) {
         title: 'Search',
         events: {
             'click .stats-button': 'stats',
-            'click .changelog-button': 'showchangelog',
+            'click .changelog-button': 'changelog',
             'click .jobs-button': 'jobs',
             'click .alerts-button': 'gotoAlerts',
         },

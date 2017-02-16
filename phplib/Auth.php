@@ -20,6 +20,11 @@ class Auth {
             }
 
             $user = UserFinder::getByAPIKey($_SERVER['HTTP_X_API_KEY']);
+        } else if(ProxyAuth::available()) {
+            $user = UserFinder::getByName(ProxyAuth::getUserName());
+            if (is_null($user) && ProxyAuth::autoSignup()) {
+                $user = ProxyAuth::createUser();
+            }
         } else {
             $user = UserFinder::getById(Cookie::get('id'));
         }

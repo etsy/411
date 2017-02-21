@@ -53,6 +53,8 @@ class Searches_REST extends Models_REST {
         $action = Util::get($get, 'action');
 
         switch($action) {
+            case 'preview':
+                return self::format($this->preview($get, $data));
             case 'test':
                 return self::format($this->test($get, $data));
             case 'execute':
@@ -125,6 +127,51 @@ class Searches_REST extends Models_REST {
         $log['description'] = $description;
 
         $log->store();
+    }
+
+    public function preview($get, $data) {
+        if(!$this->allowCreate()) {
+            throw new ForbiddenException;
+        }
+
+        $id = Util::get($data, 'id');
+        $type = Util::get($data, 'type', '');
+
+        $schema = Search::getSchema();
+
+        $search = SearchFinder::getById($id);
+        if(!$search) {
+            $search = Search::newSearch($type);
+        }
+        foreach($data as $k=>$v) {
+            if(!Util::exists($schema, $k)) {
+                continue;
+            }
+            $search[$k] = $v;
+        }
+        $search->validate();
+
+        $alerts = [];
+        $alertkeys = ['one', 'two', 'three'];
+        $vertical = false;
+        for($i = 0; $i < 3; ++$i) {
+            $alert = new Alert;
+            $alert['alert_date'] = $_SERVER['REQUEST_TIME'];
+            $alert['content'] = [
+                'one' => 'one',
+                'two' => 'two',
+                'three' => 'three'
+            ];
+            $alerts[] = $alert;
+        }
+
+        return self::format(Notification::render('alerts', [
+            'search' => $search,
+            'alerts' => $alerts,
+            'alertkeys' => $alertkeys,
+            'content_only' => false,
+            'vertical' => $vertical,
+        ]));
     }
 
     public function test($get, $data) {

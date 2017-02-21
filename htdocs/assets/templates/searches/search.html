@@ -131,6 +131,20 @@
 
             <div class="tab-pane" id="notif">
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="assignee">Assignee <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The notification targets when this Search generates Alerts."></span></label>
+                <input type="hidden" class="form-control" name="assignee" value="{{#if assignee}}{{ assignee_type }},{{ assignee }}{{/if}}">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
+                <label for="owner">Owner <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The maintainer of this Search."></span></label>
+                <input type="hidden" class="form-control" name="owner" value="{{#if owner}}{{ owner }}{{/if}}">
+              </div>
+
+              <div class="col-xs-12 form-group">
+                <label for="source_expr">Source Link <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The SEL expression defining the source link of this Search."></span></label>
+                <input class="form-control" name="source_expr" value="{{ query_data.source_expr }}" />
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
                 <label for="notif_type">Notification Type <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The type of notification scheduling to use for this Search."></span></label>
 
                 <div class="input-group">
@@ -157,18 +171,10 @@
                 </select>
               </div>
 
-              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
-                <label for="assignee">Assignee <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The notification targets when this Search generates Alerts."></span></label>
-                <input type="hidden" class="form-control" name="assignee" value="{{#if assignee}}{{ assignee_type }},{{ assignee }}{{/if}}">
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 form-group">
-                <label for="owner">Owner <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The maintainer of this Search."></span></label>
-                <input type="hidden" class="form-control" name="owner" value="{{#if owner}}{{ owner }}{{/if}}">
-              </div>
-
-              <div class="col-xs-12 form-group">
-                <label for="source_expr">Source Link <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="The SEL expression defining the source link of this Search."></span></label>
-                <input class="form-control" name="source_expr" value="{{ query_data.source_expr }}" />
+              <div class="col-xs-12">
+                <div class="text-center">
+                  <button id="preview-notification-button" class="btn btn-sm btn-default" type="button">Preview</button>
+                </div>
               </div>
 
               {{{ addn_fields_e }}}

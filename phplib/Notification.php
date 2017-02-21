@@ -20,9 +20,16 @@ class Notification {
      */
     public static function sendAlertEmail($to, $search, $alerts, $content_only, $debug_data=[]) {
         $alertkeys = [];
+        $long = false;
         foreach($alerts as $alert) {
+            if(count($alert['content']) >= 10) {
+                $long = true;
+            }
             foreach($alert['content'] as $k=>$v) {
                 $alertkeys[$k] = null;
+                if(strlen($v) > 150) {
+                    $long = true;
+                }
             }
         }
         $alertkeys = array_keys($alertkeys);
@@ -35,6 +42,7 @@ class Notification {
                 'alerts' => $alerts,
                 'alertkeys' => $alertkeys,
                 'content_only' => $content_only,
+                'vertical' => $long,
             ], $debug_data)
         );
     }
@@ -57,6 +65,7 @@ class Notification {
                 'action' => $action,
                 'alert_groups' => self::groupAlerts($searches, $alerts),
                 'content_only' => $content_only,
+                'vertical' => false,
             ], $debug_data)
         );
     }
@@ -95,6 +104,7 @@ class Notification {
                 'actions' => $actions,
                 'action_alert_groups' => self::groupAlerts($search_map, $action_alerts),
                 'content_only' => $content_only,
+                'vertical' => false,
             ], $debug_data)
         );
     }
@@ -293,6 +303,7 @@ class Notification {
         $table_style = "border-collapse: collapse; min-width: 100%;";
         $link_style = "color: #000;";
         $h_cell_style = "background-color: #eee; color: #333; border-top: 1px solid #ddd; padding: 5px;";
+        $sp_cell_style = "background-color: #f5f5f5; border-top: 1px solid #ddd; padding: 5px;";
         $cell_style = "background-color: #f9f9f9; color: #333; border-top: 1px solid #ddd; padding: 5px; text-align: right;";
         $button_style = "padding: 1px 5px; border-radius: 3px; border: solid 1px #269abc; background: #5bc0de; color: #fff; text-decoration: none;";
         $action_button_style = "padding: 10px 16px; border-radius: 6px; border: solid 1px #4cae4c; background: #5cb85c; color: #fff; text-decoration: none; font-size: 18px; cursor: hand;";

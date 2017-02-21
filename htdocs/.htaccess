@@ -9,11 +9,13 @@ RewriteEngine on
 
 RewriteRule ^api/search/?$ /api/searches.php [L]
 RewriteRule ^api/search/test$ /api/searches.php?action=test [L]
+RewriteRule ^api/search/preview$ /api/searches.php?action=preview [L]
 RewriteRule ^api/search/(\d+)$ /api/searches.php?id=$1 [L]
 RewriteRule ^api/search/(\d+)/stats$ /api/searches.php?id=$1&action=stats [L]
 RewriteRule ^api/search/(\d+)/execute$ /api/searches.php?id=$1&action=execute [L]
 
 RewriteRule ^api/search/(\d+)/log$ /api/searchlogs.php?search_id=$1 [L]
+RewriteRule ^api/search/(\d+)/job$ /api/jobs.php?type=search&target_id=$1 [L,QSA]
 RewriteRule ^api/search/(\d+)/job$ /api/jobs.php?type=search&target_id=$1 [L,QSA]
 
 RewriteRule ^api/search/(\d+)/target/?$ /api/targets.php?search_id=$1 [L]

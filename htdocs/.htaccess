@@ -16,7 +16,6 @@ RewriteRule ^api/search/(\d+)/execute$ /api/searches.php?id=$1&action=execute [L
 
 RewriteRule ^api/search/(\d+)/log$ /api/searchlogs.php?search_id=$1 [L]
 RewriteRule ^api/search/(\d+)/job$ /api/jobs.php?type=search&target_id=$1 [L,QSA]
-RewriteRule ^api/search/(\d+)/job$ /api/jobs.php?type=search&target_id=$1 [L,QSA]
 
 RewriteRule ^api/search/(\d+)/target/?$ /api/targets.php?search_id=$1 [L]
 RewriteRule ^api/search/(\d+)/filter/validate$ /api/filters.php?search_id=$1&action=validate [L]

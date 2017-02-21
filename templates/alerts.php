@@ -2,7 +2,7 @@
 
 <div style="<?= $font ?>">
 <form method="get" action="<?= $base_url ?>/alerts_redir.php">
-  <?php require(__DIR__ . '/alert_list.php'); ?>
+  <?php require(__DIR__ . '/modules/alerts.php'); ?>
   <br>
 
   <div style="text-align: right">

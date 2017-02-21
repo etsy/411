@@ -12,7 +12,7 @@
   <h1>List</h1>
 
   <?php foreach($alert_groups as $alert_group): list($search, $alerts, $alertkeys) = $alert_group; ?>
-    <?php require(__DIR__ . '/alert_list.php'); ?>
+    <?php require(__DIR__ . '/modules/alerts.php'); ?>
     <br>
   <?php endforeach ?>
 

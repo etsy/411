@@ -124,6 +124,22 @@ define(function(require) {
         }
     });
 
+    var PreviewNotificationModalView = ModalView.extend({
+        title: 'Notification',
+        large: true,
+        events: {
+            'click *': 'disable'
+        },
+        subTemplate: function() { return this.html; },
+        initialize: function(options) {
+            this.html = options.html;
+            ModalView.prototype.initialize.call(this);
+        },
+        disable: function() {
+            return false;
+        }
+    });
+
     var ExecutionConfigModalView = ModalView.extend({
         title: 'Config',
         subTemplate: Templates['searches/executionmodal'],
@@ -373,6 +389,7 @@ define(function(require) {
             'click #schedule-checkbox': 'toggleSchedule',
             'click #notif-checkbox': 'toggleNotif',
             'click #autoclose-checkbox': 'toggleAutoclose',
+            'click #preview-notification-button': 'processPreviewNotif',
             'click #save-elements-button': 'processSaveElements',
             'click #test-button': 'processTest',
             'click #execute-button': 'processExecute',
@@ -593,6 +610,17 @@ define(function(require) {
             this.listenTo(modal, 'run', $.proxy(function(data) {
                 this.processPreview(true, data);
             }, this));
+        },
+        processPreviewNotif: function(e) {
+            var data = this.readForm();
+            this.App.showLoader();
+
+            this.model.getPreviewNotif(data, {
+                success: this.cbRendered(function(resp) {
+                    this.App.setModal(new PreviewNotificationModalView(this.App, {html: resp}));
+                }),
+                complete: $.proxy(this.App.hideLoader, this.App)
+            });
         },
         /**
          * Implementation for test/execute.

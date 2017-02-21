@@ -14,7 +14,7 @@
   <h1 style="text-align: center">Recent Alerts</h1>
 
   <?php foreach($new_alert_groups as $alert_group): list($search, $alerts, $alertkeys) = $alert_group; ?>
-    <?php require(__DIR__ . '/alert_list.php'); ?>
+    <?php require(__DIR__ . '/modules/alerts.php'); ?>
     <br>
   <?php endforeach ?>
 
@@ -27,13 +27,13 @@
   <hr>
   <h1 style="text-align: center">Recent Actions</h1>
 
-  <?php require(__DIR__ . '/action_list.php'); ?>
+  <?php require(__DIR__ . '/modules/actions.php'); ?>
   <br>
 
   <h1 style="text-align: center">Alert List</h1>
 
   <?php foreach($action_alert_groups as $alert_group): list($search, $alerts, $alertkeys) = $alert_group; ?>
-    <?php require(__DIR__ . '/alert_list.php'); ?>
+    <?php require(__DIR__ . '/modules/alerts.php'); ?>
     <br>
   <?php endforeach ?>
 

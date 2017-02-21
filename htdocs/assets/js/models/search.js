@@ -23,6 +23,16 @@ define(function(require) {
             options.url = this.urlRoot + '/' + this.id + '/job';
             return Backbone.ajax(options);
         },
+        getPreviewNotif: function(data, options) {
+            data = _.extend(this.toJSON(), data);
+
+            options = options || {};
+            options.url = this.urlRoot + '/preview';
+            options.method = 'post';
+            options.data = JSON.stringify(data);
+            options.contentType = 'application/json; charset=utf-8';
+            return Backbone.ajax(options);
+        },
         test: function(data, options) {
             data = _.extend(this.toJSON(), data);
 

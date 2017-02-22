@@ -15,6 +15,8 @@ class User extends Model {
     const NONE = 0;
     /** Api key length. */
     const API_KEY_LEN = 30;
+    /** Default password length. */
+    const PASS_LEN = 16;
 
     protected static function generateSchema() {
         return [
@@ -54,6 +56,33 @@ class User extends Model {
         $data['settings'] = (array)json_decode($data['settings'], true);
         $data['admin'] = (bool)$data['admin'];
         return parent::deserialize($data);
+    }
+
+    /**
+     * Change the password for this user.
+     * @param string $password The new password.
+     */
+    public function setPassword($password) {
+        $this->obj['password'] = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    /**
+     * Generate and set a random password.
+     * @return string The new password.
+     */
+    public function randomizePassword() {
+        $password = Random::base64_bytes(self::PASS_LEN);
+        $this->setPassword($password);
+        return $password;
+    }
+
+    /**
+     * Generate and set a random API key.
+     * @return string The new API key.
+     */
+    public function randomizeAPIKey() {
+        $this->obj['api_key'] = Random::base64_bytes(User::API_KEY_LEN);
+        return $this->obj['api_key'];
     }
 }
 

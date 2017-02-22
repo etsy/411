@@ -8,24 +8,79 @@ namespace FOO;
  * @package FOO
  */
 class Auth {
+    const T_NULL = 0;
+    const T_COOKIE = 1;
+    const T_API = 2;
+    const T_PROXY = 3;
+
     private static $user = null;
-    private static $api_auth = false;
+    private static $auth_type = self::T_NULL;
 
     public static function init() {
         $user = null;
-        if(array_key_exists('HTTP_X_API_KEY', $_SERVER)) {
-            self::$api_auth = true;
-            if(strlen($_SERVER['HTTP_X_API_KEY']) < User::API_KEY_LEN) {
-                return;
-            }
+        $auth_config = Config::get('auth');
+        $api_auth = Util::get($auth_config['api'], 'enabled', true);
+        $proxy_auth = Util::get($auth_config['proxy'], 'enabled', true);
+        $proxy_auth_header = sprintf('HTTP_%s', strtoupper(Util::get($auth_config['proxy'], 'header', '')));
 
-            $user = UserFinder::getByAPIKey($_SERVER['HTTP_X_API_KEY']);
+        if($api_auth && array_key_exists('HTTP_X_API_KEY', $_SERVER)) {
+            self::$auth_type = self::T_API;
+            $user = self::getAPIUser($_SERVER['HTTP_X_API_KEY']);
+        } else if($proxy_auth && array_key_exists($proxy_auth_header, $_SERVER)) {
+            self::$auth_type = self::T_PROXY;
+            $user = self::getProxyUser($_SERVER[$proxy_auth_header]);
         } else {
-            $user = UserFinder::getById(Cookie::get('id'));
+            self::$auth_type = self::T_COOKIE;
+            $user = self::getCookieUser(Cookie::get('id'));
         }
 
         list($user) = Hook::call('auth.init', [$user]);
         self::$user = $user;
+    }
+
+    private function getAPIUser($api_key) {
+        $user = null;
+        if(strlen($api_key) >= User::API_KEY_LEN) {
+            $user = UserFinder::getByAPIKey($api_key);
+        }
+
+        return $user;
+    }
+
+    private function getProxyUser($username) {
+        $auth_config = Config::get('auth');
+        $auto_create = Util::get($auth_config['proxy'], 'auto_create', false);
+        $domain = Util::get($auth_config['proxy'], 'domain', '411');
+
+        $user = UserFinder::getByName($username);
+        if (is_null($user) && $auto_create) {
+            $user = self::createUser($username, $domain);
+        }
+
+        return $user;
+    }
+
+    /**
+     * Create a new user.
+     * @param string $username The username.
+     * @param string $domain The domain.
+     * @return User The new user object.
+     */
+    private static function createUser($username, $domain) {
+      $user = new User();
+      $user['name'] = $username;
+      $user['real_name'] = 'Proxy Auth';
+      $user->randomizePassword();
+      $user->randomizeAPIKey();
+      $user['email'] = sprintf('%s@%s', $username, $domain);
+      $user['admin'] = false;
+      $user->store();
+
+      return $user;
+    }
+
+    private function getCookieUser($id) {
+        return UserFinder::getById(Cookie::get('id'));
     }
 
     /**
@@ -33,15 +88,31 @@ class Auth {
      * @return bool Whether this request is thru a web browser.
      */
     public static function isWeb() {
-        return !self::$api_auth;
+        return in_array(self::$auth_type, [self::T_COOKIE, self::T_PROXY]);
     }
 
     /**
-     * Returns whether this request was an API request.
-     * @return bool Whether this request is thru an API Key.
+     * Returns whether this request used standard cookie auth.
+     * @return bool Whether this request used standard cookie auth.
+     */
+    public static function isCookie() {
+        return self::$auth_type == self::T_COOKIE;
+    }
+
+    /**
+     * Returns whether this request used proxy auth.
+     * @return bool Whether this request used proxy auth.
+     */
+    public static function isProxy() {
+        return self::$auth_type == self::T_PROXY;
+    }
+
+    /**
+     * Returns whether this request used api auth.
+     * @return bool Whether this request used api auth.
      */
     public static function isAPI() {
-        return self::$api_auth;
+        return self::$auth_type == self::T_API;
     }
 
     /**
@@ -60,6 +131,7 @@ class Auth {
                 $user['password'] = password_hash($pass, PASSWORD_DEFAULT);
                 $user->store();
             }
+            self::$auth_type = self::T_COOKIE;
             self::setUser($user);
             return $user;
         }
@@ -70,6 +142,7 @@ class Auth {
      * Logout the user.
      */
     public static function logout() {
+        self::$auth_type = self::T_NULL;
         self::setUser(null);
     }
 
@@ -86,7 +159,7 @@ class Auth {
      * @return User|null The User or null.
      */
     public static function setUser(User $user=null) {
-        if(!self::$api_auth) {
+        if(self::$auth_type == self::T_COOKIE) {
             Cookie::set('id', $user['id']);
         }
         self::$user = $user;

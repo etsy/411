@@ -8,6 +8,37 @@
 $config = [];
 
 /**
+ * Authentication configuration
+ */
+$config['auth'] = [
+    'proxy' => [
+        /**
+         * Whether to enable proxy auth.
+         * IT IS VERY INSECURE TO ENABLE THIS IF 411 is not run behind an auth proxy.
+         */
+        'enabled' => false,
+        /**
+         * The name of the header the proxy is setting.
+         */
+        'header' => null,
+        /**
+         * Whether to automatically create users who are authenticated.
+         */
+        'auto_create' => false,
+        /**
+         * Email domain for automatically created users.
+         */
+        'domain' => null,
+    ],
+    'api' => [
+        /**
+         * Whether to enable api access to 411.
+         */
+        'enabled' => true
+    ]
+];
+
+/**
  * Database configuration
  */
 $config['db'] = [

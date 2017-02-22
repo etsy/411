@@ -19,8 +19,8 @@ class Auth {
     public static function init() {
         $user = null;
         $auth_config = Config::get('auth');
-        $api_auth = Util::get($auth_config['api'], 'enabled', true);
-        $proxy_auth = Util::get($auth_config['proxy'], 'enabled', true);
+        $api_auth = Util::get($auth_config['api'], 'enabled', false);
+        $proxy_auth = Util::get($auth_config['proxy'], 'enabled', false);
         $proxy_auth_header = sprintf('HTTP_%s', strtoupper(Util::get($auth_config['proxy'], 'header', '')));
 
         if($api_auth && array_key_exists('HTTP_X_API_KEY', $_SERVER)) {

@@ -12,7 +12,7 @@ class Users_REST extends Models_REST {
 
     protected static $MODEL = 'User';
     protected static $CREATABLE = [
-        'name', 'real_name', 'password', 'email', 'admin'
+        'name', 'real_name', 'password', 'email', 'admin', 'api_key'
     ];
     protected static $QUERYABLE = [
         'name'
@@ -39,6 +39,7 @@ class Users_REST extends Models_REST {
 
     public function filterFields(Model $model, array $readable=null) {
         $data = parent::filterFields($model, $readable);
+        // Filter the list of readable fields
         if(!Auth::isAdmin() && $model['id'] !== Auth::getUserId()) {
             unset($data['api_key']);
         }

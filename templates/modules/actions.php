@@ -23,8 +23,9 @@
           <td style="<?= $cell_style ?> width: 1px;">
             <a style="<?= $button_style ?>" href="<?= $base_url ?>/alert/<?= $action['alert_id'] ?>">View</a>
           </td>
-          <td style="<?= $cell_style ?>; white-space: nowrap">
-            <?= strftime('%G-%m-%d %T %z', $action['create_date']) ?>
+          <td style="<?= $cell_style ?>">
+            <span style="white-space: nowrap;"><?= strftime('%G-%m-%d', $alert['alert_date']) ?></span>
+            <span style="white-space: nowrap;"><?= strftime('%T', $alert['alert_date']) ?></span>
           </td>
           <td style="<?= $cell_style ?>; white-space: nowrap">
             <?= Util::escape($action->getDescription()) ?>

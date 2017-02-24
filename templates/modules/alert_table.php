@@ -21,7 +21,7 @@
       </td>
       <td style="<?= $cell_style ?> width: 1px;">
         <span style="white-space: nowrap;"><?= strftime('%G-%m-%d', $alert['alert_date']) ?></span>
-        <span style="white-space: nowrap;"><?= strftime('%T %z', $alert['alert_date']) ?></span>
+        <span style="white-space: nowrap;"><?= strftime('%T', $alert['alert_date']) ?></span>
       </td>
     <?php endif ?>
     <?php foreach($alertkeys as $alertkey): ?>

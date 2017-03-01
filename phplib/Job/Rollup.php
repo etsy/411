@@ -15,7 +15,7 @@ class Rollup_Job extends Job {
 
     /**
      * Process rollups for a site and send out emails.
-     * @return array null and an array of errors.
+     * @return array null, array of errors and whether failures are ignorable.
      */
     public function run() {
         switch($this->obj['target_id']) {
@@ -96,6 +96,6 @@ class Rollup_Job extends Job {
             }
         }
 
-        return [null, []];
+        return [null, [], false];
     }
 }

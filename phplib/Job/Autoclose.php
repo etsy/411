@@ -12,7 +12,7 @@ class Autoclose_Job extends Job {
 
     /**
      * Process any Alerts that are stale.
-     * @return array null and an array of errors.
+     * @return array null, array of errors and whether failures are ignorable.
      */
     public function run() {
         // Grab a list of jobs that have autoclosing enabled.
@@ -55,6 +55,6 @@ class Autoclose_Job extends Job {
 
         $client->finalize();
 
-        return [null, []];
+        return [null, [], false];
     }
 }

@@ -96,17 +96,17 @@ class Worker {
 
 
                 // Run the job and log whether it succeeded.
-                // Jobs can fail via two ways:
+                // Jobs can fail in one of two ways:
                 // - They can throw an exception.
-                // - They can return a non-empty array of errors.
+                // - They can return a non-empty array of errors (and the error is not ignorable).
                 $success = false;
                 $retry = false;
                 try {
-                    list($data, $errors) = $job->run();
+                    list($data, $errors, $ignorable) = $job->run();
                     $job['state'] = Job::ST_SUCC;
                     $job['completion'] = 100;
                     $job->store();
-                    if(count($errors) == 0) {
+                    if(count($errors) == 0 || $ignorable) {
                         $success = true;
                     } else {
                         $retry = $job->shouldRetry($date);

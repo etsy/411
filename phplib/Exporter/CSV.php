@@ -58,7 +58,7 @@ class CSV_Exporter extends Exporter {
         $searchjob = new Search_Job();
         $searchjob['target_date'] = $date;
         $search['range'] = $report['range'] * 60 * 24;
-        list($alerts, $errors) = $searchjob->_run(false, $search);
+        list($alerts, $errors, $ignorable) = $searchjob->_run(false, $search);
 
         fputcsv($fh, [$search['name']]);
         fputcsv($fh, [$search['description']]);

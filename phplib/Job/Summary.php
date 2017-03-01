@@ -14,7 +14,7 @@ class Summary_Job extends Job {
 
     /**
      * Generate and send a summary email for the week.
-     * @return array null and an array of errors.
+     * @return array null, array of errors and whether failures are ignorable.
      */
     public function run() {
         $cfg = new DBConfig;
@@ -59,7 +59,7 @@ class Summary_Job extends Job {
             $this->getDebugData()
         );
 
-        return [null, []];
+        return [null, [], false];
     }
 
     /**

@@ -3,7 +3,7 @@
 <div style="<?= $font ?>">
 <p>
   <a style="<?= $link_style ?>" href="<?= $base_url ?>/search/<?= $search['id'] ?>"><?= Util::escape($search['name']) ?></a> is currently failing.
-  This means that <b>no new Alerts will be generated</b> by this Search!<br>
+  This means that this Search may be <b>generating partial results!</b><br>
   <br>
   A followup email will be sent once this Search has recovered.
   <br>

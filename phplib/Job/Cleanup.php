@@ -12,11 +12,11 @@ class Cleanup_Job extends Job {
 
     /**
      * Optimize 411 by doing some cleanup.
-     * @return array null and an array of errors.
+     * @return array null, array of errors and whether failures are ignorable.
      */
     public function run() {
         JobFinder::optimize($this->obj['target_date']);
 
-        return [null, []];
+        return [null, [], false];
     }
 }

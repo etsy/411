@@ -18,7 +18,7 @@ class Search_Job extends Job {
     /**
      * Process a single Search.
      * @param bool $commit Whether to save Alerts.
-     * @return array An array of Alerts and an array of errors.
+     * @return array An array of Alerts, array of errors and whether failures are ignorable.
      */
     public function run($commit=true) {
         $search = SearchFinder::getById($this->obj['target_id']);
@@ -33,7 +33,7 @@ class Search_Job extends Job {
      * Process a single Search.
      * @param bool $commit Whether to save Alerts.
      * @param Search $search The Search object.
-     * @return array An array of Alerts and an array of errors.
+     * @return array An array of Alerts, array of errors and whether failures are ignorable.
      */
     public function _run($commit, Search $search) {
         $alerts = [];
@@ -52,8 +52,10 @@ class Search_Job extends Job {
         }
 
         // Attempt to run the Search. If it fails, we note the error and continue.
+        $search_success = false;
         try {
             $alerts = $search->execute($this->obj['target_date']);
+            $search_success = true;
         } catch(SearchException $e) {
             $errors[] = sprintf("SearchException: %s", $e->getMessage());
             Logger::except($e);
@@ -144,10 +146,10 @@ class Search_Job extends Job {
 
         // Record any errors.
         if(!$curr_success) {
-            Logger::err('Search error', ['id' => $search['id'], 'job_id' => $this->obj['job_id'], 'errors' => $errors], self::LOG_NAMESPACE);
+            Logger::err('Search error', ['id' => $search['id'], 'job_id' => $this->obj['job_id'], 'ignorable' => $search_success, 'errors' => $errors], self::LOG_NAMESPACE);
         }
 
-        return [$final_alerts, $errors];
+        return [$final_alerts, $errors, $search_success];
     }
 
     public function shouldRun($date) {

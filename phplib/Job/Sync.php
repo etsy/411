@@ -14,7 +14,7 @@ class Sync_Job extends Job {
 
     /**
      * Process any Alerts that are stale.
-     * @return array null and an array of errors.
+     * @return array null, array of errors and whether failures are ignorable.
      */
     public function run() {
         $client = new ESClient(false);
@@ -47,6 +47,6 @@ class Sync_Job extends Job {
 
         $client->finalize();
 
-        return [null, []];
+        return [null, [], false];
     }
 }

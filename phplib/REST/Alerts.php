@@ -370,7 +370,7 @@ class Alerts_REST extends Models_REST {
 
         $searchjob = new Search_Job();
         $searchjob['target_date'] = $_SERVER['REQUEST_TIME'];
-        list($alerts, $errors) = $searchjob->_run(true, $search);
+        list($alerts, $errors, $ignorable) = $searchjob->_run(true, $search);
         $this->slog(SLog::AS_EXECUTE, $search['id']);
         return self::format($alerts, is_null($alerts), $errors);
     }

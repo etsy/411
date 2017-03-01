@@ -13,7 +13,7 @@ class Report_Job extends Job {
     /**
      * Process a single Report and generate emails as necessary.
      * @param bool $commit Whether to commit changes.
-     * @return array PDF data and an array of errors.
+     * @return array PDF data, array of errors and whether failures are ignorable.
      */
     public function run($commit=true) {
         $report = ReportFinder::getById($this->obj['target_id']);
@@ -39,6 +39,6 @@ class Report_Job extends Job {
             }
         }
 
-        return [$pdf_data, $errors];
+        return [$pdf_data, $errors, false];
     }
 }

@@ -38,7 +38,7 @@ class Auth {
         self::$user = $user;
     }
 
-    private function getAPIUser($api_key) {
+    private static function getAPIUser($api_key) {
         $user = null;
         if(strlen($api_key) >= User::API_KEY_LEN) {
             $user = UserFinder::getByAPIKey($api_key);
@@ -47,7 +47,7 @@ class Auth {
         return $user;
     }
 
-    private function getProxyUser($username) {
+    private static function getProxyUser($username) {
         $auth_config = Config::get('auth');
         $auto_create = Util::get($auth_config['proxy'], 'auto_create', false);
         $domain = Util::get($auth_config['proxy'], 'domain', '411');
@@ -79,7 +79,7 @@ class Auth {
       return $user;
     }
 
-    private function getCookieUser($id) {
+    private static function getCookieUser($id) {
         return UserFinder::getById(Cookie::get('id'));
     }
 

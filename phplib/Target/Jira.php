@@ -16,6 +16,7 @@ class Jira_Target extends Target {
             'project' => [static::T_STR, null, ''],
             'type' => [static::T_NUM, null, 0],
             'assignee' => [static::T_STR, null, ''],
+            'watchers' => [static::T_ARR, static::T_STR, []],
         ];
     }
 
@@ -37,7 +38,7 @@ class Jira_Target extends Target {
 
         // Don't show the link if this Alert isn't persisted.
         if(!$alert->isNew()) {
-            $desc[] = sprintf('[Link to Alert|%s', $site->urlFor(
+            $desc[] = sprintf('[Link to Alert|%s]', $site->urlFor(
                 sprintf('/alert/%d', $alert['alert_id'])
             ));
         }
@@ -48,15 +49,17 @@ class Jira_Target extends Target {
         }
         $search = SearchFinder::getById($alert['search_id']);
 
-        $issue_key = self::createIssue(
-            [
-                'project' => ['key' => $this->obj['data']['project']],
-                'issuetype' => ['id' => $this->obj['data']['type']],
-                'summary' => sprintf('[%s] %s', $site['name'], $search['name']),
-                'description' => implode("\n", $desc),
-                'assignee' => ['name' => $this->obj['data']['assignee']]
-            ]
-        );
+        $issue_data = [
+            'project' => ['key' => $this->obj['data']['project']],
+            'issuetype' => ['id' => $this->obj['data']['type']],
+            'summary' => sprintf('[%s] %s', $site['name'], $search['name']),
+            'description' => implode("\n", $desc),
+            'assignee' => ['name' => $this->obj['data']['assignee']]
+        ];
+        list($issue_data) = Hook::call('target.jira.send', [$issue_data]);
+
+        $issue_key = self::createIssue($issue_data);
+        self::addWatchers($issue_key, $this->obj['data']['watchers']);
     }
 
     /**
@@ -86,5 +89,31 @@ class Jira_Target extends Target {
         }
 
         return $raw_data['key'];
+    }
+
+    /**
+     * Add watchers to a JIRA ticket.
+     * @param string $issue_key Issue key.
+     * @param string[] $watchers An array of watchers.
+     */
+    public static function addWatchers($issue_key, $watchers) {
+        $jiracfg = Config::get('jira');
+        if(is_null($jiracfg['host'])) {
+            throw new TargetException('Jira not configured');
+        }
+
+        $curl = new Curl;
+        $curl->setHeader('X-Atlassian-Token', 'nocheck');
+        $curl->setHeader('Content-type', 'application/json');
+        if(!is_null($jiracfg['user']) && !is_null($jiracfg['pass'])) {
+            $curl->setBasicAuthentication($jiracfg['user'], $jiracfg['pass']);
+        }
+
+        foreach($watchers as $watcher) {
+            $raw_data = $curl->post(
+                sprintf('%s/rest/api/2/issue/%s/watchers', $jiracfg['host'], $issue_key),
+                json_encode($watcher)
+            );
+        }
     }
 }

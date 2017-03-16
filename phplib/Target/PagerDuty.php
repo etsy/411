@@ -44,16 +44,17 @@ class PagerDuty_Target extends Target {
 
         $search = SearchFinder::getById($alert['search_id']);
 
-        $incident_key = self::createEvent(
-            [
-                'service_key' => $this->obj['data']['service_key'],
-                'event_type' => 'trigger',
-                'client' => '411',
-                'description' => sprintf('[%s] %s', $site['name'], $search['name']),
-                'details' => json_encode($desc),
-                'contexts' => $contexts,
-            ]
-        );
+        $event_data = [
+            'service_key' => $this->obj['data']['service_key'],
+            'event_type' => 'trigger',
+            'client' => '411',
+            'description' => sprintf('[%s] %s', $site['name'], $search['name']),
+            'details' => json_encode($desc),
+            'contexts' => $contexts,
+        ];
+        list($event_data) = Hook::call('target.pagerduty.send', [$event_data]);
+
+        $incident_key = self::createEvent($event_data);
     }
 
     /**

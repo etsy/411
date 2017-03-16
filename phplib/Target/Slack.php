@@ -61,21 +61,32 @@ class Slack_Target extends Target {
             $alert->isNew() ? '[N/A]':sprintf('[<%s|Alert>]', $alert_link)
         ]);
 
+        $message_data = [
+            'channel' => $this->obj['data']['channel'],
+            'username' => Util::getSiteName(),
+            'icon_emoji' => ':warning:',
+            'text' => '',
+            'attachments' => [[
+                'pretext' => $message,
+                'fields' => $fields,
+                'ts' => $alert['alert_date'],
+            ]],
+        ];
+        list($message_data) = Hook::call('filter.slack.send', [$message_data]);
+
+        self::createMessage($message_data);
+    }
+
+    /**
+     * Send a message to Slack.
+     * @param mixed[] $message_data Message data.
+     */
+    public static function createMessage($message_data) {
         $curl = new Curl;
         $curl->setHeader('Content-Type', 'application/json; charset=utf-8');
         $raw_data = $curl->post(
             $scfg['webhook_url'],
-            json_encode([
-                'channel' => $this->obj['data']['channel'],
-                'username' => Util::getSiteName(),
-                'icon_emoji' => ':warning:',
-                'text' => '',
-                'attachments' => [[
-                    'pretext' => $message,
-                    'fields' => $fields,
-                    'ts' => $alert['alert_date'],
-                ]],
-            ])
+            json_encode($message_data)
         );
 
         if($curl->httpStatusCode != 200) {

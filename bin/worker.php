@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../phplib/411bootstrap.php');
 
 $args = getopt('h', [
     'help',
-    'site::',
+    'site:',
 ]);
 
 // Syntax checks

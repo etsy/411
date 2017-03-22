@@ -10,8 +10,8 @@ require_once(__DIR__ . '/../phplib/411bootstrap.php');
 $args = getopt('h', [
     'help',
     'backfill',
-    'date::',
-    'site::',
+    'date:',
+    'site:',
 ]);
 
 // Syntax checks

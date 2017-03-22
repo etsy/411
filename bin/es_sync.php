@@ -9,7 +9,8 @@ require_once(__DIR__ . '/../phplib/411bootstrap.php');
 
 $args = getopt('h', [
     'help',
-    'site::',
+    'site:',
+    'search:'
 ]);
 
 // Syntax checks
@@ -20,7 +21,7 @@ if(
     FOO\Util::exists($args, 'help') ||
     !FOO\Util::exists($args, 'site')
 ) {
-    print "Usage: es_sync.php --site=site_id\n";
+    print "Usage: es_sync.php --site=site_id [--search=search_id]\n";
     exit(0);
 }
 
@@ -32,8 +33,13 @@ if(is_null($site)) {
 
 FOO\SiteFinder::setSite($site);
 
+$search_id = (int) FOO\Util::get($args, 'search', 0);
+
 $job = new FOO\Sync_Job();
 $job['target_date'] = $_SERVER['REQUEST_TIME'];
+if($search_id > 0) {
+    $job['target_id'] = $search_id;
+}
 $job->run();
 
 exit(0);

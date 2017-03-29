@@ -33,6 +33,10 @@ class Jira_Target extends Target {
      */
     public function process(Alert $alert, $date) {
         $site = SiteFinder::getCurrent();
+        $search = SearchFinder::getById($alert['search_id']);
+        $issue_key = null;
+
+        $title = sprintf('[%s] %s', $site['name'], $search['name']);
         $desc = [];
         $desc[] = sprintf('Date: %s', gmdate(DATE_RSS, $alert['alert_date']));
 
@@ -41,25 +45,31 @@ class Jira_Target extends Target {
             $desc[] = sprintf('[Link to Alert|%s]', $site->urlFor(
                 sprintf('/alert/%d', $alert['alert_id'])
             ));
+            $source = $search->getLink($alert);
+            if(!is_null($source)) {
+                $desc[] = sprintf('[Source|%s]', $source);
+            }
         }
         $desc[] = '';
+        $desc[] = '*Alert Data*';
         $desc[] = '||Key||Value||';
         foreach($alert['content'] as $key=>$value) {
             $desc[] = sprintf('|%s|%s|', $key, $value);
         }
-        $search = SearchFinder::getById($alert['search_id']);
 
         $issue_data = [
             'project' => ['key' => $this->obj['data']['project']],
             'issuetype' => ['id' => $this->obj['data']['type']],
-            'summary' => sprintf('[%s] %s', $site['name'], $search['name']),
+            'summary' => $title,
             'description' => implode("\n", $desc),
             'assignee' => ['name' => $this->obj['data']['assignee']]
         ];
         list($issue_data) = Hook::call('target.jira.send', [$issue_data]);
 
         $issue_key = self::createIssue($issue_data);
-        self::addWatchers($issue_key, $this->obj['data']['watchers']);
+        if(!is_null($issue_key)) {
+            self::addWatchers($issue_key, $this->obj['data']['watchers']);
+        }
     }
 
     /**

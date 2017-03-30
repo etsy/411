@@ -304,6 +304,14 @@ class Model implements \JsonSerializable, \ArrayAccess {
     }
 
     /**
+     * Return whether this model has changes that need to be saved.
+     * @return bool Whether the model is dirty.
+     */
+    public function isDirty() {
+        return $this->dirty;
+    }
+
+    /**
      * Serialize this model into an array. Pass an array of keys to return.
      * @param string[] $keys The list of keys to extract.
      * @return array The contents of the model as an array.
@@ -415,6 +423,20 @@ class Model implements \JsonSerializable, \ArrayAccess {
      */
     public function jsonSerialize() {
         return $this->toArray();
+    }
+
+    /**
+     * Get the string representation of this model.
+     * @return string String representation.
+     */
+    public function __toString() {
+        $data = [];
+        $data[] = sprintf("%s {", get_called_class());
+        foreach($this->obj as $k=>$v) {
+            $data[] = sprintf('    "%s": %s', $k, json_encode($v));
+        }
+        $data[] = '}';
+        return implode("\n", $data);
     }
 }
 

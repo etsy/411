@@ -1,3 +1,17 @@
+# v1.3.0 #
+
+- Support for ES5.0
+- Merged in support for running 411 behind an auth proxy #95 #79
+- Filter/Target errors are no longer considered a failure (Search jobs will not be rescheduled as a result)
+- Render long alerts vertically in emails
+- Update dependencies
+
+## Bugfixes ##
+
+- Fixed changelog modal not appearing
+- Fixed undefined `setPassword` call in `create_user` script.
+
+
 # v1.2.0 #
 
 - Added Search execution options on the configuration page

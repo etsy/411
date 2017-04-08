@@ -1,3 +1,12 @@
+# v1.3.1 #
+
+- No new features
+
+## Bugfixes ##
+
+- Don't specify a domain when setting cookies. This allows 411 to work when the hostname doesn't match the site configuration.
+
+
 # v1.3.0 #
 
 - Support for ES5.0

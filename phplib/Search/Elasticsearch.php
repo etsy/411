@@ -246,7 +246,7 @@ abstract class Elasticsearch_Search extends Search {
                     switch($result_type) {
                         // Rows
                         case self::R_FIELDS:
-                            $es = new \ESQuery\Scheduler($settings, $query_list, null, [$this, 'getList']);
+                            $es = new \ESQuery\Scheduler($settings, $query_list, [$this, 'getConnection'], [$this, 'getList']);
                             $data = $es->execute();
 
                             foreach($data as $row) {

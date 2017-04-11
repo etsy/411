@@ -82,6 +82,7 @@ class Slack_Target extends Target {
      * @param mixed[] $message_data Message data.
      */
     public static function createMessage($message_data) {
+        $scfg = Config::get('slack');
         $curl = new Curl;
         $curl->setHeader('Content-Type', 'application/json; charset=utf-8');
         $raw_data = $curl->post(

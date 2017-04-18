@@ -33,9 +33,10 @@ class Search_Job extends Job {
      * Process a single Search.
      * @param bool $commit Whether to save Alerts.
      * @param Search $search The Search object.
+     * @param bool $disable_search_commit Whether to disable Search updates.
      * @return array An array of Alerts, array of errors and whether failures are ignorable.
      */
-    public function _run($commit, Search $search) {
+    public function _run($commit, Search $search, $disable_search_commit=false) {
         $alerts = [];
         $errors = [];
 
@@ -46,7 +47,7 @@ class Search_Job extends Job {
 
         // Whether to update the Search. We only want to do this when the current SearchJob is the newest one available.
         $job = JobFinder::getLastByQuery(['type' => Search_Job::$TYPE, 'target_id' => $search['id']]);
-        $search_commit = $commit && (is_null($job) || $this->obj['last_execution_date'] >= $job['target_date']);
+        $search_commit = $commit && (is_null($job) || $this->obj['target_date'] >= $job['target_date']) && !$disable_search_commit;
         if($search_commit) {
             $search['last_status'] = '';
         }
@@ -82,8 +83,8 @@ class Search_Job extends Job {
         $prev_success = $search['last_success_date'] === $search['last_execution_date'];
         $curr_success = count($errors) === 0;
 
-        // Email logic.
-        if($commit) {
+        // Send Search-related emails.
+        if($search_commit) {
             $cfg = new DBConfig();
             $is_flapping = $search['flap_rate'] > Search::FLAP_THRES;
 
@@ -91,13 +92,7 @@ class Search_Job extends Job {
                 $to = $search->getEmails();
 
                 if(!$curr_success && $search['last_error_email_date'] + $cfg['error_email_throttle'] * 60 <= $this->obj['target_date']) {
-                    // Update the last_error_email_date field only when $search_commit is set.
-                    // This effectively means that emails generated from running the Search via the frontend won't
-                    // affect the throttle. We'll save this to the database in a bit.
-                    if($search_commit) {
-                        $search['last_error_email_date'] = $this->obj['target_date'];
-                    }
-
+                    $search['last_error_email_date'] = $this->obj['target_date'];
                     Notification::sendSearchErrorEmail($to, $search, $errors, $this->getDebugData());
                 }
 

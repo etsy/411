@@ -32,10 +32,15 @@ Use cases
 And much more!
 
 
+Setup
+=====
+
+- [Setup instructions](/docs/Setup.md)
+- [Docker instructions](https://github.com/kiwiz/411-docker)
+
+
 Help
 ====
-
-Check out the [setup guide](/docs/Setup.md) to quickly configure a 411 instance.
 
 See the [Table of Contents](/docs/README.md) for a list of documentation pages.
 

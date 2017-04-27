@@ -12,6 +12,17 @@ class Health_REST extends REST {
         $cfg = new DBConfig();
         $meta = new DBMeta();
 
+        $ret = [
+            'cron_enabled' => (bool) $cfg['cron_enabled'],
+            'last_cron_date' => (int) $meta['last_cron_date'],
+            'search_health' => $this->getSearchHealth(),
+            'searchjob_health' => JobFinder::getCounts(),
+        ];
+
+        return self::format($ret);
+    }
+
+    public function getSearchHealth() {
         $search_health = [];
         foreach(Search::getTypes() as $MODEL) {
             $sources = $MODEL::getSources();
@@ -27,14 +38,7 @@ class Health_REST extends REST {
             }
         }
 
-        $ret = [
-            'cron_enabled' => (bool) $cfg['cron_enabled'],
-            'last_cron_date' => (int) $meta['last_cron_date'],
-            'search_health' => $search_health,
-            'searchjob_health' => JobFinder::getCounts(),
-        ];
-
-        return self::format($ret);
+        return $search_health;
     }
 
     private function isWorking($search) {

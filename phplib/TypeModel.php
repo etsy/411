@@ -41,6 +41,13 @@ abstract class TypeModel extends Model {
     }
 
     /**
+     * Return the type.
+     */
+    public static function getType() {
+        return static::$TYPE;
+    }
+
+    /**
      * Retrieve the schema for this model.
      * @return array The schema.
      */

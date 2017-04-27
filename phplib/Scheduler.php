@@ -222,9 +222,13 @@ class Scheduler {
             // If the search doesn't need to run OR
             // the search type is failing and isn't time based
             // skip it!
+            $key = $search::$TYPE;
+            if(!is_null($search::getSources())) {
+                $key = sprintf('%s[%s]', $search::$TYPE, $search['source']);
+            }
             if(
                 !$search->shouldRun($date, $backfill) ||
-                (!Util::get($search_health, $search::$TYPE, false) && !$search->isTimeBased())
+                (!Util::get($search_health, $key, false) && !$search->isTimeBased())
             ) {
                 continue;
             }
@@ -334,14 +338,8 @@ class Scheduler {
         $meta = new DBMeta;
 
         // Collect health information for all Search types.
-        foreach(Search::getTypes() as $type=>$class) {
-            $working = false;
-            try {
-                $search = new $class;
-                $working = $search->isWorking($date);
-            } catch(\Exception $e) {}
-            $search_health[$type] = $working;
-
+        $search_health = (new Health_REST)->getSearchHealth();
+        foreach($search_health as $type=>$working) {
             // Send an email if the state has changed.
             $last_status = (bool) Util::get($meta, "search_$type", true);
             if($last_status !== $working) {

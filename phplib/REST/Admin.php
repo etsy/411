@@ -11,6 +11,7 @@ class Admin_REST extends REST {
     const T_BOOL = 0;
     const T_INT = 1;
     const T_EMAIL = 2;
+    const T_STR = 3;
 
     public static $FIELDS = [
         'cron_enabled' => self::T_BOOL,
@@ -21,6 +22,7 @@ class Admin_REST extends REST {
         'from_email' => self::T_EMAIL,
         'from_error_email' => self::T_EMAIL,
         'default_email' => self::T_EMAIL,
+        'announcement' => self::T_STR,
     ];
 
     public function checkAuthorization() {
@@ -54,6 +56,8 @@ class Admin_REST extends REST {
                 break;
             case self::T_EMAIL:
                 $ok = filter_var($val, FILTER_VALIDATE_EMAIL);
+                break;
+            case self::T_STR:
                 break;
             }
 

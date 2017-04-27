@@ -37,6 +37,7 @@ define(function(require) {
                 app_name: Data.AppName
             };
             if(this.data) {
+                vars.announcement = this.data.announcement;
                 vars.failing_searches = this.data.failing_searches;
                 vars.total_active_alerts = this.data.active_alerts[4] + this.data.active_alerts[5];
                 vars.active_alerts = this.data.active_alerts;

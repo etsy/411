@@ -14,6 +14,11 @@
   </p>
 </div>
 {{else}}
+
+{{#if announcement}}
+<div class="text-center alert alert-info" role="alert"><strong>{{ announcement }}</strong></div>
+{{/if}}
+
 {{#if failing_searches}}
 <div class="text-center alert alert-danger">{{ failing_searches }} Searches are currently failing</div>
 {{/if}}

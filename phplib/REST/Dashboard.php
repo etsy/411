@@ -13,6 +13,7 @@ class Dashboard_REST extends REST {
     public function GET(array $get) {
         $data = [];
         $meta = new DBMeta;
+        $cfg = new DBConfig;
         $client = new ESClient;
 
         $dates = $this->dateRange(-self::RANGE);
@@ -85,6 +86,8 @@ class Dashboard_REST extends REST {
 
         // Cron hasn't run in more than 20 minutes.
         $data['no_recent_cron'] = (int) $meta['last_cron_date'] < ($_SERVER['REQUEST_TIME'] - 20 * 60);
+
+        $data['announcement'] = $cfg['announcement'] ?? '';
 
         return self::format($data);
     }

@@ -36,6 +36,8 @@ define(function(require) {
 
             this.$el.append(this.template(this.data));
 
+            Util.autosize(this.registerElement('textarea[name=announcement]'));
+
             this.App.hideLoader();
         },
         saveSettings: function() {

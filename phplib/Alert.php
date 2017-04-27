@@ -88,7 +88,7 @@ class Alert extends Model {
 class AlertFinder extends ModelFinder {
     public static $MODEL = 'Alert';
 
-    public static function generateWhere($query) {
+    public static function generateWhere(array $query) {
         list($where, $vals) = parent::generateWhere($query);
         $from = (array) Util::get($query, 'from');
         $to = (array) Util::get($query, 'to');

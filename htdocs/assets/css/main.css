@@ -52,6 +52,13 @@ footer {
 }
 
 /**
+ * Don't fold whitespace in alerts
+ */
+.alert {
+    white-space: pre-wrap;
+}
+
+/**
  * Allow clicks on messages themselves
  */
 #message .alert {

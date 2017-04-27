@@ -20,7 +20,7 @@ set_error_handler(function($errno, $str, $file, $line) {
 date_default_timezone_set("UTC");
 
 define('BASE_DIR', realpath(__DIR__ . '/..'));
-define('VERSION', '1.3.1');
+define('VERSION', '1.3.2');
 
 // Set up autoloader for our classes.
 spl_autoload_register(function($class) {

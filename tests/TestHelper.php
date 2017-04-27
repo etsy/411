@@ -49,7 +49,7 @@ class TestHelper {
 
     public static function populateSite() {
         self::populateDB([
-            [FOO\Site::$TABLE, 1, 'FOO', '411', 0, 0, 0],
+            [FOO\Site::$TABLE, 1, 'FOO', '411', 0, 0, 0, 0],
         ]);
     }
 

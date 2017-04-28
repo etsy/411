@@ -15,7 +15,16 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="core">
-      <div class="form-group col-xs-6 col-md-4">
+      <div class="form-group col-xs-6 col-md-3">
+        <label for="timezone">Timezone Select <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Timezone to display dates in."></span></label><br />
+        <select class="form-control tags select2-multiple" name="timezone">
+          {{#each timezones}}
+          <option value="{{ this.timezone }}" {{#if this.selected }}selected{{/if}}>{{#if this.timezone }}{{ this.timezone }}{{ else }}Local Browser Timezone{{/if }}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="form-group col-xs-6 col-md-3">
         <label for="cron_enabled">Scheduler <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggles the 411 Scheduler, which is responsible for scheduling jobs."></span></label><br />
         <div class="btn-group" data-toggle="buttons">
           <label class="btn btn-primary {{#if cron_enabled}}active{{/if}}">
@@ -25,7 +34,7 @@
         </div>
       </div>
 
-      <div class="form-group col-xs-6 col-md-4">
+      <div class="form-group col-xs-6 col-md-3">
         <label for="worker_enabled">Worker <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggles the 411 Worker, which is responsible for executing jobs."></span></label><br />
         <div class="btn-group" data-toggle="buttons">
           <label class="btn btn-primary {{#if worker_enabled}}active{{/if}}">
@@ -35,7 +44,7 @@
         </div>
       </div>
 
-      <div class="form-group col-xs-6 col-md-4">
+      <div class="form-group col-xs-6 col-md-3">
         <label for="summary_enabled">Weekly Summary <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Toggles the weekly summary email that gets sent at the end of each week."></span></label><br />
         <div class="btn-group" data-toggle="buttons">
           <label class="btn btn-primary {{#if summary_enabled}}active{{/if}}">
@@ -79,6 +88,7 @@
         <label for="from_error_email">From Error Email <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Specifies the from email for error emails from 411."></span></label>
         <input type="text" class="form-control" name="from_error_email" value="{{ from_error_email }}" />
       </div>
+
     </div>
 
   </div>

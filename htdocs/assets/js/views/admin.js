@@ -1,10 +1,14 @@
 "use strict";
 define(function(require) {
-    var View = require('view'),
+    var _ = require('underscore'),
+        View = require('view'),
         NavbarView = require('views/navbar'),
         Templates = require('templates'),
         Config = require('config'),
-        Util = require('util');
+        Util = require('util'),
+        Moment = require('moment');
+        // load in tz data
+        require('moment-timezone');
 
 
     var AdminNavbarView = NavbarView.extend({
@@ -25,6 +29,13 @@ define(function(require) {
                 url: Config.api_root + 'admin',
                 success: this.cbLoaded(function(resp) {
                     this.data = resp;
+
+                    // prep tz data for display
+                    this.data['timezones'] = _.map(Moment.tz.names(), function(tz){
+                        return {timezone: tz, selected: (tz === this.data['timezone'])};
+                    }, this);
+                    this.data['timezones'].unshift({timezone: '', selected: ('' === this.data['timezone']) });
+
                     this.render();
                 }),
                 complete: $.proxy(this.App.hideLoader, this.App)

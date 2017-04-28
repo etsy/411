@@ -38,6 +38,7 @@
     "underscore": "~1.8.3",
     "uri.js": "~1.16.0",
     "dragula.js": "dragula#^3.7.0",
-    "Chart.js": "~2.1.6"
+    "Chart.js": "~2.1.6",
+    "moment-timezone": "^0.5.13"
   }
 }

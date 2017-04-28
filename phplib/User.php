@@ -27,6 +27,7 @@ class User extends Model {
             'admin' => [static::T_BOOL, null, false],
             'settings' => [static::T_OBJ, null, []],
             'api_key' => [static::T_STR, null, ''],
+            'timezone' => [static::T_STR, null, (new DBConfig())['timezone']],
         ];
     }
 

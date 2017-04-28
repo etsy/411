@@ -4,15 +4,27 @@ define(function(require) {
         _ = require('underscore'),
         URI = require('uri'),
         Autosize = require('autosize'),
-        CodeMirror = require('codemirror');
+        CodeMirror = require('codemirror'),
+        Moment = require('moment'),
+        Data = require('data');
+        // loads tz data
+        require('moment-timezone');
 
 
     // Turn a timestamp into a datestring.
-    var formatDate = function(ts, options) {
+    var formatDate = function(ts) {
         if(ts === 0) {
             return 'N/A';
         }
-        return (new Date(parseInt(ts, 10) * 1000)).toUTCString();
+        var date = new Moment(new Date(parseInt(ts, 10) * 1000));
+
+        if (Data.User.Defaults.timezone) {
+            // get default user timezone setting.
+            date.tz(Data.User.Defaults.timezone);
+        } else {
+            date.tz(Moment.tz.guess());
+        }
+        return date.format("ddd, DD MMM YYYY HH:mm:ss z"); // Thu, 27 Apr 2017 21:42:31 GMT
     };
 
     // Turn a number into a timestring.

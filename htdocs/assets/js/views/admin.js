@@ -7,9 +7,6 @@ define(function(require) {
         Config = require('config'),
         Util = require('util'),
         Moment = require('moment');
-        // load in tz data
-        require('moment-timezone');
-
 
     var AdminNavbarView = NavbarView.extend({
         title: 'Admin',
@@ -34,7 +31,7 @@ define(function(require) {
                     this.data['timezones'] = _.map(Moment.tz.names(), function(tz){
                         return {timezone: tz, selected: (tz === this.data['timezone'])};
                     }, this);
-                    this.data['timezones'].unshift({timezone: '', selected: ('' === this.data['timezone']) });
+                    this.data['timezones'].unshift({timezone: 'LocalBrowserTime', selected: ('LocalBrowserTime' === this.data['timezone']) });
 
                     this.render();
                 }),

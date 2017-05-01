@@ -7,9 +7,6 @@ define(function(require) {
         CodeMirror = require('codemirror'),
         Moment = require('moment'),
         Data = require('data');
-        // loads tz data
-        require('moment-timezone');
-
 
     // Turn a timestamp into a datestring.
     var formatDate = function(ts) {
@@ -18,12 +15,27 @@ define(function(require) {
         }
         var date = new Moment(new Date(parseInt(ts, 10) * 1000));
 
-        if (Data.User.Defaults.timezone) {
-            // get default user timezone setting.
-            date.tz(Data.User.Defaults.timezone);
-        } else {
-            date.tz(Moment.tz.guess());
+        var timezone = '';
+
+        if (Data.User.Me) {
+           var results = $.grep(Data.User.Models, function(user) { return user.id == Data.User.Me; });
+           timezone = results[0].settings.timezone ? results[0].settings.timezone : '';
         }
+
+        if (timezone === '' && Data.Timezone) {
+            timezone = Data.Timezone;
+        }
+
+        if (timezone === '') {
+            timezone = 'UTC';
+        }
+
+        if (timezone === 'LocalBrowserTime') {
+            date.tz(Moment.tz.guess());
+        } else {
+            date.tz(timezone);
+        }
+
         return date.format("ddd, DD MMM YYYY HH:mm:ss z"); // Thu, 27 Apr 2017 21:42:31 GMT
     };
 

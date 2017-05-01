@@ -32,7 +32,15 @@
               <option value="0" {{#unless admin}}selected{{/unless}}>No</option>
             </select>
           </div>
-          <div class="col-xs-12 form-group">
+          <div class="col-md-6 col-xs-12 form-group">
+            <label for="timezone">Timezone</label><br />
+            <select class="form-control tags select2-multiple" name="timezone">
+              {{#each timezones}}
+              <option value="{{ this.timezone }}" {{#if this.selected }}selected{{/if}}>{{ this.timezone }}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="col-md-6 col-xs-12 form-group">
             <label for="api_key">API Key</label>
             <div class="input-group">
               <input class="form-control select-all" type="text" name="api_key" value="{{ api_key }}" readonly />

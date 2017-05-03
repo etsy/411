@@ -588,7 +588,7 @@ class ModelFinder {
      * @param array $query The list of query clauses.
      * @return string[] A list of SQL fragments.
      */
-    protected static function generateWhere($query) {
+    protected static function generateWhere(array $query) {
         $MODEL = 'FOO\\' . static::$MODEL;
 
         $clauses = [];

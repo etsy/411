@@ -1,3 +1,12 @@
+# v1.3.3 #
+
+- No new features
+
+## Bugfixes ##
+
+- Fix PHP error on executing `bin/es_sync.php`
+
+
 # v1.3.2 #
 
 - Announcement support on the index page

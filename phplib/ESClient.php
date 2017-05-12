@@ -20,12 +20,14 @@ class ESClient {
     private $list = [];
     /** @var string Index name. **/
     private $index;
+    /** @var \Elasticsearch\Client Client object. **/
 
     /**
      * @param boolean $init Whether to initialize the ES index (if it doesn't exist).
      */
     public function __construct($init=true) {
         $this->index = self::getIndexName();
+        $this->client = self::getClient('alerts', true);
 
         if($init) {
             $this->initializeIndex();
@@ -65,11 +67,9 @@ class ESClient {
      * Initialize the index as necessary.
      */
     public function initializeIndex() {
-        $client = self::getClient('alerts', true);
-
         // Create template.
-        if(!$client->indices()->existsTemplate(['name' => self::MAPPING_TEMPLATE])) {
-            $client->indices()->putTemplate([
+        if(!$this->client->indices()->existsTemplate(['name' => self::MAPPING_TEMPLATE])) {
+            $this->client->indices()->putTemplate([
                 'name' => self::MAPPING_TEMPLATE,
                 'body' => [
                     'template' => '411_alerts_*',
@@ -97,19 +97,17 @@ class ESClient {
         }
 
         // Create index.
-        if(!$client->indices()->exists(['index' => self::getIndexName()])) {
-            $client->indices()->create(['index' => self::getIndexName()]);
+        if(!$this->client->indices()->exists(['index' => self::getIndexName()])) {
+            $this->client->indices()->create(['index' => self::getIndexName()]);
         }
     }
 
     public function destroyIndex() {
-        $client = self::getClient('alerts', true);
-
-        if($client->indices()->existsTemplate(['name' => self::MAPPING_TEMPLATE])) {
-            $client->indices()->deleteTemplate(['name' => self::MAPPING_TEMPLATE]);
+        if($this->client->indices()->existsTemplate(['name' => self::MAPPING_TEMPLATE])) {
+            $this->client->indices()->deleteTemplate(['name' => self::MAPPING_TEMPLATE]);
         }
-        if($client->indices()->exists(['index' => self::getIndexName()])) {
-            $client->indices()->delete(['index' => self::getIndexName()]);
+        if($this->client->indices()->exists(['index' => self::getIndexName()])) {
+            $this->client->indices()->delete(['index' => self::getIndexName()]);
         }
     }
 
@@ -524,8 +522,7 @@ class ESClient {
             );
         }
 
-        $client = self::getClient('alerts', true);
-        $resp = $client->bulk([
+        $resp = $this->client->bulk([
             'body' => $list
         ]);
 

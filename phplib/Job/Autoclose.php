@@ -9,6 +9,8 @@ namespace FOO;
  */
 class Autoclose_Job extends Job {
     public static $TYPE = 'autoclose';
+    /** Number of Alerts to pull in each chunk. */
+    const BATCH_SIZE = 5000;
 
     /**
      * Process any Alerts that are stale.
@@ -26,29 +28,31 @@ class Autoclose_Job extends Job {
         for($i = 0; $i < count($searches); ++$i) {
             $search = $searches[$i];
 
-            // Grab a list of Alerts that should be closed.
-            $alerts = AlertFinder::getByQuery([
-                'search_id' => $search['search_id'],
-                'state' => [Alert::ST_NEW, Alert::ST_INPROG],
-                'update_date' => [
-                    ModelFinder::C_LT => $this->obj['target_date'] - ($search['autoclose_threshold'])
-                ]
-            ]);
+            do {
+                // Grab a list of Alerts that should be closed.
+                $alerts = AlertFinder::getByQuery([
+                    'search_id' => $search['search_id'],
+                    'state' => [Alert::ST_NEW, Alert::ST_INPROG],
+                    'update_date' => [
+                        ModelFinder::C_LT => $this->obj['target_date'] - ($search['autoclose_threshold'])
+                    ]
+                ], self::BATCH_SIZE);
 
-            foreach($alerts as $alert) {
-                $alert['state'] = Alert::ST_RES;
-                $alert->store();
+                foreach($alerts as $alert) {
+                    $alert['state'] = Alert::ST_RES;
+                    $alert->store();
 
-                $log = new AlertLog();
-                $log['alert_id'] = $alert['id'];
-                $log['note'] = 'Autoclosed';
-                $log['action'] = AlertLog::A_SWITCH;
-                $log['a'] = Alert::ST_RES;
-                $log['b'] = Alert::RES_OLD;
-                $log->store();
+                    $log = new AlertLog();
+                    $log['alert_id'] = $alert['id'];
+                    $log['note'] = 'Autoclosed';
+                    $log['action'] = AlertLog::A_SWITCH;
+                    $log['a'] = Alert::ST_RES;
+                    $log['b'] = Alert::RES_OLD;
+                    $log->store();
 
-                $client->update($alert);
-            }
+                    $client->update($alert);
+                }
+            } while(count($alerts));
 
             $this->setCompletion((($i + 1) / count($searches)) * 100);
         }

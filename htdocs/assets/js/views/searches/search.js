@@ -165,7 +165,7 @@ define(function(require) {
             var ts = 0;
             // Only parse if we have content. An empty string should be taken as 0 or 'current time'.
             if(val.length > 0) {
-                ts = Moment(val, TIME_FMT, true).unix();
+                ts = Moment.utc(val, TIME_FMT).unix();
             }
             this.trigger('run', {'execution_time': ts});
 

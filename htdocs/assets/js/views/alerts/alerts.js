@@ -233,7 +233,7 @@ define(function(require) {
             var query = Util.serializeForm(this.$('.search-form'), true);
 
             if(query.from) {
-                var from_moment = Moment(query.from, TIME_FMT, true);
+                var from_moment = Moment.utc(query.from, TIME_FMT);
                 if(from_moment.isValid()) {
                     query.from = from_moment.unix();
                 }
@@ -241,7 +241,7 @@ define(function(require) {
                 delete query.from;
             }
             if(query.to) {
-                var to_moment = Moment(query.to, TIME_FMT, true);
+                var to_moment = Moment.utc(query.to, TIME_FMT);
                 if(to_moment.isValid()) {
                     query.to = to_moment.unix();
                 }

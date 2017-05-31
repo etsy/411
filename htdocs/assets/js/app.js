@@ -3,6 +3,7 @@ define(function(require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
+        Moment = require('moment'),
         Mousetrap = require('mousetrap'),
         URI = require('uri'),
         Util = require('util'),
@@ -33,6 +34,7 @@ define(function(require) {
     require('datetimepicker');
     require('helper');
     require('autosize');
+    require('moment-timezone');
     require('views/searches/search/load');
     require('views/filter/load');
     require('views/target/load');

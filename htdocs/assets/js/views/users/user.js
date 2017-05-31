@@ -3,9 +3,9 @@ define(function(require) {
     var _ = require('underscore'),
         NavbarView = require('views/navbar'),
         ModelView = require('views/model'),
+        Moment = require('moment'),
         Templates = require('templates'),
         Util = require('util'),
-
         User = require('models/user');
 
 
@@ -34,10 +34,23 @@ define(function(require) {
             this.App.setTitle('User: ' + (this.model.isNew() ? 'New':this.model.get('id')));
             this.registerView(new UserNavbarView(this.App), true);
 
+            var user_tz = 'UTC';
+            if ('timezone' in this.model.get('settings')) {
+                user_tz = this.model.get('settings').timezone;
+            }
+
+            // prep tz data for display
+            var timezones  = _.map(Moment.tz.names(), function(tz){
+                return {timezone: tz, selected: (tz === user_tz)};
+            }, this);
+            timezones.unshift({timezone: 'LocalBrowserTime', selected: ('LocalBrowserTime' === user_tz) });
+
             var vars = this.model.toJSON();
             _.extend(vars, {
-                new_user: this.model.isNew()
+                new_user: this.model.isNew(),
+                timezones: timezones
             });
+
             this.$el.append(this.template(vars));
 
             this.registerElement('.generate-key').click($.proxy(this.generateKey, this));
@@ -66,6 +79,10 @@ define(function(require) {
         readForm: function() {
             var form = this.$('#user-form');
             var data = Util.serializeForm(form);
+
+            data.settings = {};
+            data.settings.timezone = data.timezone;
+            delete data.timezone;
 
             data.admin = !!parseInt(data.admin, 10);
 

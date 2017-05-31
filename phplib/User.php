@@ -26,7 +26,7 @@ class User extends Model {
             'email' => [static::T_STR, null, ''],
             'admin' => [static::T_BOOL, null, false],
             'settings' => [static::T_OBJ, null, []],
-            'api_key' => [static::T_STR, null, ''],
+            'api_key' => [static::T_STR, null, '']
         ];
     }
 

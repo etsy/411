@@ -24,6 +24,7 @@ require.config({
         select2: 'libs/select2',
         tablesorter: 'libs/tablesorter',
         moment: 'libs/moment',
+        "moment-timezone": 'libs/moment-timezone',
         dragula: 'libs/dragula',
         autosize: 'libs/autosize',
         mousetrap: 'libs/mousetrap',

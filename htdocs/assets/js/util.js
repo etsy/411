@@ -4,15 +4,39 @@ define(function(require) {
         _ = require('underscore'),
         URI = require('uri'),
         Autosize = require('autosize'),
-        CodeMirror = require('codemirror');
-
+        CodeMirror = require('codemirror'),
+        Moment = require('moment'),
+        Data = require('data');
 
     // Turn a timestamp into a datestring.
-    var formatDate = function(ts, options) {
+    var formatDate = function(ts) {
         if(ts === 0) {
             return 'N/A';
         }
-        return (new Date(parseInt(ts, 10) * 1000)).toUTCString();
+        var date = new Moment(new Date(parseInt(ts, 10) * 1000));
+
+        var timezone = '';
+
+        if (Data.User.Me) {
+           var results = $.grep(Data.User.Models, function(user) { return user.id == Data.User.Me; });
+           timezone = results[0].settings.timezone ? results[0].settings.timezone : '';
+        }
+
+        if (timezone === '' && Data.Timezone) {
+            timezone = Data.Timezone;
+        }
+
+        if (timezone === '') {
+            timezone = 'UTC';
+        }
+
+        if (timezone === 'LocalBrowserTime') {
+            date.tz(Moment.tz.guess());
+        } else {
+            date.tz(timezone);
+        }
+
+        return date.format("ddd, DD MMM YYYY HH:mm:ss z"); // Thu, 27 Apr 2017 21:42:31 GMT
     };
 
     // Turn a number into a timestring.

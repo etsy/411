@@ -397,9 +397,10 @@ class ESClient {
     /**
      * Get counts of new Alerts grouped by date.
      * @param int $range The number of days to return data for.
+     * @param int $search_id The id of the search to return data for.
      * @return array Count data.
      */
-    public function getAlertActivityCounts($range) {
+    public function getAlertActivityCounts($range, $search_id=0) {
         $client = self::getClient();
 
         $filter = [
@@ -410,6 +411,14 @@ class ESClient {
                 ]
             ]
         ];
+        if($search_id != 0) {
+            $filter = [
+                $filter,
+                ['term' => [
+                    'search_id' => $search_id
+                ]]
+            ];
+        }
         $aggs = ['agg' => [
             'date_histogram' => [
                 'field' => 'create_date',

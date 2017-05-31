@@ -83,7 +83,16 @@ define(function(require) {
                 this.chart = new Chart(ctx, {
                     type: 'line',
                     data: this.data,
-                    multiTooltipTemplate: "<%= value %> <%= datasetLabel %>"
+                    multiTooltipTemplate: "<%= value %> <%= datasetLabel %>",
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
                 });
             }, this));
         },

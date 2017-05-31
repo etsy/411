@@ -9,6 +9,7 @@ namespace FOO;
  */
 class Searches_REST extends Models_REST {
     const SLOG_TYPE = SLog::T_SEARCH;
+    const RANGE = 10;
 
     protected static $MODEL = 'Search';
     protected static $CREATABLE = [
@@ -249,9 +250,13 @@ class Searches_REST extends Models_REST {
             throw new NotFoundException;
         }
 
+        $client = new ESClient;
         $data = [];
+        $stats = [];
 
-        $data['Flap rate'] = $model['flap_rate'];
+        $data['historical_alerts'] = $client->getAlertActivityCounts(self::RANGE, $id);
+
+        $stats['Flap rate'] = $model['flap_rate'];
 
         // Get count of total alerts.
         list($sql, $vals) = AlertFinder::generateQuery(
@@ -265,15 +270,15 @@ class Searches_REST extends Models_REST {
             $i = $row['state'] != Alert::ST_RES ? 0:1;
             $active[$i] += $row['count'];
         }
-        $data['Total'] = array_sum($active);
-        $data['Active'] = $active[0];
+        $stats['Total'] = array_sum($active);
+        $stats['Active'] = $active[0];
 
         // Get count of escalated alerts.
         $ret = AlertFinder::countByQuery([
             'search_id' => $id,
             'escalated' => 1
         ]);
-        $data['Escalated'] = is_null($ret) ? 0:(int)$ret;
+        $stats['Escalated'] = is_null($ret) ? 0:(int)$ret;
 
         // Get count of resolved alerts
         list($sql, $vals) = AlertFinder::generateQuery(
@@ -286,9 +291,9 @@ class Searches_REST extends Models_REST {
         foreach($ret as $row) {
             $groups[$row['resolution']] += $row['count'];
         }
-        $data['Resolved: Not an issue'] = $groups[0];
-        $data['Resolved: Action taken'] = $groups[1];
-        $data['Resolved: Too old'] = $groups[2];
+        $stats['Resolved: Not an issue'] = $groups[0];
+        $stats['Resolved: Action taken'] = $groups[1];
+        $stats['Resolved: Too old'] = $groups[2];
 
         // Get timestamp of most recent alert.
         list($sql, $vals) = AlertFinder::generateQuery(
@@ -297,10 +302,12 @@ class Searches_REST extends Models_REST {
         );
 
         $ret = DB::query(implode(' ', $sql), $vals, DB::VAL);
-        $data['Last alert'] = is_null($ret) ? 'N/A':gmdate(DATE_RSS, $ret);
+        $stats['Last alert'] = is_null($ret) ? 'N/A':gmdate(DATE_RSS, $ret);
 
-        $data['Last execution'] = $model['last_execution_date'] == 0 ? 'N/A':gmdate(DATE_RSS, $model['last_execution_date']);
-        $data['Last successful execution'] = $model['last_success_date'] == 0 ? 'N/A':gmdate(DATE_RSS, $model['last_success_date']);
+        $stats['Last execution'] = $model['last_execution_date'] == 0 ? 'N/A':gmdate(DATE_RSS, $model['last_execution_date']);
+        $stats['Last successful execution'] = $model['last_success_date'] == 0 ? 'N/A':gmdate(DATE_RSS, $model['last_success_date']);
+
+        $data['stats'] = $stats;
 
         return $data;
     }

@@ -6,6 +6,7 @@ define(function(require) {
         NavbarView = require('views/navbar'),
         ModalView = require('views/modal'),
         ModelView = require('views/model'),
+        ChartView = require('views/chart'),
         ListView = require('views/list'),
         AlertGroupView = require('views/alerts/alertgroup'),
         FilterView = require('views/filter'),
@@ -57,11 +58,21 @@ define(function(require) {
         _load: function() {
             this.model.getStats({
                 success: this.cbLoaded(function(resp) {
-                    this.vars = {stats: resp};
+                    this.vars = resp;
+                    console.log(this.vars);
                     this.render();
+                    var chartdata = _.zip.apply(null, this.vars.historical_alerts);
+                    var cdata = {
+                        labels: chartdata[0],
+                        datasets: [_.extend({lineTension:0, data: chartdata[1], label: 'Created'}, ChartView.colors[0])],
+                    };
+                    var chart = new ChartView(this.App, {
+                        title: 'Alerts in the last 10 days', data: cdata
+                    });
+                    this.registerView(chart, true, this.$('.chart'));
                 })
             });
-        }
+        },
     });
 
     var JobsModalView = ModalView.extend({

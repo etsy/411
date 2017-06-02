@@ -11,8 +11,8 @@ class Admin_REST extends REST {
     const T_BOOL = 0;
     const T_INT = 1;
     const T_EMAIL = 2;
-    const T_STR = 3;
-    const T_TZ = 4;
+    const T_TZ = 3;
+    const T_STR = 4;
 
     public static $FIELDS = [
         'cron_enabled' => self::T_BOOL,
@@ -59,10 +59,10 @@ class Admin_REST extends REST {
             case self::T_EMAIL:
                 $ok = filter_var($val, FILTER_VALIDATE_EMAIL);
                 break;
-            case self::T_STR:
-                break;
             case self::T_TZ:
-                # todo validate with json data from moment-timezone
+                $ok = in_array($val, timezone_identifiers_list());
+                break;
+            case self::T_STR:
                 break;
             }
 

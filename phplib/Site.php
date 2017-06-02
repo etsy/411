@@ -62,9 +62,9 @@ class SiteFinder extends ModelFinder {
 
     /**
      * Set the currently active Site.
-     * @param Site $site The Site.
+     * @param Site|null $site The Site.
      */
-    public static function setSite(Site $site) {
+    public static function setSite(Site $site=null) {
         self::$site = $site;
     }
 

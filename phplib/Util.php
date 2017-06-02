@@ -184,4 +184,13 @@ class Util {
 
         return $ret;
     }
+
+    /**
+     * Validate the timezone given. If invalid, default to UTC.
+     * @param string Timezone string.
+     * @return string Timezone string.
+     */
+    public static function validateTimezone($timezone, $default='UTC') {
+        return in_array($timezone, timezone_identifiers_list()) ? $timezone:$default;
+    }
 }

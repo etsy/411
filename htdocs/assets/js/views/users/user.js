@@ -34,21 +34,10 @@ define(function(require) {
             this.App.setTitle('User: ' + (this.model.isNew() ? 'New':this.model.get('id')));
             this.registerView(new UserNavbarView(this.App), true);
 
-            var user_tz = 'UTC';
-            if ('timezone' in this.model.get('settings')) {
-                user_tz = this.model.get('settings').timezone;
-            }
-
-            // prep tz data for display
-            var timezones  = _.map(Moment.tz.names(), function(tz){
-                return {timezone: tz, selected: (tz === user_tz)};
-            }, this);
-            timezones.unshift({timezone: 'LocalBrowserTime', selected: ('LocalBrowserTime' === user_tz) });
-
             var vars = this.model.toJSON();
             _.extend(vars, {
                 new_user: this.model.isNew(),
-                timezones: timezones
+                timezones: Moment.tz.names(),
             });
 
             this.$el.append(this.template(vars));
@@ -80,10 +69,6 @@ define(function(require) {
             var form = this.$('#user-form');
             var data = Util.serializeForm(form);
 
-            data.settings = {};
-            data.settings.timezone = data.timezone;
-            delete data.timezone;
-
             data.admin = !!parseInt(data.admin, 10);
 
             return data;
@@ -108,7 +93,11 @@ define(function(require) {
             // We don't want to ship the dupe password, so delete it.
             delete data.password_;
 
-            this.saveModel(data);
+            this.saveModel(data).success(this.cbRendered(function() {
+                if(this.isSelf()) {
+                    this.App.setTimezone(data.timezone);
+                }
+            }));
             return false;
         },
         /**
@@ -124,7 +113,7 @@ define(function(require) {
          * @param {string} url - The url to navigate to on success.
          */
         destroyModel: function() {
-            if(this.model.get('id') == this.App.Data.User.get('id')) {
+            if(this.isSelf()) {
                 this.App.addMessage('Unable to delete this user');
             } else {
                 ModelView.prototype.destroyModel.call(this, '/users');

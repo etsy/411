@@ -8,39 +8,20 @@ define(function(require) {
         Moment = require('moment'),
         Data = require('data');
 
+
     // Turn a timestamp into a datestring.
     var formatDate = function(ts) {
         if(ts === 0) {
             return 'N/A';
         }
-        var date = new Moment(new Date(parseInt(ts, 10) * 1000));
 
-        var timezone = '';
-
-        if (Data.User.Me) {
-           var results = $.grep(Data.User.Models, function(user) { return user.id == Data.User.Me; });
-           timezone = results[0].settings.timezone ? results[0].settings.timezone : '';
-        }
-
-        if (timezone === '' && Data.Timezone) {
-            timezone = Data.Timezone;
-        }
-
-        if (timezone === '') {
-            timezone = 'UTC';
-        }
-
-        if (timezone === 'LocalBrowserTime') {
-            date.tz(Moment.tz.guess());
-        } else {
-            date.tz(timezone);
-        }
-
-        return date.format("ddd, DD MMM YYYY HH:mm:ss z"); // Thu, 27 Apr 2017 21:42:31 GMT
+        var date = Moment.unix(ts);
+        return date.format("ddd, DD MMM YYYY HH:mm:ssZ");
     };
 
     // Turn a number into a timestring.
     function formatTime(mins) {
+        var weeks = 0;
         var days = 0;
         var hours = 0;
         mins = parseInt(mins, 10);
@@ -55,7 +36,14 @@ define(function(require) {
             days = (hours / 24) | 0;
             hours = (hours % 24);
         }
+        if(days >= 7) {
+            weeks = (days / 7) | 0;
+            days = (days % 7);
+        }
         var str = '';
+        if(weeks > 0) {
+            str += weeks + ' week' + (weeks == 1 ? '':'s') + ' ';
+        }
         if(days > 0) {
             str += days + ' day' + (days == 1 ? '':'s') + ' ';
         }

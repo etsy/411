@@ -133,6 +133,9 @@ define(function(require) {
         refresh: function() {
             this.Data.Users = new UserCollection(Data.User.Models);
             this.Data.User = this.Data.Users.get(Data.User.Me);
+            if(this.Data.User) {
+                this.setTimezone(this.Data.User.get('timezone'));
+            }
             this.View.Header.unload();
             this.View.Footer.unload();
             this.View.Header.load();
@@ -148,6 +151,16 @@ define(function(require) {
         setTitle: function(loc, pre) {
             if(_.isUndefined(pre)) pre = Data.AppName + ' / ';
             document.title = pre + loc;
+        },
+        /**
+         * Set the timezone for the application.
+         * @param {string} str - Timezone string.
+         */
+        setTimezone: function(tz) {
+            var valid = Moment.tz.names().indexOf(tz) >= 0;
+            console.log(valid, tz, Data.Timezone);
+            console.log(this.Data.User);
+            Moment.tz.setDefault(valid ? tz:Data.Timezone);
         },
         /**
          * Add an alert to the top of the page.

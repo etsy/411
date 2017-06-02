@@ -34,9 +34,10 @@
           </div>
           <div class="col-md-6 col-xs-12 form-group">
             <label for="timezone">Timezone</label><br />
-            <select class="form-control tags select2-multiple" name="timezone">
+            <select class="form-control" name="timezone">
+              <option></option>
               {{#each timezones}}
-              <option value="{{ this.timezone }}" {{#if this.selected }}selected{{/if}}>{{ this.timezone }}</option>
+              <option value="{{ this }}" {{#ifeq ../timezone this }}selected{{/ifeq}}>{{ this }}</option>
               {{/each}}
             </select>
           </div>

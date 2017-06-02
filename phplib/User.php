@@ -25,8 +25,9 @@ class User extends Model {
             'password' => [static::T_STR, null, ''],
             'email' => [static::T_STR, null, ''],
             'admin' => [static::T_BOOL, null, false],
+            'timezone' => [static::T_STR, null, ''],
             'settings' => [static::T_OBJ, null, []],
-            'api_key' => [static::T_STR, null, '']
+            'api_key' => [static::T_STR, null, ''],
         ];
     }
 
@@ -43,6 +44,9 @@ class User extends Model {
         }
         if(strlen($data['password']) == 0) {
             throw new ValidationException('Invalid password');
+        }
+        if($data['timezone'] != '' && !in_array($data['timezone'], timezone_identifiers_list())) {
+            throw new ValidationException('Invalid timezone');
         }
     }
 
@@ -83,6 +87,19 @@ class User extends Model {
     public function randomizeAPIKey() {
         $this->obj['api_key'] = Random::base64_bytes(User::API_KEY_LEN);
         return $this->obj['api_key'];
+    }
+
+    /**
+     * Get timezone for this user, if set or default to sitewide timezone otherwise.
+     * @return string Timezone string.
+     */
+    public function getTimezone() {
+        $timezone = Util::validateTimezone($this->obj['timezone'], null);
+        if(is_null($timezone)) {
+            $config = new DBConfig;
+            $timezone = Util::validateTimezone($config['timezone']);
+        }
+        return $timezone;
     }
 }
 

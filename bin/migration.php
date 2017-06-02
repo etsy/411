@@ -70,6 +70,17 @@ if(ver_cmp($old_ver, '1.2.0') < 0) {
     }
 }
 
+if(ver_cmp($old_ver, '1.3.4') < 0) {
+    FOO\DB::query('ALTER TABLE `users` ADD COLUMN `timezone` VARCHAR(64) NOT NULL DEFAULT "UTC"');
+
+    foreach(FOO\SiteFinder::getAll() as $site) {
+        FOO\SiteFinder::setSite($site);
+        $config = new FOO\DBConfig;
+        $config['timezone'] = 'UTC';
+    }
+    FOO\SiteFinder::setSite(null);
+}
+
 /**
  * Migration logic
  */

@@ -17,9 +17,9 @@
     <div role="tabpanel" class="tab-pane" id="core">
       <div class="form-group col-xs-6 col-md-3">
         <label for="timezone">Timezone Select <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Timezone to display dates in."></span></label><br />
-        <select class="form-control tags select2-multiple" name="timezone">
+        <select class="form-control" name="timezone">
           {{#each timezones}}
-          <option value="{{ this.timezone }}" {{#if this.selected }}selected{{/if}}>{{#if this.timezone }}{{ this.timezone }}{{ else }}Local Browser Timezone{{/if }}</option>
+          <option value="{{ this }}" {{#ifeq ../timezone this }}selected{{/ifeq}}>{{ this }}</option>
           {{/each}}
         </select>
       </div>

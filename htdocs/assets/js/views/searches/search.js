@@ -59,7 +59,6 @@ define(function(require) {
             this.model.getStats({
                 success: this.cbLoaded(function(resp) {
                     this.vars = resp;
-                    console.log(this.vars);
                     this.render();
                     var chartdata = _.zip.apply(null, this.vars.historical_alerts);
                     var cdata = {

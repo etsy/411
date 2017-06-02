@@ -354,6 +354,7 @@ CREATE TABLE `users` (
     `real_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `timezone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `admin` tinyint(1) NOT NULL,
     `settings` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
     `api_key` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,

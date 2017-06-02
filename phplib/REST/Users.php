@@ -12,16 +12,16 @@ class Users_REST extends Models_REST {
 
     protected static $MODEL = 'User';
     protected static $CREATABLE = [
-        'name', 'real_name', 'password', 'email', 'admin', 'api_key'
+        'name', 'real_name', 'password', 'email', 'admin', 'api_key', 'timezone'
     ];
     protected static $QUERYABLE = [
         'name'
     ];
     protected static $READABLE = [
-        'name', 'real_name', 'email', 'admin', 'settings', 'api_key'
+        'name', 'real_name', 'email', 'admin', 'settings', 'api_key', 'timezone'
     ];
     protected static $UPDATEABLE = [
-        'name', 'real_name', 'password', 'email', 'admin', 'settings', 'api_key'
+        'name', 'real_name', 'password', 'email', 'admin', 'settings', 'api_key', 'timezone'
     ];
 
     public function allowRead() {

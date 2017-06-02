@@ -118,8 +118,8 @@ class Data_REST extends REST {
      * @return string timezone for use with moment-timezone.
      */
     private function getTimezone() {
-        $timezone = (new DBConfig())['timezone'];
-        return is_null($timezone) ? 'UTC' : $timezone;
+        $config = new DBConfig;
+        return Util::validateTimezone($config['timezone']);
     }
 
     /**

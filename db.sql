@@ -162,6 +162,7 @@ CREATE TABLE `users` (
     `real_name` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
+    `timezone` VARCHAR(255) NOT NULL,
     `admin` BOOLEAN NOT NULL, /* bool */
     `settings` TEXT NOT NULL,
     `api_key` VARCHAR(64) NOT NULL,

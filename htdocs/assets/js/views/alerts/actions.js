@@ -199,8 +199,7 @@ define(function(require) {
                 'acknowledge',
                 'unresolve',
                 'addnote',
-                'savealertrenderers',
-                'savesearchrenderers'
+                'saverenderers'
             ];
             for(var i = 0; i < actions.length; ++i) {
                 this.listenTo(this.App.Bus, actions[i], _.partial(this.processAction, actions[i]));
@@ -358,8 +357,7 @@ define(function(require) {
             acknowledge: {action: 'acknowledge', type: 'success', icon: 'flash', name: 'Acknowledge', hotkey: 'K', help: 'Mark the selected Alert(s) as in progress'},
             unresolve: {action: 'unresolve', type: 'success', icon: 'remove', name: 'Unresolve', hotkey: 'N', help: 'Mark the selected Alert(s) as new'},
             addnote: {action: 'addnote', type: 'success', icon: 'floppy-disk', name: 'Add Note', hotkey: 'T', help: 'Add a note to the Alert'},
-            savealertrenderers: {action: 'savealertrenderers', type: 'success', icon: 'th', name: 'Save Alert Renderers', hotkey: 'L', help: 'Save the current set of renderers to the Alert'},
-            savesearchrenderers: {action: 'savesearchrenderers', type: 'success', icon: 'th-list', name: 'Save Search Renderers', hotkey: 'H', help: 'Save the current set of renderers to the Search'}
+            saverenderers: {action: 'saverenderers', type: 'success', icon: 'th-list', name: 'Save Renderers', hotkey: 'H', help: 'Save the current set of renderers'}
         },
         events: {
             'click .alert-action': 'action',
@@ -443,12 +441,10 @@ define(function(require) {
                 this.groups.push(state_group);
 
                 // Determine whether to show the save button. Used on the single Alert page.
-                var misc_group = [this.actions.addnote];
+                this.groups.push([this.actions.addnote]);
                 if(this.settings.single) {
-                    misc_group.push(this.actions.savealertrenderers);
-                    misc_group.push(this.actions.savesearchrenderers);
+                    this.groups.push([this.actions.saverenderers]);
                 }
-                this.groups.push(misc_group);
             }
 
             for(var i = 0; i < this.groups.length; ++i) {

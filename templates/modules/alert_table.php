@@ -15,8 +15,8 @@
         <?php endif ?>
       </td>
       <td style="<?= $cell_style ?> width: 1px;">
-      <?php $source = $search->getLink($alert); if(!is_null($source)): ?>
-        <a style="<?= $button_style ?>" href="<?= Util::escape($source) ?>">Source</a>
+      <?php if(!is_null($alert['source'])): ?>
+        <a style="<?= $button_style ?>" href="<?= Util::escape($alert['source']) ?>">Source</a>
       <?php endif ?>
       </td>
       <td style="<?= $cell_style ?> width: 1px;">
@@ -25,7 +25,7 @@
       </td>
     <?php endif ?>
     <?php foreach($alertkeys as $alertkey): ?>
-      <td style="<?= $cell_style ?>"><?= nl2br(Util::escape(Util::get($alert['content'], $alertkey, ''))) ?></td>
+      <td style="<?= $cell_style ?>"><?= nl2br(Util::get($alert['content'], $alertkey, '')) ?></td>
     <?php endforeach ?>
     </tr>
   <?php endforeach ?>

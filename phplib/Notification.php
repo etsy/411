@@ -39,7 +39,7 @@ class Notification {
             $search['name'],
             self::render('alerts', [
                 'search' => $search,
-                'alerts' => $alerts,
+                'alerts' => self::renderAlerts($search, $alerts),
                 'alertkeys' => $alertkeys,
                 'content_only' => $content_only,
                 'vertical' => $long,
@@ -247,25 +247,56 @@ class Notification {
 
     /**
      * Group Alerts underneath a Search.
+     * @param Search $search The Search object.
+     * @param Alert[] $alerts The list of Alerts.
+     * @return array A keyed mapping of Alerts.
+     */
+    public static function renderAlerts(Search $search, array $alerts) {
+        $ret = [];
+        foreach($alerts as $alert) {
+            $data = $alert->toArray();
+            $data['source'] = $search->getLink($alert);
+            $data['content'] = (array) $data['content'];
+            foreach($alert['content'] as $k=>$v) {
+                $type_list = Util::get($search['renderer_data'], $k, ['null']);
+                $type = count($type_list) > 0 ? $type_list[0]:'null';
+                $enricher = Enricher::getEnricher($type);
+                $data['content'][$k] = $enricher::processHTML($v);
+            }
+            $ret[] = $data;
+        }
+        return $ret;
+    }
+
+    /**
+     * Group Alerts underneath a Search.
      * @param array $search_map The Search mapping.
      * @param Alert[] $alerts The list of Alerts.
      * @return array A keyed mapping of Alerts.
      */
-    private static function groupAlerts($search_map, $alerts) {
+    private static function groupAlerts($search_map, array $alerts) {
         $groups = [];
         foreach($alerts as $alert) {
             if(!array_key_exists($alert['search_id'], $groups)) {
                 $groups[$alert['search_id']] = [[], []];
             }
-            $groups[$alert['search_id']][0][] = $alert;
-            foreach($alert['content'] as $k=>$v) {
+
+            $search = Util::get($search_map, $alert['search_id']);
+            $data = $alert->toArray();
+            $data['source'] = $search->getLink($alert);
+            $data['content'] = (array) $data['content'];
+            foreach($data['content'] as $k=>$v) {
+                $enricher = Enricher::getEnricher(Util::get($search['renderer_data'], $k, 'null'));
+                $data['content'][$k] = $enricher::processHTML($v);
                 $groups[$alert['search_id']][1][$k] = null;
             }
+            $groups[$alert['search_id']][0][] = $data;
         }
 
         $ret = [];
         foreach($groups as $key=>$data) {
-            $ret[] = [Util::get($search_map, $key), $data[0], array_keys($data[1])];
+            $search = Util::get($search_map, $key);
+            $ret[] = [$search, $data[0], array_keys($data[1])];
         }
         return $ret;
     }

@@ -1,0 +1,12 @@
+<td>{{key}}</td>
+<td>
+    <select class="form-control input-xs renderer-select">
+        <option></option>
+    {{#each renderers}}
+    <option value="{{@key}}"{{#ifeq @key ../renderer}} selected{{/ifeq}}>{{@key}}</option>
+    {{/each}}
+    </select>
+</td>
+<td width="0">
+  <button type="button" class="action delete-button"><span class="hoverable glyphicon glyphicon-remove"></span></button>
+</td>

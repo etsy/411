@@ -375,16 +375,10 @@ define(function(require) {
             var data = JSON.stringify(this.model);
             Util.download(data, 'alert_' + this.model.id + '.json');
         },
-        savealertrenderers: function() {
-            this.App.showLoader();
-
-            var out_mapping = Renderer.serialize(this.getView('collection[]'));
-            this.saveModel({renderer_data: out_mapping}, this.cbRendered(this.update));
-        },
-        savesearchrenderers: function() {
+        saverenderers: function() {
             this.App.showLoader();
             var search = this.App.Data.Searches.get(this.model.get('search_id'));
-            var out_mapping = Renderer.serialize(this.getView('collection[]'));
+            var out_mapping = _.extend({}, search.get('renderer_data'), Renderer.serialize(this.getView('collection[]')));
             var data = {
                 renderer_data: out_mapping,
                 change_description: 'Modify renderer mapping'

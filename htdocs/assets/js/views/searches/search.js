@@ -1,13 +1,19 @@
 "use strict";
 define(function(require) {
     var _ = require('underscore'),
+        Model = require('model'),
         Dragula = require('dragula'),
         Moment = require('moment'),
+        Collection = require('collection'),
+        View = require('view'),
         NavbarView = require('views/navbar'),
         ModalView = require('views/modal'),
         ModelView = require('views/model'),
+        TableView = require('views/table'),
+
         ChartView = require('views/chart'),
         ListView = require('views/list'),
+        Renderer = require('views/renderer'),
         AlertGroupView = require('views/alerts/alertgroup'),
         FilterView = require('views/filter'),
         TargetView = require('views/target'),
@@ -27,6 +33,83 @@ define(function(require) {
 
 
     var TIME_FMT = 'YYYY/MM/DD HH:mm:00';
+
+    var FieldConfigView = View.extend({
+        tagName: 'tr',
+        template: Templates['searches/fieldentry'],
+        events: {
+            'click .delete-button': 'delete',
+        },
+        initialize: function(options) {
+            this.key = this.model.get('key');
+        },
+        _render: function() {
+            var vars = this.model.toJSON();
+            _.extend(vars, {renderers: Renderer.renderers});
+            this.$el.html(this.template(vars));
+        },
+        getRenderers: function() {
+            var val = this.$('.renderer-select').val();
+            return val !== '' ? [val]:[];
+        },
+        delete: function() {
+            this.trigger('button:delete', this);
+            return false;
+        }
+    });
+
+    var FieldsConfigView = TableView.extend({
+        template: Templates['searches/fieldtable'],
+        title: 'Field configuration',
+        sortable: false,
+        subView: FieldConfigView,
+        hiddenForm: true,
+        columns: [
+            {name: 'Field', sorter: 'false', width: 50},
+            {name: 'Renderer', sorter: 'false', width: 50},
+            {name: '', sorter: 'false'},
+        ],
+        emptyPlaceholder: false,
+        update: function(params) {
+            this.initializeCollection(params);
+        },
+        readForm: function() {
+            return Renderer.serialize(this.getView('collection[]'));
+        },
+        _render: function() {
+            TableView.prototype._render.call(this);
+
+            this.$('.add-field').keypress(this.cbLoaded(function(e) {
+                if(e.which != 13) {
+                    return;
+                }
+                if(e.target.value.length > 0) {
+                    this.addModel(e.target.value);
+                }
+                e.target.value = '';
+                e.preventDefault();
+            }));
+        },
+        initializeSubView: function(model) {
+            var view = TableView.prototype.initializeSubView.call(this, model);
+
+            this.listenTo(view, 'button:delete', this.deleteModel);
+            return view;
+        },
+        addModel: function(key) {
+            var model = new Model({key: key, renderer: ''});
+            var view = this.initializeSubView(model);
+            this.collection.add(model);
+
+            this.$('.results-wrapper table tbody').append(view.el);
+            this.trigger('change', this);
+        },
+        deleteModel: function(view) {
+            view.destroy(true);
+            view.model.destroy({defer: true});
+            this.trigger('change', this);
+        },
+    });
 
     var ResultsModalView = ModalView.extend({
         title: 'Results',
@@ -140,7 +223,7 @@ define(function(require) {
         events: {
             'click *': 'disable'
         },
-        subTemplate: function() { return this.html; },
+        subTemplate: function() { return '<div class="preview">' + this.html + '</div>'; },
         initialize: function(options) {
             this.html = options.html;
             ModalView.prototype.initialize.call(this);
@@ -468,6 +551,16 @@ define(function(require) {
                     new TargetsListView(this.App, {collection: this.targets, model: this.model}),
                     true, this.$('#target-list'), 'targets'
                 );
+
+                var collection = new Collection();
+                var fields = this.model.get('renderer_data');
+                for(var k in fields) {
+                    collection.add(new Model({key: k, renderer: fields[k]}));
+                }
+                this.registerView(
+                    new FieldsConfigView(this.App, {collection: collection, model: this.model}),
+                    true, this.$('#field-list'), 'fields'
+                );
             }
 
             Util.autosize(this.registerElement('textarea[name=description]'));
@@ -566,6 +659,8 @@ define(function(require) {
                 data.query_data.query = data.query;
                 delete data.query;
             }
+
+            data.renderer_data = this.getView('fields').readForm();
 
             // Extract source_expr.
             if('source_expr' in data) {

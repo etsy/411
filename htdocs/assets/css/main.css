@@ -302,6 +302,9 @@ a {
 .query-entry a.query {
     width: 100%;
 }
+.preview a {
+    color: blue;
+}
 
 /**
  * Theme fixes

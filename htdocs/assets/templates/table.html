@@ -1,7 +1,14 @@
 <div class="panel panel-default hidden results-wrapper">
   <div class="panel-heading clearfix">
-    <h4 class="panel-title pull-right">
-      <span class="badge count">0</span>
+    <h4 class="panel-title">
+      <span>
+        {{ title }}
+      </span>
+      {{#if hide_count}}
+      <span class="pull-right">
+        <span class="badge count">0</span>
+      </span>
+      {{/if}}
     </h4>
   </div>
 

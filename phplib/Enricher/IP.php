@@ -19,4 +19,9 @@ class IP_Enricher extends Enricher {
 
         return $raw_data;
     }
+
+    public static function processHTML($data) {
+        $enc_data = urlencode($data);
+        return sprintf('<a href="https://freegeoip.net/?q=%s">%s</a>', $enc_data, $enc_data);
+    }
 }

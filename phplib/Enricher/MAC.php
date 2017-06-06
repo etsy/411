@@ -14,4 +14,9 @@ class MAC_Enricher extends Enricher {
 
         return $raw_data['result'];
     }
+
+    public static function processHTML($data) {
+        $enc_data = urlencode($data);
+        return sprintf('<a href="https://macvendors.co/results/%s">%s</a>', $enc_data, $enc_data);
+    }
 }

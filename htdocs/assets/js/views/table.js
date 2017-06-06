@@ -6,7 +6,7 @@ define(function(require) {
 
     /**
      * Table View
-     * Renders a collection of modles via the given subView class.
+     * Renders a collection of models via the given subView class.
      */
     var TableView = CollectionView.extend({
         template: Templates['table'],
@@ -17,6 +17,8 @@ define(function(require) {
         sortable: true,
         // Views in sorted order.
         orderedCollection: null,
+        // Show a placeholder if there are no results.
+        emptyPlaceholder: true,
 
         initialize: function() {
             CollectionView.prototype.initialize.call(this);
@@ -36,7 +38,7 @@ define(function(require) {
             var models = arr[0],
                 frag = arr[1];
 
-            var show_table = !!models.length;
+            var show_table = !!models.length || !this.emptyPlaceholder;
 
             // Clean up the old table, if it exists.
             this.$('.results-wrapper table')

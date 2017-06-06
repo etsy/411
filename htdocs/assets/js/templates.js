@@ -33,6 +33,8 @@ define(function(require) {
         'searches/changelogmodal': Handlebars.compile(require('text!templatefiles/searches/changelogmodal.html')),
         'searches/statisticsmodal': Handlebars.compile(require('text!templatefiles/searches/statisticsmodal.html')),
         'searches/jobsmodal': Handlebars.compile(require('text!templatefiles/searches/jobsmodal.html')),
+        'searches/fieldentry': Handlebars.compile(require('text!templatefiles/searches/fieldentry.html')),
+        'searches/fieldtable': Handlebars.compile(require('text!templatefiles/searches/fieldtable.html')),
         'element': Handlebars.compile(require('text!templatefiles/element.html')),
         'elementcompact': Handlebars.compile(require('text!templatefiles/elementcompact.html')),
         'searches/search/ping/a': Handlebars.compile(require('text!templatefiles/searches/search/ping/a.html')),

@@ -14,8 +14,8 @@
         <?php if($alert['id']): ?>
         <a style="<?= $button_style ?>" href="<?= $base_url ?>/alert/<?= $alert['id'] ?>">View</a>
         <?php endif ?>
-        <?php $source = $search->getLink($alert); if(!is_null($source)): ?>
-          <a style="<?= $button_style ?>" href="<?= Util::escape($source) ?>">Source</a>
+        <?php if(!is_null($alert['source'])): ?>
+          <a style="<?= $button_style ?>" href="<?= Util::escape($alert['source']) ?>">Source</a>
         <?php endif ?>
       <?php endif ?>
       </td>
@@ -30,7 +30,7 @@
     <?php foreach($alertkeys as $alertkey): ?>
     <tr>
       <th style="<?= $h_cell_style ?>"><?= Util::escape($alertkey) ?></th>
-      <td style="<?= $cell_style ?>"><?= nl2br(Util::escape(Util::get($alert['content'], $alertkey, ''))) ?></td>
+      <td style="<?= $cell_style ?>"><?= nl2br(Util::get($alert['content'], $alertkey, '')) ?></td>
     </tr>
     <?php endforeach ?>
 

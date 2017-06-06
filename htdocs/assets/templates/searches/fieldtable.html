@@ -1,0 +1,27 @@
+<div class="panel panel-default results-wrapper">
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title">
+      <span>
+        {{ title }}
+      </span>
+    </h4>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped tablesorter">
+      <thead>
+        <tr>
+          {{#each columns}}
+          <th {{#if width}}width="{{ width }}%"{{/if}} {{#if sorter}}class="sorter-{{ sorter }}"{{/if}}>{{ name }}</th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="panel-footer">
+    <label>New</label>
+    <input type="text" class="form-control add-field" />
+  </div>
+</div>

@@ -8,7 +8,7 @@ namespace FOO;
  * @package FOO
  */
 class Enricher {
-    public static $TYPES = ['IP_Enricher', 'MAC_Enricher', 'Null_Enricher'];
+    public static $TYPES = ['IP_Enricher', 'MAC_Enricher', 'Stacktrace_Enricher', 'Link_Enricher', 'Null_Enricher'];
     public static $TYPE = '';
 
     /**
@@ -17,7 +17,8 @@ class Enricher {
      * @return Enricher The new Enricher.
      */
     public static function getEnricher($type) {
-        return Util::get(self::getTypes(), $type);
+        $types = self::getTypes();
+        return Util::exists($types, $type) ? $types[$type]:'null';
     }
 
     /**
@@ -38,11 +39,18 @@ class Enricher {
     }
 
     /**
-     * Executes the Enricher.
+     * Executes the Enricher and returns structured data.
      * @param mixed $data The input data.
      * @return mixed Enriched data.
      */
     public static function process($data) { return null; }
+
+    /**
+     * Executes the Enricher and returns HTML output.
+     * @param mixed $data The input data.
+     * @return mixed Enriched data.
+     */
+    public static function processHTML($data) { return null; }
 }
 
 /**

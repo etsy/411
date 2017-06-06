@@ -86,6 +86,10 @@ define(function(require) {
         className: 'col-xs-12',
         template: _.constant(''),
 
+        // Title of the collection.
+        title: '',
+        // Whether to show a count of entries.
+        hide_count: false,
         // The view to render for each model in the collection.
         subView: null,
         // Variables to pass to the view.
@@ -105,7 +109,7 @@ define(function(require) {
             }
         },
         _render: function(vars) {
-            this.$el.html(this.template(_.extend(vars, this.vars)));
+            this.$el.html(this.template(_.extend(vars, {title: this.title, hide_count: this.hide_count}, this.vars)));
             if(this.hiddenForm) {
                 this.$el.addClass('hidden-form');
             }
@@ -133,10 +137,9 @@ define(function(require) {
             this.destroyViews();
 
             // Construct and add the Views to the fragment.
-            var t = this;
             var models = this.filterCollection(this.collection);
             for(var i = 0; i < models.length; ++i) {
-                var view = t.initializeSubView(models[i]);
+                var view = this.initializeSubView(models[i]);
                 frag.appendChild(view.el);
             }
             return [models, frag];

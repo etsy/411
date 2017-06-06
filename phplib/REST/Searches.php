@@ -153,22 +153,21 @@ class Searches_REST extends Models_REST {
         $search->validate();
 
         $alerts = [];
-        $alertkeys = ['one', 'two', 'three'];
+        $alertkeys = array_keys($data['renderer_data']);
         $vertical = false;
         for($i = 0; $i < 3; ++$i) {
             $alert = new Alert;
             $alert['alert_date'] = $_SERVER['REQUEST_TIME'];
-            $alert['content'] = [
-                'one' => 'one',
-                'two' => 'two',
-                'three' => 'three'
-            ];
+            $alert['content'] = [];
+            foreach($search['renderer_data'] as $k=>$v) {
+                $alert['content'][$k] = 'test';
+            }
             $alerts[] = $alert;
         }
 
         return self::format(Notification::render('alerts', [
             'search' => $search,
-            'alerts' => $alerts,
+            'alerts' => Notification::renderAlerts($search, $alerts),
             'alertkeys' => $alertkeys,
             'content_only' => false,
             'vertical' => $vertical,

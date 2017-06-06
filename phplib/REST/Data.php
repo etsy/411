@@ -43,6 +43,7 @@ class Data_REST extends REST {
                 'NotifTypes' => $this->generateEnumData(Search::$NOTIF_TYPES),
                 'NotifFormats' => $this->generateEnumData(Search::$NOTIF_FORMATS),
                 'Defaults' => $this->generateDefaultData(Search::getSchema()),
+                'TimeBased' => $this->generateSearchTimeBased(),
                 'Sources' => $this->generateSearchSources(),
             ],
             'SearchLog' => [
@@ -218,5 +219,24 @@ class Data_REST extends REST {
         }
 
         return $sources;
+    }
+
+    /**
+     * Generate data on whether Searches are time-based.
+     * @return array[] An array of 
+     */
+    private function generateSearchTimeBased() {
+        $time_based = [];
+        if(Auth::isAuthenticated()) {
+            foreach(Search::getTypes() as $type) {
+                if($type::$SOURCES) {
+
+                } else {
+                    $time_based[$type::$TYPE] = (new $type)->isTimeBased();
+                }
+            }
+        }
+
+        return $time_based;
     }
 }

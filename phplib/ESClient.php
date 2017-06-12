@@ -473,7 +473,7 @@ class ESClient {
         $this->list[] = [[
             'index' => [
                 '_index' => $this->index,
-                '_type' => $alert->getSearch()['type'] ?: 'null',
+                '_type' => $alert->getSearch(true)['type'] ?: 'null',
                 '_id' => $alert['alert_id'],
             ]
         ], $alert];

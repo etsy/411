@@ -551,17 +551,17 @@ define(function(require) {
                     new TargetsListView(this.App, {collection: this.targets, model: this.model}),
                     true, this.$('#target-list'), 'targets'
                 );
-
-                var collection = new Collection();
-                var fields = this.model.get('renderer_data');
-                for(var k in fields) {
-                    collection.add(new Model({key: k, renderer: fields[k]}));
-                }
-                this.registerView(
-                    new FieldsConfigView(this.App, {collection: collection, model: this.model}),
-                    true, this.$('#field-list'), 'fields'
-                );
             }
+
+            var collection = new Collection();
+            var fields = this.model.get('renderer_data');
+            for(var k in fields) {
+                collection.add(new Model({key: k, renderer: fields[k]}));
+            }
+            this.registerView(
+                new FieldsConfigView(this.App, {collection: collection, model: this.model}),
+                true, this.$('#field-list'), 'fields'
+            );
 
             Util.autosize(this.registerElement('textarea[name=description]'));
 

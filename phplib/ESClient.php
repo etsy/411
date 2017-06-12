@@ -528,7 +528,7 @@ class ESClient {
 
             $search_id = $alert_data[1]['search_id'];
             if(!Util::exists($this->searches, $search_id)) {
-                $this->searches[$search_id] = SearchFinder::getById($search_id);
+                $this->searches[$search_id] = SearchFinder::getById($search_id, true);
             }
             $list[] = $this->generateAlertData(
                 $alert_data[1], Util::get($this->searches, $search_id)

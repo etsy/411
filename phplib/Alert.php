@@ -69,10 +69,11 @@ class Alert extends Model {
 
     /**
      * Get the Search associated with this Alert.
+     * @param bool $archived Whether to fetch the Search if it's archived
      * @return Search The associated Search
      */
-    public function getSearch() {
-        return SearchFinder::getById($this->obj['search_id']);
+    public function getSearch($archived=false) {
+        return SearchFinder::getById($this->obj['search_id'], $archived);
     }
 }
 

@@ -38,7 +38,7 @@ CREATE TABLE `alerts` (
     `create_date` bigint(20) unsigned NOT NULL,
     `update_date` bigint(20) unsigned NOT NULL,
     `site_id` bigint(20) unsigned NOT NULL,
-    `renderer_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+    `renderer_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL, /* unused */
     `resolution` tinyint(1) NOT NULL,
     PRIMARY KEY (`alert_id`),
     KEY `alert_date_idx` (`alert_date`),

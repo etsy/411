@@ -79,16 +79,6 @@ Executes a script on Alerts. Scripts are executables which accept a JSON blob fr
 - Script: The name of the script to execute.
 
 
-### Enricher ###
-
-Executes an Enricher on a field and replaces the contents of the field with the output.
-
-#### Parameters ####
-
-- Key: The key to execute an Enricher on.
-- Enricher: The name of the Enricher to execute.
-
-
 ### Expression ###
 
 Whitelist/Blacklist Alerts based on whether they match a given [SEL](https://symfony.com/doc/current/components/expression_language/syntax.html) expression. The contents of the Alert are available via the `content` variable when writing expressions.

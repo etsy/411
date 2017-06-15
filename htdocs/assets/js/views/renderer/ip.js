@@ -1,6 +1,7 @@
 "use strict";
 define(function(require) {
-    var TableRenderer = require('views/renderer/table'),
+    var _ = require('underscore'),
+        TableRenderer = require('views/renderer/table'),
         Handlebars = require('handlebars');
 
 
@@ -26,7 +27,10 @@ define(function(require) {
             ].join('');
         },
         render: function(key, val, data) {
-            return TableRenderer.tabulate(data);
+            if(_.isObject(data)) {
+                return TableRenderer.tabulate(data);
+            }
+            return Handlebars.Utils.escapeExpression(val);
         }
     });
 

@@ -19,6 +19,10 @@ class MyIP_Enricher extends Enricher {
     public static function process($data) {
         // TODO
     }
+
+    public static function processHTML($data) {
+        // TODO
+    }
 }
 ```
 
@@ -36,6 +40,25 @@ The `process` method takes some input data (the contents of an Alert field) and 
         }
 
         return $ret;
+    }
+```
+
+
+Implementing `processHTML`
+------------------------
+
+The `processHTML` method takes the same input as `process`, but outputs HTML. Here, we can just call `process` and render a table with the content.
+```
+    public static function process($data) {
+        $resp = self::process($data);
+        $ret = [];
+        $ret[] = '<table><tbody>';
+        foreach($data as $k=>$v) {
+            $ret[] = '<tr><th>' . Util::escape($k) . '</th><td>' . Util::escape($v) . '</tr>';
+        }
+        $ret[] = '</tbody></table>';
+
+        return implode('', $ret);
     }
 ```
 

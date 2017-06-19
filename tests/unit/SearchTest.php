@@ -83,6 +83,6 @@ class SearchTest extends TestCase {
 
         $targets = $search->getTargets();
         $this->assertCount(1, $targets);
-        $this->assertSame(1, $targets[1][FOO\Target::$PKEY]);
+        $this->assertSame(1, $targets[0][FOO\Target::$PKEY]);
     }
 }

@@ -10,6 +10,6 @@ class Link_Enricher extends Enricher {
     }
 
     public static function processHTML($data) {
-        return htmlentities($data, ENT_QUOTES, 'UTF-8');
+        return Util::escape($data);
     }
 }

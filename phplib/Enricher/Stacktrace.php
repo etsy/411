@@ -15,6 +15,6 @@ class Stacktrace_Enricher extends Enricher {
     }
 
     public static function processHTML($data) {
-        return '<pre>' . htmlentities(self::process($data), ENT_QUOTES) . '</pre>';
+        return '<pre>' . Util::escape(self::process($data)) . '</pre>';
     }
 }

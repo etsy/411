@@ -158,8 +158,6 @@ define(function(require) {
          */
         setTimezone: function(tz) {
             var valid = Moment.tz.names().indexOf(tz) >= 0;
-            console.log(valid, tz, Data.Timezone);
-            console.log(this.Data.User);
             Moment.tz.setDefault(valid ? tz:Data.Timezone);
         },
         /**

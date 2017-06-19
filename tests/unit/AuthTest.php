@@ -9,7 +9,7 @@ class AuthTest extends TestCase {
 
     public function testLogin() {
         TestHelper::populateDB([
-            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', password_hash('pass', PASSWORD_DEFAULT), 'test@test.com', true, '', '', 0, 0, 0],
+            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', password_hash('pass', PASSWORD_DEFAULT), 'test@test.com', 'UTC', true, '', '', 0, 0, 0],
         ]);
 
         $this->assertNull(FOO\Auth::login('admin', ''));

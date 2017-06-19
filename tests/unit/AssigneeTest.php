@@ -5,7 +5,7 @@ class AssigneeTest extends TestCase {
         $this->assertSame('System', FOO\Assignee::getName(0, 0));
 
         TestHelper::populateDB([
-            [FOO\User::$TABLE, 1, 0, 'user', 'User', '', 'test@test.com', false, '', '', 0, 0, 0],
+            [FOO\User::$TABLE, 1, 0, 'user', 'User', '', 'test@test.com', 'UTC', false, '', '', 0, 0, 0],
             [FOO\Group::$TABLE, 2, 0, FOO\Group::T_ALL, 0, 'Group', 0, 0, 0],
             [FOO\GroupTarget::$TABLE, 1, 0, 2, FOO\GroupTarget::T_USER, 1, '', 0, 0, 0],
             [FOO\GroupTarget::$TABLE, 2, 0, 2, FOO\GroupTarget::T_EMAIL, 1, 'test@example.com', 0, 0, 0],

@@ -1,4 +1,5 @@
 <?php
-Hook::register('init.pre', function() {
+
+FOO\Hook::register('init.pre', function() {
     TestHelper::setupDB();
 });

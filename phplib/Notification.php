@@ -226,7 +226,6 @@ class Notification {
      * @param array $noisy_searches Searches that generate the most Alerts w/ a count.
      * @param array $quiet_searches Searches that generate the least Alerts w/ a count.
      * @param array $debug_data Watermarking data for debugging purposes.
-     * @param
      */
     public static function sendSummaryEmail($to, $start_date, $stats, $leaders, $noisy_searches, $quiet_searches, $debug_data=[]) {
         $end_date = clone $start_date;

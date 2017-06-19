@@ -11,7 +11,9 @@ return [
     // A list of individual files to include in analysis
     // with a path relative to the root directory of the
     // project
-    'file_list' => [],
+    'file_list' => [
+        'phplib/411bootstrap.php',
+    ],
     // A list of directories that should be parsed for class and
     // method information. After excluding the directories
     // defined in exclude_analysis_directory_list, the remaining
@@ -20,7 +22,6 @@ return [
     // Thus, both first-party and third-party code being used by
     // your application should be included in this list.
     'directory_list' => [
-        'phplib/411bootstrap.php',
         'bin',
         'phplib',
         'vendor',

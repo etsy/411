@@ -1,5 +1,4 @@
 language: php
-install: composer install --no-dev
 php:
   - '7.1'
 script:

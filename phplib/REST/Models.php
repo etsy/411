@@ -104,7 +104,6 @@ class Models_REST extends REST {
 
     /**
      * Get models.
-     * @param array $get URL params
      * @param array $data Request body params.
      * @return Model[] The list of matching Models.
      */
@@ -115,6 +114,7 @@ class Models_REST extends REST {
 
         $FINDER = 'FOO\\' . static::$MODEL . 'Finder';
         $id_query = Util::exists($data, 'id');
+        $query = [];
         if($id_query) {
             $query['id'] = $data['id'];
         } else {

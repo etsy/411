@@ -125,7 +125,7 @@ class AlertLogFinder extends ModelFinder {
      * @param int $from The lower time threshold
      * @param int $to The upper time threshold
      * @param int $count The number of results to return.
-     * @return int A count of resolved Alerts by each User.
+     * @return array A count of resolved Alerts by each User.
      * @throws DBException
      */
     public static function getRecentResolveCounts($from, $to, $count) {

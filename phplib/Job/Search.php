@@ -69,7 +69,9 @@ class Search_Job extends Job {
 
         $filters = $search->getFilters();
         $targets = $search->getTargets();
-        array_unshift($targets, new DB_Target);
+        if(!Util::isTesting()) {
+            array_unshift($targets, new DB_Target);
+        }
 
         // Take each Alert result and pass it through the pipeline.
         list($final_alerts, $new_errors) = $this->processFilters($alerts, $filters, $this->obj['target_date']);

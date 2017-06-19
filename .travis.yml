@@ -1,17 +1,14 @@
 language: php
 install: composer install --no-dev
 php:
-  - '5.6'
-  - '7.0'
   - '7.1'
 script:
   - composer require --ignore-platform-reqs codeclimate/php-test-reporter dev-master
   - mkdir -p build/logs
   - cp tests/config_test.php config.php
   - cp tests/hook_test.php hook.php
-  - phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
+  - ./vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
   - ./vendor/bin/test-reporter
-addons:
-    code_climate:
-        repo_token: ""
-
+cache:
+  directories:
+    - vendor

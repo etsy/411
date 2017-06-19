@@ -32,8 +32,8 @@ class TestHelper {
 
     public static function populateUsers() {
         self::populateDB([
-            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', '', 'test@test.com', true, '', 'a', 0, 0, 0],
-            [FOO\User::$TABLE, 2, 0, 'user', 'User', '', 'test@test.com', false, '', 'u', 0, 0, 0],
+            [FOO\User::$TABLE, 1, 0, 'admin', 'Admin', '', 'test@test.com', 'UTC', true, '', 'a', 0, 0, 0],
+            [FOO\User::$TABLE, 2, 0, 'user', 'User', '', 'test@test.com', 'UTC', false, '', 'u', 0, 0, 0],
         ]);
     }
 

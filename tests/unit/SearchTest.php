@@ -82,7 +82,7 @@ class SearchTest extends TestCase {
         $search->setId(1);
 
         $targets = $search->getTargets();
-        $this->assertCount(2, $targets);
+        $this->assertCount(1, $targets);
         $this->assertSame(1, $targets[1][FOO\Target::$PKEY]);
     }
 }

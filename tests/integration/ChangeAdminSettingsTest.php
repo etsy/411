@@ -26,6 +26,7 @@ class ChangeAdminSettings extends TestCase {
             'from_email' => 'test@test.com',
             'from_error_email' => 'error@test.com',
             'default_email' => 'test@example.com',
+            'timezone' => 'UTC',
         ];
 
         $c = new FOO\Admin_REST();

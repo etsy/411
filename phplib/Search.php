@@ -406,7 +406,6 @@ abstract class Search extends TypeModel {
      */
     public function getTargets() {
         $targets = TargetFinder::getBySearch($this->obj[static::$PKEY]);
-        array_unshift($targets, new DB_Target);
         return Hook::call('search.targets', [$targets])[0];
     }
 

@@ -541,7 +541,7 @@ class ModelFinder {
      * @param array $sort An array of columns to sort by.
      * @param array $group An array of columns to group by.
      * @param bool|null $reverse Whether to reverse the order of the result set.
-     * @return int A count.
+     * @return array [string $sql, array $vals]
      * @throws DBException
      */
     public static function generateQuery(array $fields, array $query=[], $count=null, $offset=null, $sort=[], $group=[], $reverse=null) {

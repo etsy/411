@@ -1,3 +1,16 @@
+# v1.4.0 #
+
+- Per-user timezones
+- Email renderers
+
+## Bugfixes ##
+
+- Show original value if a renderer throws an error
+- Correctly update index for alerts associated with deleted searches
+- Parse dates as UTC on the frontend
+- Performance fixes
+
+
 # v1.3.3 #
 
 - No new features

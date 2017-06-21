@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "bf52a0eaf857da2a4754cea2751d66c592c3dd16"
+                "reference": "8171a9ceee0234b2b195e584230a137e596118a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/bf52a0eaf857da2a4754cea2751d66c592c3dd16",
-                "reference": "bf52a0eaf857da2a4754cea2751d66c592c3dd16",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/8171a9ceee0234b2b195e584230a137e596118a1",
+                "reference": "8171a9ceee0234b2b195e584230a137e596118a1",
                 "shasum": ""
             },
             "require": {
@@ -386,7 +386,7 @@
             ],
             "description": "Elasticsearch querying library",
             "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2017-02-06 23:44:54"
+            "time": "2017-06-21 22:37:37"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -1751,12 +1751,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/etsy/phan.git",
-                "reference": "1131c834819906ae07ae6f47a1b3e73fdf7d172a"
+                "reference": "30922c0c559a7ee0949f436d50edbd1b6e624582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/etsy/phan/zipball/1131c834819906ae07ae6f47a1b3e73fdf7d172a",
-                "reference": "1131c834819906ae07ae6f47a1b3e73fdf7d172a",
+                "url": "https://api.github.com/repos/etsy/phan/zipball/30922c0c559a7ee0949f436d50edbd1b6e624582",
+                "reference": "30922c0c559a7ee0949f436d50edbd1b6e624582",
                 "shasum": ""
             },
             "require": {
@@ -1796,7 +1796,7 @@
                 "php",
                 "static"
             ],
-            "time": "2017-06-20T16:50:38+00:00"
+            "time": "2017-06-21 15:54:12"
         },
         {
             "name": "herrera-io/json",
@@ -3001,16 +3001,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.35",
+            "version": "4.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "791b1a67c25af50e230f841ee7a9c6eba507dc87"
+                "reference": "46023de9a91eec7dfb06cc56cb4e260017298517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/791b1a67c25af50e230f841ee7a9c6eba507dc87",
-                "reference": "791b1a67c25af50e230f841ee7a9c6eba507dc87",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/46023de9a91eec7dfb06cc56cb4e260017298517",
+                "reference": "46023de9a91eec7dfb06cc56cb4e260017298517",
                 "shasum": ""
             },
             "require": {
@@ -3069,7 +3069,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-06T05:18:07+00:00"
+            "time": "2017-06-21T08:07:12+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

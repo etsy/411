@@ -74,7 +74,8 @@ $config['elasticsearch'] = [
     /**
      * Each entry in this array represents an Elasticsearch source that 411 can query.
      *
-     * 'hosts': An array of hosts powering your ES cluster.
+     * 'hosts': An array of hosts powering your ES cluster. Credentials can be passed in the url.
+     *          Ex: 'http://user:pass@localhost:9200'
      * 'index_hosts': An array of hosts to use for indexing (if different from 'hosts').
      * 'ssl_cert': Path to an ssl certificate if your cluster uses HTTPS.
      * 'index': The index to query. Leave as null to query all indices.

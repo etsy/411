@@ -11,6 +11,10 @@ class IP_Enricher extends Enricher {
     public static $TYPE = 'ip';
 
     public static function process($data) {
+        if(!filter_var($data, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+            return null;
+        }
+
         $curl = new Curl;
         $raw_data = $curl->get(sprintf('https://freegeoip.net/json/%s', $data));
         if($curl->httpStatusCode != 200) {

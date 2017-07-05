@@ -36,7 +36,11 @@ abstract class Elasticsearch_Search extends Search {
 
         $index = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']):$cfg['index'];
         $parser = new \ESQuery\Parser;
-        return $parser->generateUrl($query, $start, $end, $cfg['src_url'], $index);
+        try {
+            return $parser->generateUrl($query, $start, $end, $cfg['src_url'], $index);
+        } catch(\ESQuery\Exception $e) {
+            return null;
+        }
     }
 
     public function isTimeBased() {

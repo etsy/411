@@ -96,9 +96,8 @@ $config['elasticsearch'] = [
      *              '@' - Parse as a UNIX timestamp.
      *              '#' - Parse as a UNIX timestamps (in milliseconds).
      *              All other strings are interpretted via PHP's date formatting syntax.
-     * 'src_url': A format string for generating default source links.
-     *            Requires the following format specifiers: 's', 'd', 'd'.
-     *            Ex: 'https://localhost/?query=%s&from=%d&to=%d'
+     * 'src_url': A server name for generating source links.
+     *            Ex: 'https://localhost:5601'
      */
 
     # Configuration for the 411 Alerts index.

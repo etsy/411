@@ -34,7 +34,9 @@ abstract class Elasticsearch_Search extends Search {
             return null;
         }
 
-        return sprintf($cfg['src_url'], $start, $end, rawurlencode($query));
+        $index = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']):$cfg['index'];
+        $parser = new \ESQuery\Parser;
+        return $parser->generateUrl($query, $start, $end, $cfg['src_url'], $index);
     }
 
     public function isTimeBased() {

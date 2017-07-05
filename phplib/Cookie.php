@@ -98,7 +98,7 @@ class Cookie {
      */
     public static function write() {
         $site = SiteFinder::getCurrent();
-        if(self::$write && self::$dirty && Auth::isCookie()) {
+        if(self::$write && self::$dirty && Auth::isWeb()) {
             $expiry = $_SERVER['REQUEST_TIME'] + self::COOKIE_LIFETIME;
             setcookie(
                 self::COOKIE_KEY,

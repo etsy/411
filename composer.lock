@@ -355,12 +355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "b7aaa6eae6e48d1cbcf26b3f1da10ca6c9ab8d0b"
+                "reference": "267beab7a1b651f8712dcffd8c58b77a6de33786"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/b7aaa6eae6e48d1cbcf26b3f1da10ca6c9ab8d0b",
-                "reference": "b7aaa6eae6e48d1cbcf26b3f1da10ca6c9ab8d0b",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/267beab7a1b651f8712dcffd8c58b77a6de33786",
+                "reference": "267beab7a1b651f8712dcffd8c58b77a6de33786",
                 "shasum": ""
             },
             "require": {
@@ -388,7 +388,7 @@
             ],
             "description": "Elasticsearch querying library",
             "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2017-07-05 18:18:39"
+            "time": "2017-07-05 19:13:18"
         },
         {
             "name": "kunststube/rison",
@@ -1842,7 +1842,7 @@
                 "php",
                 "static"
             ],
-            "time": "2017-07-05T02:12:11+00:00"
+            "time": "2017-07-05 02:12:11"
         },
         {
             "name": "herrera-io/json",

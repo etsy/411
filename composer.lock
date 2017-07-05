@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "bac9fb5d18cb4a4e56c1dab051026c5410ad0976"
+                "reference": "b6f66f5c99082c44a157aeb9cf84926017b51650"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/bac9fb5d18cb4a4e56c1dab051026c5410ad0976",
-                "reference": "bac9fb5d18cb4a4e56c1dab051026c5410ad0976",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/b6f66f5c99082c44a157aeb9cf84926017b51650",
+                "reference": "b6f66f5c99082c44a157aeb9cf84926017b51650",
                 "shasum": ""
             },
             "require": {
@@ -387,7 +387,7 @@
             ],
             "description": "Elasticsearch querying library",
             "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2017-07-05 19:13:40"
+            "time": "2017-07-05 19:59:09"
         },
         {
             "name": "kunststube/rison",

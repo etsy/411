@@ -50,7 +50,7 @@ define(function(require) {
         if(hours > 0) {
             str += hours + ' hour' + (hours == 1 ? '':'s') + ' ';
         }
-        if((hours === 0 && days === 0) || mins > 0) {
+        if((hours === 0 && days === 0 && weeks === 0) || mins > 0) {
             str += mins + ' minute' + (mins == 1 ? '':'s');
         }
         return str;

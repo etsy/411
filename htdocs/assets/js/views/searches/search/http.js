@@ -24,6 +24,11 @@ define(function(require) {
                 delete data.code;
             }
 
+            if("content_match" in data) {
+                data.query_data.content_match = data.content_match;
+                delete data.content_match;
+            }
+
             return data;
         }
     });

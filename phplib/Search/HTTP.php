@@ -25,22 +25,50 @@ class HTTP_Search extends Search {
         if(!filter_var(Util::get($data['query_data'], 'url'), FILTER_VALIDATE_URL)) {
             throw new ValidationException('Invalid url');
         }
+
+        $contentMatchRegex = Util::get($data['query_data'], 'content_match');
+        if(@preg_match("/$contentMatchRegex/", null) === false) {
+            throw new ValidationException('Invalid regular expression for content match');
+        }
     }
 
     protected function _execute($date, $constructed_qdata) {
         $curl = new Curl;
         $curl->get($constructed_qdata['url']);
-        $this->obj['last_status'] = sprintf('Code = %d, Message = %s', $curl->httpStatusCode, $curl->httpErrorMessage);
+        $this->obj['last_status'] = sprintf(
+            'Code = %d, Message = %s',
+            $curl->httpStatusCode,
+            $curl->httpErrorMessage
+        );
 
-        if($curl->httpStatusCode === $constructed_qdata['code']) {
+        if ($this->isStatusCodeValid($constructed_qdata['code'], $curl->httpStatusCode) &&
+            $this->isContentValid($constructed_qdata['content_match'], $curl->rawResponse)) {
             return [];
         }
 
         $alert = new Alert;
         $alert['alert_date'] = $date;
-        $alert['content'] = ['status' => $curl->httpStatusCode, 'url' => $constructed_qdata['url']];
+        $alert['content'] = [
+            'status' => $curl->httpStatusCode,
+            'url' => $constructed_qdata['url'],
+            'content length' => strlen($curl->rawResponse)
+        ];
 
         return [$alert];
+    }
+
+    private function isStatusCodeValid($expected, $current)
+    {
+        return $expected === $current;
+    }
+
+    private function isContentValid($regex, $response)
+    {
+        if (empty($regex)) {
+            return true;
+        }
+
+        return (bool)preg_match("/" . $regex . "/", $response);
     }
 }
 

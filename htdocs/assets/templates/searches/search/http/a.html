@@ -6,3 +6,8 @@
   <label for="code">Code</label>
   <input class="form-control" type="number" name="code" value="{{ query_data.code }}" />
 </div>
+
+<div class="col-xs-12 col-sm-12 form-group">
+  <label for="code">Content Match <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="This regular expression will run against the raw response content, leave it blank for using only status code check."></span></label> 
+  <input class="form-control" type="text" name="content_match" value="{{ query_data.content_match }}" />
+</div>

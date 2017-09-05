@@ -10,6 +10,8 @@ namespace FOO;
 class HTTP_Search extends Search {
     public static $TYPE = 'http';
 
+    private $httpClient;
+
     protected function constructQuery() {
         return $this->obj['query_data'];
     }
@@ -33,7 +35,7 @@ class HTTP_Search extends Search {
     }
 
     protected function _execute($date, $constructed_qdata) {
-        $curl = new Curl;
+        $curl = $this->getHttpClient();
         $curl->get($constructed_qdata['url']);
         $this->obj['last_status'] = sprintf(
             'Code = %d, Message = %s',
@@ -41,8 +43,9 @@ class HTTP_Search extends Search {
             $curl->httpErrorMessage
         );
 
-        if ($this->isStatusCodeValid($constructed_qdata['code'], $curl->httpStatusCode) &&
-            $this->isContentValid($constructed_qdata['content_match'], $curl->rawResponse)) {
+        if ($this->isStatusCodeValid($constructed_qdata, $curl) &&
+            $this->isContentValid($constructed_qdata, $curl)
+        ) {
             return [];
         }
 
@@ -51,24 +54,38 @@ class HTTP_Search extends Search {
         $alert['content'] = [
             'status' => $curl->httpStatusCode,
             'url' => $constructed_qdata['url'],
-            'content length' => strlen($curl->rawResponse)
+            'content_length' => strlen($curl->rawResponse)
         ];
 
         return [$alert];
     }
 
-    private function isStatusCodeValid($expected, $current)
+    private function isStatusCodeValid($expectedData, $curl)
     {
-        return $expected === $current;
+        return $expectedData['code'] === $curl->httpStatusCode;
     }
 
-    private function isContentValid($regex, $response)
+    private function isContentValid($expectedData, $curl)
     {
-        if (empty($regex)) {
+        if (!isset($expectedData['content_match']) && !empty($expectedData['content_match'])) {
             return true;
         }
 
-        return (bool)preg_match("/" . $regex . "/", $response);
+        return preg_match("/" . $expectedData['content_match'] . "/", $curl->rawResponse) === 1;
+    }
+
+    private function getHttpClient()
+    {
+        if ($this->httpClient === null) {
+            $this->httpClient = new Curl;
+        }
+
+        return $this->httpClient;
+    }
+
+    public function setHttpClient(Curl $httpClient)
+    {
+        $this->httpClient = $httpClient;
     }
 }
 

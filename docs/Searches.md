@@ -117,12 +117,13 @@ Queries [ThreatExchange](https://developers.facebook.com/products/threat-exchang
 
 ![HTTP Search](/docs/imgs/search_http.png?raw=true)
 
-Executes a HTTP `GET` request against a URL. If the response code is unexpected, generates an Alert.
+Executes a HTTP `GET` request against a URL. If the response code and/or response content is unexpected, generates an Alert.
 
 #### Additional Fields ####
 
 - URL: The URL to test.
 - Code: The expected HTTP response code.
+- Content Match: The expected HTTP response content based on some regular expression.
 
 
 ### Ping ###

@@ -7,17 +7,18 @@ Dependencies
 - Apache 2
 - PHP 5.5 with SQLite3 support
 - Sqlite 3.3+/MySQL
+- Git
 - Composer
 - Elasticsearch 2.0+
 
 Ubuntu Packages:
 ```
-$ sudo apt-get install apache2 libapache2-mod-php php-xml php7.0-mbstring php7.0-sqlite php7.0-curl sqlite3
+$ sudo apt-get install git apache2 libapache2-mod-php php-xml php7.0-mbstring php7.0-sqlite php7.0-curl sqlite3
 ```
 
 Fedora Packages:
 ```
-$ sudo dnf install httpd php php-posix php-pdo php-xml sqlite
+$ sudo dnf install git httpd php php-posix php-pdo php-xml sqlite
 ```
 
 Composer:
@@ -41,7 +42,7 @@ Enable the `mod_rewrite` and `mod_headers` Apache modules.
 Install
 -------
 
-Grab the newest [release](https://github.com/etsy/411/releases).
+Grab the newest [release](https://github.com/etsy/411/releases). Make sure to grab the es5x release if you're running Elasticsearh 5+.
 
 Set up Apache VHost:
 

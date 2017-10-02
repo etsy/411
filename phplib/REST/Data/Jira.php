@@ -13,8 +13,8 @@ class Jira_Data_REST extends REST {
             'Users' => [],
         ];
 
-        $issue_raw_data = self::getData('issue/createmeta');
-        $user_raw_data = self::getData('user/search?username=%&maxResults=100000');
+        $issue_raw_data = Jira_Target::getCreateMeta();
+        $user_raw_data = Jira_Target::getUsers();
 
         // Format the metadata for the frontend.
         if(!is_null($issue_raw_data)) {
@@ -40,24 +40,5 @@ class Jira_Data_REST extends REST {
         }
 
         return $jira_data;
-    }
-
-    private static function getData($endpoint) {
-        $jiracfg = Config::get('jira');
-        if(is_null($jiracfg['host'])) {
-            return null;
-        }
-
-        $curl = new Curl;
-        if(!is_null($jiracfg['user']) && !is_null($jiracfg['pass'])) {
-            $curl->setBasicAuthentication($jiracfg['user'], $jiracfg['pass']);
-        }
-        $raw_data = $curl->get(sprintf('%s/rest/api/2/%s', $jiracfg['host'], $endpoint));
-
-        if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
-            return null;
-        }
-
-        return $raw_data;
     }
 }

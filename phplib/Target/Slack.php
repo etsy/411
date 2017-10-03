@@ -51,23 +51,24 @@ class Slack_Target extends Target {
         }
 
         $site = SiteFinder::getCurrent();
-        $alert_link = $alert->isNew() ? null:$site->urlFor(sprintf('/alert/%d', $alert['alert_id']));
 
         $message = implode(' ', [
-            is_null($search) ? 'Unknown':sprintf('<%s|%s>', $site->urlFor(
+            is_null($search) ? 'Unknown':sprintf('<%s|%s>', self::escape($site->urlFor(
                 sprintf('/search/%d', $search['id']),
-                $search['name']
-            )),
-            $alert->isNew() ? '[N/A]':sprintf('[<%s|Alert>]', $alert_link)
+                self::escape($search['name'])
+            ))),
+            $alert->isNew() ? '[N/A]':sprintf('[<%s|Alert>]', self::escape($site->urlFor(
+                sprintf('/alert/%d', $alert['alert_id'])
+            )))
         ]);
 
         $message_data = [
             'channel' => $this->obj['data']['channel'],
-            'username' => Util::getSiteName(),
+            'username' => self::escape(Util::getSiteName()),
             'icon_emoji' => ':warning:',
             'text' => '',
             'attachments' => [[
-                'pretext' => $message,
+                'pretext' => self::escape($message),
                 'fields' => $fields,
                 'ts' => $alert['alert_date'],
             ]],
@@ -75,6 +76,14 @@ class Slack_Target extends Target {
         list($message_data) = Hook::call('filter.slack.send', [$message_data]);
 
         self::createMessage($message_data);
+    }
+
+    public static function escape($text) {
+        return str_replace(
+            ['&', '<', '>'],
+            ['&amp;', '&lt;', '&gt;'],
+            $text
+        );
     }
 
     /**

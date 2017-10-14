@@ -43,7 +43,7 @@ class Jira_Target extends Target {
         // Don't show the link if this Alert isn't persisted.
         if(!$alert->isNew()) {
             $desc[] = sprintf('[Link to Alert|%s]', $site->urlFor(
-                sprintf('/alert/%d', $alert['alert_id'])
+                sprintf('alert/%d', $alert['alert_id'])
             ));
             $source = $search->getLink($alert);
             if(!is_null($source)) {

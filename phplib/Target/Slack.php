@@ -62,10 +62,12 @@ class Slack_Target extends Target {
             )))
         ]);
 
+        $username = $scfg['username'] ? $scfg['username']:Util::getSiteName();
+        $icon = $scfg['icon'] ? $scfg['icon']:':warning:';
         $message_data = [
             'channel' => $this->obj['data']['channel'],
-            'username' => self::escape(Util::getSiteName()),
-            'icon_emoji' => ':warning:',
+            'username' => self::escape($username),
+            'icon_emoji' => self::escape($icon),
             'text' => '',
             'attachments' => [[
                 'pretext' => self::escape($message),

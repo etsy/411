@@ -54,11 +54,11 @@ class Slack_Target extends Target {
 
         $message = implode(' ', [
             is_null($search) ? 'Unknown':sprintf('<%s|%s>', self::escape($site->urlFor(
-                sprintf('/search/%d', $search['id']),
+                sprintf('search/%d', $search['id']),
                 self::escape($search['name'])
             ))),
             $alert->isNew() ? '[N/A]':sprintf('[<%s|Alert>]', self::escape($site->urlFor(
-                sprintf('/alert/%d', $alert['alert_id'])
+                sprintf('alert/%d', $alert['alert_id'])
             )))
         ]);
 

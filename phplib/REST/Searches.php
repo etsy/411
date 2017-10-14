@@ -97,8 +97,14 @@ class Searches_REST extends Models_REST {
     public function afterStore($model, $data, $new, $delete) {
         $fields = ['tags', 'priority', 'category', 'owner'];
 
+        // Trigger a job to delete all Alerts if the Search was deleted.
+        if($delete) {
+            $deljob = new Delete_Job();
+            $deljob['target_id'] = $model[Search::$PKEY];
+            $deljob['target_date'] = $_SERVER['REQUEST_TIME'];
+            $deljob->store();
         // Trigger a job to update any Alerts if we've changed any denormalized fields.
-        if($this->old_model) {
+        } elseif($this->old_model) {
             foreach($fields as $field) {
                 if($model[$field] == $this->old_model[$field]) {
                     continue;

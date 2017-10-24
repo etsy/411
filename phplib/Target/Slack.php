@@ -70,7 +70,7 @@ class Slack_Target extends Target {
             'icon_emoji' => self::escape($icon),
             'text' => '',
             'attachments' => [[
-                'pretext' => self::escape($message),
+                'pretext' => $message,
                 'fields' => $fields,
                 'ts' => $alert['alert_date'],
             ]],

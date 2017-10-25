@@ -7,7 +7,7 @@ script:
   - cp tests/config_test.php config.php
   - cp tests/hook_test.php hook.php
   - ./vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
-  - ./vendor/bin/test-reporter
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./vendor/bin/test-reporter; fi' 
 cache:
   directories:
     - vendor

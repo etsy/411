@@ -29,6 +29,7 @@ CREATE TABLE `alerts` (
     `alert_date` bigint(20) unsigned NOT NULL,
     `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
     `content_hash` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `source_id` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
     `assignee_type` tinyint(4) NOT NULL,
     `assignee` bigint(20) unsigned NOT NULL,
     `search_id` bigint(20) unsigned NOT NULL,

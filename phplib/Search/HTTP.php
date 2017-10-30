@@ -60,13 +60,11 @@ class HTTP_Search extends Search {
         return [$alert];
     }
 
-    private function isStatusCodeValid($expectedData, $curl)
-    {
+    private function isStatusCodeValid($expectedData, $curl) {
         return $expectedData['code'] === $curl->httpStatusCode;
     }
 
-    private function isContentValid($expectedData, $curl)
-    {
+    private function isContentValid($expectedData, $curl) {
         if (!isset($expectedData['content_match']) && !empty($expectedData['content_match'])) {
             return true;
         }
@@ -74,8 +72,7 @@ class HTTP_Search extends Search {
         return preg_match("/" . $expectedData['content_match'] . "/", $curl->rawResponse) === 1;
     }
 
-    private function getHttpClient()
-    {
+    private function getHttpClient() {
         if ($this->httpClient === null) {
             $this->httpClient = new Curl;
         }
@@ -83,8 +80,7 @@ class HTTP_Search extends Search {
         return $this->httpClient;
     }
 
-    public function setHttpClient(Curl $httpClient)
-    {
+    public function setHttpClient(Curl $httpClient) {
         $this->httpClient = $httpClient;
     }
 }

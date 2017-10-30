@@ -30,6 +30,7 @@ class Push_Search extends Search {
 
         foreach($this->results as $result) {
             $alert = new Alert;
+            $alert['source_id'] = Util::get($result, 'source_link', '');
             $alert['alert_date'] = (int) Util::get($result, 'alert_date', $_SERVER['REQUEST_TIME']);
             $alert['content'] = (array) Util::get($result, 'content', []);
 
@@ -38,5 +39,9 @@ class Push_Search extends Search {
         $this->results = [];
 
         return $alerts;
+    }
+
+    protected function _getLink(Alert $alert) {
+        return $alert['source_id'] ?: null;
     }
 }

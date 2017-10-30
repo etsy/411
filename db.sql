@@ -86,6 +86,7 @@ CREATE TABLE `alerts` (
     `alert_date` UNSIGNED INTEGER NOT NULL,
     `content` TEXT NOT NULL,
     `content_hash` VARCHAR(64) NOT NULL,
+    `source_id` TEXT NOT NULL,
     `renderer_data` TEXT NOT NULL, /* unused */
     `assignee_type` INTEGER NOT NULL,
     `assignee` INTEGER NOT NULL,

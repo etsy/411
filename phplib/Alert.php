@@ -44,6 +44,7 @@ class Alert extends Model {
             'assignee_type' => [static::T_ENUM, Assignee::$TYPES, Assignee::T_USER],
             'assignee' => [static::T_NUM, null, User::NONE],
             'content' => [static::T_OBJ, null, []],
+            'source_id' => [static::T_STR, null, ''],
             'search_id' => [static::T_NUM, null, 0],
             'state' => [static::T_ENUM, static::$STATES, self::ST_NEW],
             'resolution' => [static::T_ENUM, static::$RESOLUTIONS, self::RES_NOT],

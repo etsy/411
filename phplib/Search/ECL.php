@@ -75,10 +75,13 @@ class ECL_Search extends Search {
                     }
                 }
 
-                if ($has_date_field) {
+                if($has_date_field) {
                     // Extract the date field.
                     $alert_date = Util::parseDates($date_type, [$entry[$date_field]])[0] / 1000;
                     unset($entry[$date_field]);
+                }
+                if(array_key_exists('_index', $entry) && array_key_exists('_type', $entry) && array_key_exists('_id', $entry)) {
+                    $alert['source_id'] = sprintf('%s/%s/%s', $entry['_index'], $entry['_type'], $entry['_id']);
                 }
                 $alert['alert_date'] = $alert_date;
                 $alert['content'] = $entry;

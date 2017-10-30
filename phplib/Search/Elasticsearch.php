@@ -21,11 +21,24 @@ abstract class Elasticsearch_Search extends Search {
     const R_NO_RESULTS = 2;
 
     protected function _getLink(Alert $alert) {
+        if($alert['source_id']) {
+            $parts = explode('/', $alert['source_id'], 3);
+            if(count($parts) == 3) {
+                return $this->generateAlertLink($parts[0], $parts[1], $parts[2]);
+            }
+        }
+
         return $this->generateLink(
             Util::get($this->obj['query_data'], 'query'),
             $alert['alert_date'] - ($this->obj['range'] * 60),
             $alert['alert_date']
         );
+    }
+
+    public function generateAlertLink($index, $type, $id) {
+        $cfg = $this->getConfig();
+        $index_pattern = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']):$cfg['index'];
+        return sprintf('%s/app/kibana#/doc/%s/%s/%s?%s', $cfg['src_url'], $index_pattern, $index, $type, http_build_query(['id' => $id]));
     }
 
     public function generateLink($query, $start, $end) {
@@ -34,10 +47,10 @@ abstract class Elasticsearch_Search extends Search {
             return null;
         }
 
-        $index = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']):$cfg['index'];
+        $index_pattern = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']):$cfg['index'];
         $parser = new \ESQuery\Parser;
         try {
-            return $parser->generateUrl($query, $start, $end, $cfg['src_url'], $index);
+            return $parser->generateUrl($query, $start, $end, $cfg['src_url'], $index_pattern);
         } catch(\ESQuery\Exception $e) {
             return null;
         }
@@ -239,7 +252,6 @@ abstract class Elasticsearch_Search extends Search {
                     $ok = $count <= $filter_range[1];
                 }
 
-                // _index, _type, _id and _score always show up. If they aren't explicitly included in the field list, just exclude them!
                 $underscore_fields = ['_index', '_type', '_id', '_score'];
                 $field_specified = [];
                 foreach($underscore_fields as $field) {
@@ -266,6 +278,7 @@ abstract class Elasticsearch_Search extends Search {
                                     }
                                     $alert['alert_date'] = $alert_date;
                                 }
+                                $alert['source_id'] = sprintf('%s/%s/%s', $row['_index'], $row['_type'], $row['_id']);
                                 foreach($underscore_fields as $field) {
                                     if(!array_key_exists($field, $field_specified)) {
                                         unset($row[$field]);

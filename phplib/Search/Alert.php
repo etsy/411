@@ -32,6 +32,7 @@ class Alert_Search extends Elasticsearch_Search {
                 'assignee',
                 'content',
                 'source',
+                'source_id',
                 'search_id',
                 'state',
                 'resolution',
@@ -40,5 +41,23 @@ class Alert_Search extends Elasticsearch_Search {
             ];
         }
         return [$settings, $query_list, $fields, $date_field, $result_type, $filter_range];
+    }
+
+    protected function _getLink(Alert $alert) {
+        if($alert['source_id']) {
+            return null;
+        }
+
+        $parts = explode('/', $alert['source_id'], 3);
+        if(count($parts) != 3) {
+            return null;
+        }
+
+        $this->generateLink($parts[2]);
+    }
+
+    public function generateLink($alert_id) {
+        $site = SiteFinder::getCurrent();
+        return $site->urlFor(sprintf('alert/%d', $alert_id));
     }
 }

@@ -237,18 +237,22 @@
             <button id="test-button" type="button" class="btn btn-info">
               <span class="glyphicon glyphicon-list-alt"></span> Test
             </button>
+            {{#if is_time_based}}
             <button id="custom-test-button" type="button" class="btn btn-info">
               <span class="glyphicon glyphicon-wrench"></span>
             </button>
+            {{/if}}
           </div>
           {{#unless new_search}}
           <div class="btn-group">
             <button id="execute-button" type="button" class="btn btn-primary">
               <span class="glyphicon glyphicon-play"></span> Execute
             </button>
+            {{#if is_time_based}}
             <button id="custom-execute-button" type="button" class="btn btn-primary">
               <span class="glyphicon glyphicon-wrench"></span>
             </button>
+            {{/if}}
           </div>
           {{/unless}}
           {{#if new_search}}

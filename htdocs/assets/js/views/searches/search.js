@@ -529,6 +529,7 @@ define(function(require) {
                 no_freq: this.no_freq,
                 has_sources: _.isArray(sources),
                 host: Data.Host,
+                is_time_based: Search.Data().TimeBased[this.model.get('type')]
             });
             // Render any additional content.
             vars.addn_fields_a = this.addnFieldsATpl(vars);

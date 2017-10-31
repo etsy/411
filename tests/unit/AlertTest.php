@@ -11,9 +11,9 @@ class AlertTest extends TestCase {
 
     public function testFinderGetActiveCounts() {
         TestHelper::populateDB([
-            [FOO\Alert::$TABLE, 1, 0, 0, '', '', '', 0, 0, 1, 1, FOO\Alert::ST_RES, FOO\Alert::RES_ACT, 0, 0, 0],
-            [FOO\Alert::$TABLE, 2, 0, 0, '', '', '', 0, 0, 1, 0, FOO\Alert::ST_INPROG, 0, 0, 0, 0],
-            [FOO\Alert::$TABLE, 3, 0, 0, '', '', '', 0, 0, 1, 0, FOO\Alert::ST_NEW, 0, 0, 0, 0],
+            [FOO\Alert::$TABLE, 1, 0, 0, '', '', '', '', 0, 0, 1, 1, FOO\Alert::ST_RES, FOO\Alert::RES_ACT, 0, 0, 0],
+            [FOO\Alert::$TABLE, 2, 0, 0, '', '', '', '', 0, 0, 1, 0, FOO\Alert::ST_INPROG, 0, 0, 0, 0],
+            [FOO\Alert::$TABLE, 3, 0, 0, '', '', '', '', 0, 0, 1, 0, FOO\Alert::ST_NEW, 0, 0, 0, 0],
         ]);
 
         $this->assertEquals([1, 1], FOO\AlertFinder::getActiveCounts());
@@ -21,8 +21,8 @@ class AlertTest extends TestCase {
 
     public function testFinderGetRecentSearchHashCount() {
         TestHelper::populateDB([
-            [FOO\Alert::$TABLE, 1, 0, 0, '', 'xxx', '', 0, 0, 1, 1, FOO\Alert::ST_RES, FOO\Alert::RES_ACT, 0, 10, 0],
-            [FOO\Alert::$TABLE, 2, 0, 0, '', 'xxx', '', 0, 0, 2, 0, FOO\Alert::ST_INPROG, 0, 0, 10, 0],
+            [FOO\Alert::$TABLE, 1, 0, 0, '', 'xxx', '', '', 0, 0, 1, 1, FOO\Alert::ST_RES, FOO\Alert::RES_ACT, 0, 10, 0],
+            [FOO\Alert::$TABLE, 2, 0, 0, '', 'xxx', '', '', 0, 0, 2, 0, FOO\Alert::ST_INPROG, 0, 0, 10, 0],
         ]);
 
         $this->assertEquals(1, FOO\AlertFinder::getRecentSearchHashCount(1, 'xxx', 0));
@@ -30,9 +30,9 @@ class AlertTest extends TestCase {
 
     public function testFinderGetRecentSearchCount() {
         TestHelper::populateDB([
-            [FOO\Alert::$TABLE, 1, 0, 0, '', '', '', 0, 0, 1, 1, FOO\Alert::ST_INPROG, 0, 0, 0, 0],
-            [FOO\Alert::$TABLE, 2, 0, 0, '', '', '', 0, 0, 1, 1, FOO\Alert::ST_INPROG, 0, 0, 10, 0],
-            [FOO\Alert::$TABLE, 3, 0, 0, '', '', '', 0, 0, 2, 0, FOO\Alert::ST_INPROG, 0, 0, 10, 0],
+            [FOO\Alert::$TABLE, 1, 0, 0, '', '', '', '', 0, 0, 1, 1, FOO\Alert::ST_INPROG, 0, 0, 0, 0],
+            [FOO\Alert::$TABLE, 2, 0, 0, '', '', '', '', 0, 0, 1, 1, FOO\Alert::ST_INPROG, 0, 0, 10, 0],
+            [FOO\Alert::$TABLE, 3, 0, 0, '', '', '', '', 0, 0, 2, 0, FOO\Alert::ST_INPROG, 0, 0, 10, 0],
         ]);
 
         $this->assertEquals(1, FOO\AlertFinder::getRecentSearchCount(1, 0));

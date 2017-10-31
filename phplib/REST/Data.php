@@ -91,7 +91,7 @@ class Data_REST extends REST {
                 'Defaults' => $this->generateDefaultData(User::getSchema()),
             ],
             'Nonce' => Nonce::get(),
-            'Timezone' => $this->getTimezone(),
+            'Timezone' => Util::getDefaultTimezone(),
         ];
         list($ret) = Hook::call('rest.data', [$ret]);
 
@@ -110,17 +110,6 @@ class Data_REST extends REST {
         }
 
         return $users;
-    }
-
-
-    /**
-     * Gets Timezone from DB backed config.
-     * Defaults to 'UTC' if unset.
-     * @return string timezone for use with moment-timezone.
-     */
-    private function getTimezone() {
-        $config = new DBConfig;
-        return Util::validateTimezone($config['timezone']);
     }
 
     /**

@@ -307,10 +307,10 @@ class Searches_REST extends Models_REST {
         );
 
         $ret = DB::query(implode(' ', $sql), $vals, DB::VAL);
-        $stats['Last alert'] = is_null($ret) ? 'N/A':gmdate(DATE_RSS, $ret);
+        $stats['Last alert'] = is_null($ret) ? 'N/A':Util::formatDateTime($ret);
 
-        $stats['Last execution'] = $model['last_execution_date'] == 0 ? 'N/A':gmdate(DATE_RSS, $model['last_execution_date']);
-        $stats['Last successful execution'] = $model['last_success_date'] == 0 ? 'N/A':gmdate(DATE_RSS, $model['last_success_date']);
+        $stats['Last execution'] = $model['last_execution_date'] == 0 ? 'N/A':Util::formatDateTime($model['last_execution_date']);
+        $stats['Last successful execution'] = $model['last_success_date'] == 0 ? 'N/A':Util::formatDateTime($model['last_success_date']);
 
         $data['stats'] = $stats;
 

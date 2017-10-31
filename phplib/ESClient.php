@@ -21,6 +21,7 @@ class ESClient {
     /** @var string Index name. **/
     private $index;
     /** @var \Elasticsearch\Client Client object. **/
+    private $client;
 
     /**
      * @param boolean $init Whether to initialize the ES index (if it doesn't exist).

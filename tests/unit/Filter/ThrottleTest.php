@@ -11,7 +11,7 @@ class ThrottleFilterTest extends TestCase {
         $this->assertSame([$alert], $filter->process($alert, 0));
 
         TestHelper::populateDB([
-            [FOO\Alert::$TABLE, 1, 0, time(), '', '', '', 0, 0, 0, false, FOO\Alert::ST_NEW, 0, 0, 0, 0]
+            [FOO\Alert::$TABLE, 1, 0, time(), '', '', '', '', 0, 0, 0, false, FOO\Alert::ST_NEW, 0, 0, 0, 0]
         ]);
         $this->assertSame([], $filter->process($alert, 0));
 

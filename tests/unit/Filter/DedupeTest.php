@@ -17,7 +17,7 @@ class DedupeFilterTest extends TestCase {
         $hash_ = $search->getContentHash($alert);
         $alert_['content_hash'] = $hash_;
         TestHelper::populateDB([
-            [FOO\Alert::$TABLE, 1, 0, time(), '', $hash_, '', 0, 0, 0, false, FOO\Alert::ST_NEW, 0, 0, 0, 0]
+            [FOO\Alert::$TABLE, 1, 0, time(), '', $hash_, '', '', 0, 0, 0, false, FOO\Alert::ST_NEW, 0, 0, 0, 0]
         ]);
         $this->assertSame([], $filter->process($alert, 0));
 

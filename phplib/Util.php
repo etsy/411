@@ -153,8 +153,8 @@ class Util {
 
     /**
      * Convert dates to unix timestamps (in milliseconds).
-     * @param string|null Format.
-     * @param int[]|string[] Dates.
+     * @param string|null $format Format.
+     * @param int[]|string[] $dates Dates.
      * @return int[] Timestamps.
      */
     public static function parseDates($format, array $dates) {
@@ -186,11 +186,73 @@ class Util {
     }
 
     /**
+     * Format a date in a consistent format.
+     * @param int $tz Timestamp.
+     * @return string Date string.
+     */
+    public static function formatDate($tz) {
+        $timezone = date_default_timezone_get();
+        date_default_timezone_set(self::getTimezone());
+        $ret = strftime('%G-%m-%d', $tz);
+        date_default_timezone_set($timezone);
+        return $ret;
+    }
+
+    /**
+     * Format a time in a consistent format.
+     * @param int $tz Timestamp.
+     * @return string Time string.
+     */
+    public static function formatTime($tz) {
+        $timezone = date_default_timezone_get();
+        date_default_timezone_set(self::getTimezone());
+        $ret = strftime('%T%z', $tz);
+        date_default_timezone_set($timezone);
+        return $ret;
+    }
+
+    /**
+     * Format a datetime in a consistent format.
+     * @param int $tz Timestamp.
+     * @return string DateTime string.
+     */
+    public static function formatDateTime($tz) {
+        $timezone = date_default_timezone_get();
+        date_default_timezone_set(self::getTimezone());
+        $ret = strftime('%G-%m-%d %T%z', $tz);
+        date_default_timezone_set($timezone);
+        return $ret;
+    }
+
+    /**
      * Validate the timezone given. If invalid, default to UTC.
      * @param string Timezone string.
      * @return string Timezone string.
      */
     public static function validateTimezone($timezone, $default='UTC') {
         return in_array($timezone, timezone_identifiers_list()) ? $timezone:$default;
+    }
+
+	/**
+	 * Gets Timezone from User or DB backed config.
+	 * Defaults to 'UTC' if unset.
+	 * @return string Timezone string.
+	 */
+	public static function getTimezone() {
+		$user = Auth::getUser();
+	    if($user !== null) {
+            return $user->getTimezone();
+        }
+        return self::getDefaultTimezone();
+	}
+
+    /**
+     * Get timezone from DB backed config.
+	 * Defaults to 'UTC' if unset.
+	 * @return string Timezone string.
+	 */
+    public static function getDefaultTimezone() {
+		$config = new DBConfig;
+		return self::validateTimezone($config['timezone']);
     }
 }

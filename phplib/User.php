@@ -96,8 +96,7 @@ class User extends Model {
     public function getTimezone() {
         $timezone = Util::validateTimezone($this->obj['timezone'], null);
         if(is_null($timezone)) {
-            $config = new DBConfig;
-            $timezone = Util::validateTimezone($config['timezone']);
+            $timezone = Util::getDefaultTimezone();
         }
         return $timezone;
     }

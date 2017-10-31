@@ -61,7 +61,7 @@ class ThreatExchange_Search extends Search {
         $curl = new Curl;
         $since = $date - ($constructed_qdata['range'] * 60);
         $raw_data = $curl->get($constructed_qdata, [
-           'access_token' => self::API_TOKEN . "|" . self::API_SECRET,
+           'access_token' => $tecfg['api_token'] . "|" . $tecfg['api_secret'],
            'text'         => $constructed_qdata['query'],
            'limit'        => '1000',
            'since'        => $since,

@@ -18,7 +18,7 @@ class Enricher {
      */
     public static function getEnricher($type) {
         $types = self::getTypes();
-        return Util::exists($types, $type) ? $types[$type]:'null';
+        return Util::exists($types, $type) ? $types[$type]:$types['null'];
     }
 
     /**

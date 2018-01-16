@@ -1,3 +1,18 @@
+# v1.4.1 #
+
+- Merged #136 for content matching in HTTP searches
+- Delete associated alerts when a search is deleted
+- Finish up custom timezone implementation
+
+## Bugfixes ##
+
+- Fix exact match queries
+- Fix ES source link generation
+- Set auth cookie in proxy-auth mode
+- Escape content in Slack target
+- Misc perf/UI fixes
+
+
 # v1.4.0 #
 
 - Per-user timezones

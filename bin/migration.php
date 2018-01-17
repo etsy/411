@@ -81,7 +81,7 @@ if(ver_cmp($old_ver, '1.3.4') < 0) {
     FOO\SiteFinder::setSite(null);
 }
 
-if(ver_cmp($old_ver, '1.5.0') < 0) {
+if(ver_cmp($old_ver, '1.4.1') < 0) {
     FOO\DB::query('ALTER TABLE `alerts` ADD COLUMN `source_id` VARCHAR(64) NOT NULL DEFAULT ""');
 }
 

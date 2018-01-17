@@ -1,3 +1,12 @@
+# v1.4.2 #
+
+- No new features
+
+## Bugfixes ##
+
+- Fixed issues with previous release
+
+
 # v1.4.1 #
 
 - Merged #136 for content matching in HTTP searches

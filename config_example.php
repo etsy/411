@@ -196,7 +196,7 @@ $config['slack'] = [
      * A webhook url to push Alerts to.
      * See https://api.slack.com/incoming-webhooks for details.
      */
-    'webhook_url' => null
+    'webhook_url' => null,
     /**
      * The username to display on Alerts.
      */

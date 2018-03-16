@@ -10,7 +10,7 @@ namespace FOO;
  */
 abstract class Search extends TypeModel {
     public static $TYPES = [
-        Null_Search:class,
+        Null_Search::class,
         ES_Search::class,
         ECL_Search::class,
         ThreatExchange_Search::class,

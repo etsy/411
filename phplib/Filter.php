@@ -19,7 +19,7 @@ abstract class Filter extends Element {
         Enricher_Filter::class,
         Expression_Filter::class,
         MapKey_Filter::class,
-        MapValue_Filter:class,
+        MapValue_Filter::class,
     ];
     public static $TABLE = 'search_filters';
     public static $PKEY = 'filter_id';

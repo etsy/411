@@ -9,7 +9,18 @@ namespace FOO;
  * @package FOO
  */
 abstract class Filter extends Element {
-    public static $TYPES = ['Null_Filter', 'Dedupe_Filter', 'Throttle_Filter', 'Hash_Filter', 'Regex_Filter', 'Script_Filter', 'Enricher_Filter', 'Expression_Filter', 'MapKey_Filter', 'MapValue_Filter'];
+    public static $TYPES = [
+        Null_Filter::class,
+        Dedupe_Filter::class,
+        Throttle_Filter::class,
+        Hash_Filter::class,
+        Regex_Filter::class,
+        Script_Filter::class,
+        Enricher_Filter::class,
+        Expression_Filter::class,
+        MapKey_Filter::class,
+        MapValue_Filter:class,
+    ];
     public static $TABLE = 'search_filters';
     public static $PKEY = 'filter_id';
 

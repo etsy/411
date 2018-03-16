@@ -36,7 +36,6 @@ class Enricher {
         if(is_null($type_map)) {
             $type_map = [];
             foreach(static::$TYPES as $class) {
-                $class = 'FOO\\' . $class;
                 $type_map[$class::$TYPE] = $class;
             }
         }

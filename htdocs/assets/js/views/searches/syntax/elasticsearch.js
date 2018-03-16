@@ -83,6 +83,7 @@ define(function(require) {
     }
 
     function token_error(stream, state) {
+      state.error = true;
       while(stream.skipToEnd());
       return token_(state, "error");
     }
@@ -204,6 +205,7 @@ define(function(require) {
         if (stream.peek() === ':' && stream.pos !== start) {
             stream.backUp(stream.pos - start);
         } else {
+            expect_field(state)
             return tok;
         }
 
@@ -261,8 +263,7 @@ define(function(require) {
         }
       }
 
-      state.error = true;
-      return token_(state, "error");
+      return token_error(stream, state);
     }
 
     return {

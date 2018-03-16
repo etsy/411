@@ -2,7 +2,7 @@
 
 namespace FOO {
 class TestTypeModel extends TypeModel {
-    public static $TYPES = ['OneTypeModel', 'TwoTypeModel'];
+    public static $TYPES = [OneTypeModel::class, TwoTypeModel::class];
 }
 
 class OneTypeModel extends TestTypeModel {

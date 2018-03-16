@@ -11,7 +11,16 @@ abstract class Job extends TypeModel {
     const LOG_NAMESPACE = 'JOB';
     const MAX_TRIES = 5;
 
-    public static $TYPES = ['Search_Job', 'Report_Job', 'Rollup_Job', 'Summary_Job', 'Autoclose_Job', 'Sync_Job', 'Cleanup_Job', 'Delete_Job'];
+    public static $TYPES = [
+        Search_Job::class,
+        Report_Job::class,
+        Rollup_Job::class,
+        Summary_Job::class,
+        Autoclose_Job::class,
+        Sync_Job::class,
+        Cleanup_Job::class,
+        Delete_Job::class,
+    ];
     public static $TABLE = 'jobs';
     public static $PKEY = 'job_id';
 

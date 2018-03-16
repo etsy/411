@@ -50,14 +50,14 @@ class Alerts_REST extends Models_REST {
         }
     }
 
-    public function beforeStore(Alert $model, $data, $new, $delete) {
+    public function beforeStore($model, $data, $new, $delete) {
         if(!$delete) {
             return;
         }
 
         $this->client->delete($model);
     }
-    public function afterStore(Alert $model, $data, $new, $delete) {
+    public function afterStore($model, $data, $new, $delete) {
         if($delete) {
             return;
         }

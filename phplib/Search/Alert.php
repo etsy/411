@@ -56,7 +56,7 @@ class Alert_Search extends Elasticsearch_Search {
         $this->generateLink($parts[2]);
     }
 
-    public function generateLink($alert_id) {
+    public function generateLink($alert_id, $a, $b) {
         $site = SiteFinder::getCurrent();
         return $site->urlFor(sprintf('alert/%d', $alert_id));
     }

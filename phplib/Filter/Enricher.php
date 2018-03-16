@@ -16,7 +16,6 @@ class Enricher_Filter extends Filter {
         $type_map = [];
         foreach(Enricher::$TYPES as $type) {
             $name = explode('_', $type)[0];
-            $type = 'FOO\\' . $type;
             $type_map[$type::$TYPE] = $name;
         }
         return [

@@ -3,7 +3,7 @@
 namespace FOO {
 class TestElement extends Element {
     public static $TYPE = 'x';
-    public static $TYPES = ['TestElement'];
+    public static $TYPES = [TestElement::class];
     public static function generateDataSchema() {
         return [
             'a' => [self::T_BOOL, null, false],

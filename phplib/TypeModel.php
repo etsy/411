@@ -23,7 +23,6 @@ abstract class TypeModel extends Model {
             $type_map = [];
             // Populate the list of types.
             foreach(static::$TYPES as $class) {
-                $class = 'FOO\\' . $class;
                 $type_map[$class::$TYPE] = $class;
             }
             // Remove any types that aren't accessible. We do it this way because

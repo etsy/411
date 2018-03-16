@@ -205,7 +205,7 @@ define(function(require) {
         if (stream.peek() === ':' && stream.pos !== start) {
             stream.backUp(stream.pos - start);
         } else {
-            expect_field(state)
+            expect_field(state);
             return tok;
         }
 

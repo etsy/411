@@ -42,7 +42,7 @@ Enable the `mod_rewrite` and `mod_headers` Apache modules.
 Install
 -------
 
-Grab the newest [release](https://github.com/etsy/411/releases). Make sure to grab the es5x release if you're running Elasticsearh 5+.
+Grab the newest [release](https://github.com/etsy/411/releases).
 
 Set up Apache VHost:
 
@@ -56,9 +56,11 @@ a2enmod headers
 
 Move the 411 directory into `/var/www`. You may have to fix permissions on the directory so that the database is writable by Apache.
 
+Identify the corresponding `composer-*.json' file for your ES cluster. The command below assumes you're running ES6.0.
+
 Install dependencies:
 ```
-$ composer install --no-dev --optimize-autoloader
+$ COMPOSER=composer-es6x.json composer install --no-dev --optimize-autoloader
 ```
 
 Create the database (sqlite):

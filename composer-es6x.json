@@ -1,0 +1,31 @@
+{
+    "name": "FourOneOne",
+    "description": "An Alert Management Web Application",
+    "require": {
+        "mtdowling/cron-expression": "^1.1",
+        "php-curl-class/php-curl-class": "^4.6",
+        "setasign/fpdf": "^1.7",
+        "symfony/expression-language": "^3.1",
+        "elasticsearch/elasticsearch": "^6.0",
+        "kiwiz/esquery": "dev-master",
+        "kiwiz/ecl": "dev-master",
+        "ext-pcntl": ">=5.5",
+        "php": ">=5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "d11wtq/boris": "^1.0",
+        "phpdocumentor/phpdocumentor": "^2.8",
+        "techlivezheng/phpctags": "^0.6.0"
+    },
+    "authors": [
+        {
+            "name": "Kai Zhong",
+            "email": "z@kwi.li"
+        },
+        {
+            "name": "Ken Lee",
+            "email": "kennysanx@hotmail.com"
+        }
+    ]
+}

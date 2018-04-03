@@ -70,6 +70,12 @@ class ESClient {
     public function initializeIndex() {
         // Create template.
         if(!$this->client->indices()->existsTemplate(['name' => self::MAPPING_TEMPLATE])) {
+            $version = explode('.', $this->client->info()['version']['number'])[0];
+            $string_type = 'string';
+            if ($version >= 6) {
+                $string_type = 'text';
+            }
+
             $this->client->indices()->putTemplate([
                 'name' => self::MAPPING_TEMPLATE,
                 'body' => [
@@ -81,17 +87,17 @@ class ESClient {
                                 'assignee_type' => ['type' => 'long'],
                                 'assignee' => ['type' => 'long'],
                                 'content' => ['type' => 'object'],
-                                'source' => ['type' => 'string'],
-                                'source_id' => ['type' => 'string'],
+                                'source' => ['type' => $string_type],
+                                'source_id' => ['type' => $string_type],
                                 'search_id' => ['type' => 'long'],
                                 'state' => ['type' => 'long'],
                                 'resolution' => ['type' => 'long'],
                                 'escalated' => ['type' => 'boolean'],
-                                'content_hash' => ['type' => 'string'],
-                                'notes' => ['type' => 'string'],
-                                'tags' => ['type' => 'string'],
+                                'content_hash' => ['type' => $string_type],
+                                'notes' => ['type' => $string_type],
+                                'tags' => ['type' => $string_type],
                                 'priority' => ['type' => 'long'],
-                                'category' => ['type' => 'string'],
+                                'category' => ['type' => $string_type],
                                 'owner' => ['type' => 'long'],
                                 'create_date' => ['type' => 'date', 'format' => 'epoch_second'],
                                 'update_date' => ['type' => 'date', 'format' => 'epoch_second'],

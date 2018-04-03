@@ -56,7 +56,7 @@ a2enmod headers
 
 Move the 411 directory into `/var/www`. You may have to fix permissions on the directory so that the database is writable by Apache.
 
-Identify the corresponding `composer-*.json' file for your ES cluster. The command below assumes you're running ES6.0.
+Identify the corresponding `composer-*.json` file for your ES cluster. The command below assumes you're running ES6.0.
 
 Install dependencies:
 ```

@@ -11,10 +11,9 @@ script:
   - cp tests/config_test.php config.php
   - cp tests/hook_test.php hook.php
   - COMPOSER=composer-es5x.json composer install
-  - ./vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./vendor/bin/test-reporter; fi'
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover clover.xml
+after_script: 
+    - ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
 cache:
   directories:
     - vendor

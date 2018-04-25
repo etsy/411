@@ -46,6 +46,7 @@ class PagerDuty_Target extends Target {
 
         $event_data = [
             'service_key' => $this->obj['data']['service_key'],
+            'incident_key' => sprintf("%d-%d", $site['id'], $alert['search_id']),
             'event_type' => 'trigger',
             'client' => '411',
             'description' => sprintf('[%s] %s', $site['name'], $search['name']),

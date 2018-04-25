@@ -5,7 +5,7 @@ Dependencies
 ------------
 
 - Apache 2
-- PHP 5.5 with SQLite3 support
+- PHP 7.0+ with SQLite3 support
 - Sqlite 3.3+/MySQL
 - Git
 - Composer

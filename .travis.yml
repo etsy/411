@@ -1,13 +1,20 @@
 language: php
 php:
   - '7.1'
+  - '7.2'
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
-  - composer require --ignore-platform-reqs codeclimate/php-test-reporter dev-master
   - mkdir -p build/logs
   - cp tests/config_test.php config.php
   - cp tests/hook_test.php hook.php
+  - COMPOSER=composer-es5x.json composer install
   - ./vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover build/logs/clover.xml
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./vendor/bin/test-reporter; fi'
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 cache:
   directories:
     - vendor

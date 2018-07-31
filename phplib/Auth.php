@@ -80,7 +80,7 @@ class Auth {
     }
 
     private static function getCookieUser($id) {
-        return UserFinder::getById(Cookie::get('id'));
+        return UserFinder::getById($id);
     }
 
     /**

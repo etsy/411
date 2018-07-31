@@ -345,8 +345,17 @@ class Notification {
 
         // Render the template. If there's an error, dump the output buffer.
         ob_start();
+        $template_file_list = [
+            sprintf('%s/exttemplates/%s.php', BASE_DIR, $tpl),
+            sprintf('%s/templates/%s.php', BASE_DIR, $tpl),
+        ];
         try {
-            require(sprintf('%s/templates/%s.php', BASE_DIR, $tpl));
+            foreach($template_file_list as $template_file) {
+                if(file_exists($template_file)) {
+                    require($template_file);
+                    break;
+                }
+            }
         } catch(\Exception $e) {
             ob_end_clean();
             throw $e;

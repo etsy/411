@@ -2,7 +2,6 @@
 
 npm update && \
 bower update && \
-bin/composer.phar update && \
 grunt prod && \
 tar cvzf release.tgz \
   --exclude-vcs \
@@ -17,8 +16,8 @@ tar cvzf release.tgz \
   README.md \
   RELEASE.md \
   bin \
-  composer.json \
-  composer.lock \
+  composer*.json \
+  composer*.lock \
   config_example.php \
   db.sql \
   db_mysql.sql \

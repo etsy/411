@@ -1,3 +1,8 @@
+# v1.5.0 #
+
+- Merged all development branches into master
+
+
 # v1.4.2 #
 
 - No new features

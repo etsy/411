@@ -25,33 +25,37 @@ class PagerDuty_Target extends Target {
      */
     public function process(Alert $alert, $date) {
         $site = SiteFinder::getCurrent();
-        $desc = [
-          'date' => sprintf('%s', gmdate(DATE_RSS, $alert['alert_date'])),
-        ];
 
-        // Don't show the link if this event isn't persisted.
-        $contexts = [];
+        $alert_url = $site->urlFor('/');
         if(!$alert->isNew()) {
-            $contexts[] = [
-                'type' => 'link',
-                'href' => $site->urlFor(sprintf('alert/%d', $alert['alert_id'])),
-                'text' => '411 Alert'
-            ];
+            $alert_url = $site->urlFor(sprintf('alert/%d', $alert['alert_id']));
         }
+
         foreach($alert['content'] as $key=>$value) {
             $desc[$key] = $value;
         }
 
         $search = SearchFinder::getById($alert['search_id']);
 
+        $priority_map = [
+            Search::P_LOW => 'info',
+            Search::P_MED => 'warning',
+            Search::P_HIGH => 'error',
+        ];
+
         $event_data = [
-            'service_key' => $this->obj['data']['service_key'],
-            'incident_key' => sprintf("%d-%d", $site['id'], $alert['search_id']),
-            'event_type' => 'trigger',
-            'client' => '411',
-            'description' => sprintf('[%s] %s', $site['name'], $search['name']),
-            'details' => json_encode($desc),
-            'contexts' => $contexts,
+            'client' => $site['name'],
+            'client_url' => $alert_url,
+            'event_action' => 'trigger',
+            'routing_key' => $this->obj['data']['service_key'],
+
+            'payload' => [
+                'summary' => $search['name'],
+                'source' => $search::$TYPE,
+                'severity' => $priority_map[$search['priority']],
+                'timestamp' => date('c', $alert['alert_date']),
+                'custom_details' => $desc,
+            ],
         ];
         list($event_data) = Hook::call('target.pagerduty.send', [$event_data]);
 
@@ -67,14 +71,14 @@ class PagerDuty_Target extends Target {
         $curl = new Curl;
         $curl->setHeader('Content-type', 'application/json');
         $raw_data = $curl->post(
-            'https://events.pagerduty.com/generic/2010-04-15/create_event.json',
+            'https://events.pagerduty.com/v2/enqueue',
             json_encode($event_data)
         );
 
-        if($curl->httpStatusCode != 200) {
-            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, $raw_data));
+        if($curl->httpStatusCode != 202) {
+            throw new TargetException(sprintf('Remote server returned %d: %s: %s', $curl->httpStatusCode, $curl->httpErrorMessage, json_encode($raw_data)));
         }
 
-        return $raw_data['incident_key'];
+        return $raw_data['dedup_key'];
     }
 }

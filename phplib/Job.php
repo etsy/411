@@ -13,7 +13,6 @@ abstract class Job extends TypeModel {
 
     public static $TYPES = [
         Search_Job::class,
-        Report_Job::class,
         Rollup_Job::class,
         Summary_Job::class,
         Autoclose_Job::class,

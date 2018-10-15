@@ -37,10 +37,6 @@ class SLog extends Model {
     /** Execute search action. */
     const AS_EXECUTE = 5;
 
-    // Report actions
-    /** Execute report action. */
-    const AR_EXECUTE = 4;
-
     // Types
     /** Alert action type. */
     const T_ALERT = 1;
@@ -56,10 +52,6 @@ class SLog extends Model {
     const T_GROUPTARGET = 6;
     /** User action type. */
     const T_USER = 7;
-    /** Report action type. */
-    const T_REPORT = 8;
-    /** ReportTarget action type. */
-    const T_REPORTTARGET = 9;
     /** List action type. */
     const T_SLIST = 10;
 

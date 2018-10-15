@@ -180,44 +180,6 @@ class Notification {
     }
 
     /**
-     * Send an email with a generated Report.
-     * @param string[]|string $to The destination email.
-     * @param Report $report The Report object.
-     * @param string $pdf_data The content of the Report.
-     * @param array $debug_data Watermarking data for debugging purposes.
-     * @throws \Exception
-     */
-    public static function sendReportEmail($to, $report, $pdf_data, $debug_data=[]) {
-        self::mail(
-            $to, self::getFrom(),
-            sprintf('"%s" Report', $report['name']),
-            self::render('report', [
-                'report' => $report
-            ], $debug_data),
-            $pdf_data
-        );
-    }
-
-    /**
-     * Send an email about a failed Report.
-     * @param string[]|string $to The destination email.
-     * @param Report $report The Report object.
-     * @param string[] $errors The list of errors.
-     * @param array $debug_data Watermarking data for debugging purposes.
-     * @throws \Exception
-     */
-    public static function sendReportErrorEmail($to, $report, $errors, $debug_data=[]) {
-        self::mail(
-            $to, self::getFrom(true),
-            sprintf('[Failure] "%s" Report', $report['name']),
-            self::render('reporterror', [
-                'report' => $report,
-                'errors' => $errors
-            ], $debug_data)
-        );
-    }
-
-    /**
      * Send an email with a weekly summary.
      * @param string[]|string $to The destination email.
      * @param \DateTime $start_date The starting date for this week.

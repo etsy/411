@@ -153,10 +153,6 @@ class Scheduler {
             cli_set_process_title($base_title . ' Searches');
             $this->processSearches($date, $search_health, $backfill);
 
-            print("[+] Reports\n");
-            cli_set_process_title($base_title . ' Reports');
-            $this->processReports($date, $backfill);
-
             if($cfg['summary_enabled']) {
                 print("[+] Summary\n");
                 cli_set_process_title($base_title . ' Summary');
@@ -239,29 +235,6 @@ class Scheduler {
             $searchjob->store();
 
             Logger::info('Schedule search', ['id' => $search['id'], 'job_id' => $searchjob['id']], self::LOG_NAMESPACE);
-        }
-    }
-
-    /**
-     * Schedule Reports.
-     * @param int $date The current timestamp.
-     * @param bool $backfill Whether we're attempting to backfill this point in time.
-     */
-    private function processReports($date, $backfill) {
-        $reports = ReportFinder::getByQuery(['enabled' => 1]);
-
-        foreach($reports as $report) {
-            // Skip jobs that aren't due.
-            if(!$report->shouldRun($date, $backfill)) {
-                continue;
-            }
-
-            $reportjob = new Report_Job();
-            $reportjob['target_id'] = $report['id'];
-            $reportjob['target_date'] = $date;
-            $reportjob->store();
-
-            Logger::info('Schedule report', ['id' => $report['id'], 'job_id' => $reportjob['id']], self::LOG_NAMESPACE);
         }
     }
 

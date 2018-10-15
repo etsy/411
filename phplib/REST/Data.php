@@ -75,13 +75,6 @@ class Data_REST extends REST {
                 'Descriptions' => $filter_descs,
                 'Defaults' => $this->generateDefaultData(Filter::getSchema()),
             ],
-            'Report' => [
-                'Types' => $this->generateEnumData(Report::$TYPES),
-                'Defaults' => $this->generateDefaultData(Report::getSchema()),
-            ],
-            'ReportTarget' => [
-                'Defaults' => $this->generateDefaultData(ReportTarget::getSchema()),
-            ],
             'Job' => [
                 'States' => $this->generateEnumData(Job::$STATES),
             ],

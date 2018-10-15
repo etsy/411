@@ -152,6 +152,12 @@ abstract class Elasticsearch_Search extends Search {
         if(!is_null($cfg['ssl_cert'])) {
             $cb->setSSLVerification($cfg['ssl_cert']);
         }
+        if(!is_null($cfg['ssl_client_key'])) {
+            $cb->setSSLKey($cfg['ssl_client_key']);
+        }
+        if(!is_null($cfg['ssl_client_cert'])) {
+            $cb->setSSLCert($cfg['ssl_client_cert']);
+        }
         if(!is_null($host)) {
             $cb->setHosts([$host]);
         }

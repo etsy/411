@@ -78,6 +78,8 @@ $config['elasticsearch'] = [
      *          Ex: 'http://user:pass@localhost:9200'
      * 'index_hosts': An array of hosts to use for indexing (if different from 'hosts').
      * 'ssl_cert': Path to an ssl certificate if your cluster uses HTTPS.
+     * 'ssl_client_cert': Path to an ssl client certificate if your cluster uses HTTPS.
+     * 'ssl_client_key': Path to an ssl client key if your cluster uses HTTPS.
      * 'index': The index to query. Leave as null to query all indices.
      *          If the index is date_based, accepts index patterns. (Otherwise, it's taken literally)
      *          Any characters wrapped by [] will be taken literally.
@@ -105,6 +107,8 @@ $config['elasticsearch'] = [
         'hosts' => ['http://localhost:9200'],
         'index_hosts' => [],
         'ssl_cert' => null,
+        'ssl_client_cert' => null,
+        'ssl_client_key' => null,
         'index' => null,
         'date_based' => false,
         'date_interval' => null,
@@ -117,6 +121,8 @@ $config['elasticsearch'] = [
         'hosts' => ['http://localhost:9200'],
         'index_hosts' => [],
         'ssl_cert' => null,
+        'ssl_client_cert' => null,
+        'ssl_client_key' => null,
         'index' => '[logstash-]Y.m.d',
         'date_based' => true,
         'date_interval' => 'd',

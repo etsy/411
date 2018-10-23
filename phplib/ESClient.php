@@ -175,11 +175,13 @@ class ESClient {
             $conds['lt'] = $to;
         }
         if(count($conds) > 0) {
-            $filter = [
+            $filter[] = [
                 'range' => [ 'alert_date' => $conds ]
             ];
         }
-        $filter['query_string'] = [ 'query' => $query ];
+        $filter[] = [
+            'query_string' => [ 'query' => $query ]
+        ];
 
         $body = [
             'query' => [
@@ -270,11 +272,11 @@ class ESClient {
             $conds['lt'] = $to;
         }
         if(count($conds) > 0) {
-            $filter = [
+            $filter[] = [
                 'range' => [ 'alert_date' => $conds ]
             ];
         }
-        $filter['query_string'] = [ 'query' => $query ];
+        $filter[] = ['query_string' => ['query' => $query]];
 
         try {
             $data = $client->search([
@@ -326,8 +328,10 @@ class ESClient {
         $client = self::getClient();
 
         $filter = [
-            'terms' => [
-                'state' => [Alert::ST_NEW, Alert::ST_INPROG]
+            [
+                'terms' => [
+                    'state' => [Alert::ST_NEW, Alert::ST_INPROG]
+                ]
             ]
         ];
         $aggs = [
@@ -412,19 +416,20 @@ class ESClient {
         $client = self::getClient();
 
         $filter = [
-            'range' => [
-                'create_date' => [
-                    'lt' => 'now',
-                    'gte' => sprintf('now-%dd/d', $range)
+            [
+                'range' => [
+                    'create_date' => [
+                        'lt' => 'now',
+                        'gte' => sprintf('now-%dd/d', $range)
+                    ]
                 ]
             ]
         ];
         if($search_id != 0) {
-            $filter = [
-                $filter,
-                ['term' => [
+            $filter[] = [
+                'term' => [
                     'search_id' => $search_id
-                ]]
+                ]
             ];
         }
         $aggs = ['agg' => [
@@ -597,3 +602,4 @@ class ESClient {
         return $ret;
     }
 }
+

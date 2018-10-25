@@ -100,6 +100,8 @@ $config['elasticsearch'] = [
      *              All other strings are interpretted via PHP's date formatting syntax.
      * 'src_url': A server name for generating source links.
      *            Ex: 'https://localhost:5601'
+     *
+     * 'src_index_pattern_id': index pattern id to use in source links
      */
 
     # Configuration for the 411 Alerts index.
@@ -129,6 +131,7 @@ $config['elasticsearch'] = [
         'date_field' => '@timestamp',
         'date_type' => null,
         'src_url' => null,
+        'src_index_pattern_id' => null
     ],
 ];
 

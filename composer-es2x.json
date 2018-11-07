@@ -6,9 +6,9 @@
         "php-curl-class/php-curl-class": "^4.6",
         "setasign/fpdf": "^1.7",
         "symfony/expression-language": "^3.1",
-        "elasticsearch/elasticsearch": "^6.0",
-        "kiwiz/esquery": "dev-master",
-        "kiwiz/ecl": "dev-master",
+        "elasticsearch/elasticsearch": "^5.0",
+        "kiwiz/esquery": "^1.0",
+        "kiwiz/ecl": "^1.0",
         "ext-pcntl": ">=5.5",
         "php": ">=5.5"
     },

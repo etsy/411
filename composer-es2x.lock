@@ -4,35 +4,34 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97e9b400785c9ff71d1e43e45f313aaf",
+    "content-hash": "fb4cceac04d4759e0d506a44a11b12d3",
     "packages": [
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v5.3.2",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elastic/elasticsearch-php.git",
-                "reference": "4b29a4121e790bbfe690d5ee77da348b62d48eb8"
+                "reference": "c57db9da04f4c54c2ca69a52bc618d9120b96d4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/4b29a4121e790bbfe690d5ee77da348b62d48eb8",
-                "reference": "4b29a4121e790bbfe690d5ee77da348b62d48eb8",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/c57db9da04f4c54c2ca69a52bc618d9120b96d4d",
+                "reference": "c57db9da04f4c54c2ca69a52bc618d9120b96d4d",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/ringphp": "~1.0",
-                "php": "^5.6|^7.0",
+                "php": ">=5.4",
                 "psr/log": "~1.0"
             },
             "require-dev": {
                 "cpliakas/git-wrapper": "~1.0",
-                "doctrine/inflector": "^1.1",
                 "mockery/mockery": "0.9.4",
-                "phpunit/phpunit": "^4.7|^5.4",
+                "phpunit/phpunit": "~4.7",
                 "sami/sami": "~3.2",
-                "symfony/finder": "^2.8",
-                "symfony/yaml": "^2.8"
+                "symfony/yaml": "2.4.3 as 2.4.2",
+                "twig/twig": "1.*"
             },
             "suggest": {
                 "ext-curl": "*",
@@ -59,7 +58,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2017-11-08T17:04:47+00:00"
+            "time": "2017-12-05T14:05:24+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",

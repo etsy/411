@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97e9b400785c9ff71d1e43e45f313aaf",
+    "content-hash": "04cc436b4a3a837d4f4ebe1fc4cd451f",
     "packages": [
         {
             "name": "elasticsearch/elasticsearch",
@@ -196,16 +196,16 @@
         },
         {
             "name": "kiwiz/esquery",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiwiz/esquery.git",
-                "reference": "2c9f8384c8a8732f4a45124f38dbe2510b436426"
+                "reference": "ad05f8d18cb9f1227a82f8d0b9d270882865b31d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/2c9f8384c8a8732f4a45124f38dbe2510b436426",
-                "reference": "2c9f8384c8a8732f4a45124f38dbe2510b436426",
+                "url": "https://api.github.com/repos/kiwiz/esquery/zipball/ad05f8d18cb9f1227a82f8d0b9d270882865b31d",
+                "reference": "ad05f8d18cb9f1227a82f8d0b9d270882865b31d",
                 "shasum": ""
             },
             "require": {
@@ -233,7 +233,7 @@
             ],
             "description": "Elasticsearch querying library",
             "homepage": "https://github.com/kiwiz/esquery",
-            "time": "2018-11-07T21:01:33+00:00"
+            "time": "2018-11-08T20:28:56+00:00"
         },
         {
             "name": "kunststube/rison",

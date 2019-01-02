@@ -34,7 +34,7 @@ class Autoclose_Job extends Job {
                     'search_id' => $search['search_id'],
                     'state' => [Alert::ST_NEW, Alert::ST_INPROG],
                     'update_date' => [
-                        ModelFinder::C_LT => $this->obj['target_date'] - ($search['autoclose_threshold'])
+                        ModelFinder::C_LT => $this->obj['target_date'] - ($search['autoclose_threshold'] * 60)
                     ]
                 ], self::BATCH_SIZE);
 

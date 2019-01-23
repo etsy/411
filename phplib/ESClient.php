@@ -60,6 +60,12 @@ class ESClient {
         if(!is_null($escfg['ssl_cert'])) {
             $cb->setSSLVerification($escfg['ssl_cert']);
         }
+        if(!is_null($escfg['ssl_client_key'])) {
+            $cb->setSSLKey($escfg['ssl_client_key']);
+        }
+        if(!is_null($escfg['ssl_client_cert'])) {
+            $cb->setSSLCert($escfg['ssl_client_cert']);
+        }
 
         return $cb->build();
     }

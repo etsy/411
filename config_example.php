@@ -6,10 +6,8 @@
  * Rename this to 'config.php' and modify.
  */
 $config = [];
+// comment
 
-/**
- * Authentication configuration
- */
 $config['auth'] = [
     'proxy' => [
         /**

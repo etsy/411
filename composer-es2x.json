@@ -1,5 +1,5 @@
 {
-    "name": "FourOneOne",
+    "name": "etsy/411",
     "description": "An Alert Management Web Application",
     "require": {
         "mtdowling/cron-expression": "^1.1",

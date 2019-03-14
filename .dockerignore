@@ -1,0 +1,10 @@
+docs/
+tests/
+.git/
+.phan/
+.travis.yml
+*.swp
+.dockerignore
+Dockerfile
+vendor
+node_modules

@@ -36,7 +36,7 @@ Setup
 =====
 
 - [Setup instructions](/docs/Setup.md)
-- [Docker instructions](https://github.com/kiwiz/411-docker)
+- [Docker instructions](/docs/Docker.md)
 
 
 Help

@@ -1,0 +1,13 @@
+version: '2'
+services:
+  fouroneone:
+    build:
+      context: .
+      args:
+        COMPOSER: composer-es2x.json
+    ports:
+    - "8080:80"
+  es:
+    image: "elasticsearch:2.4"
+    ports:
+     - "9200:9200"

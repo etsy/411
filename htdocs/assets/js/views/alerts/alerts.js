@@ -120,7 +120,7 @@ define(function(require) {
 
             var default_search = this.App.Data.User.get('settings')['default'];
             var query = Util.parseQuery(window.location.href);
-            var query_string = query.query || default_search || 'state:(0 1)';
+            var query_string = query.query || default_search || 'state:(0 OR 1)';
 
             var queries = this.App.Data.User.get('settings')['queries'] || [];
             for(var i = 0; i < queries.length; ++i) {

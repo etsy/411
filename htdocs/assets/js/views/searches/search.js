@@ -302,7 +302,7 @@ define(function(require) {
         },
         gotoAlerts: function() {
             this.App.Router.navigate('/alerts?' + decodeURIComponent($.param({
-                query: 'state:(0 1) AND search_id:' + this.model.id
+                query: 'state:(0 OR 1) AND search_id:' + this.model.id
             })), {trigger: true});
         }
     });

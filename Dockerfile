@@ -31,10 +31,11 @@ RUN sed -i 's/HOSTNAME/fouroneone/g' /data/411.conf
 RUN sed -i 's/# SetEnv FOURONEONEHOST/SetEnv FOURONEONEHOST/g' /data/411.conf
 RUN sed -i 's$/var/www/411$/app$g' /data/411.conf
 
-RUN cp /app/docker/supervisord.conf /data/supervisord.conf
-RUN cp /app/docker/mail.ini /data/mail.ini
-RUN cp /app/docker/411_cron /data/411_cron
-RUN /app/docker/init.php
+RUN ls /app
+RUN cp /app/data/supervisord.conf /data/supervisord.conf
+RUN cp /app/data/mail.ini /data/mail.ini
+RUN cp /app/data/411_cron /data/411_cron
+RUN /app/data/init.php
 
 RUN rm -rf /app/docker
 

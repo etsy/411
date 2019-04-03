@@ -1,0 +1,1 @@
+sendmail_path = /usr/sbin/sendmail -t -i

@@ -1,2 +1,2 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-* * * * * root /usr/local/bin/php /var/www/411/bin/cron.php > /dev/null 2>&1 && /usr/local/bin/php /var/www/411/bin/worker.php > /dev/null 2>&1
+* * * * * root /usr/local/bin/php /app/bin/cron.php > /dev/null 2>&1 && /usr/local/bin/php /app/bin/worker.php > /dev/null 2>&1

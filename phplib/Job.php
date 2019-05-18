@@ -217,7 +217,7 @@ class JobFinder extends TypeModelFinder {
         $sql = sprintf('
             DELETE FROM `%s` WHERE `site_id` = ? AND `archived` = 0 AND `state` IN (?, ?) AND `update_date` < ?',
         Job::$TABLE);
-        DB::query($sql, [SiteFinder::getCurrentId(), Job::ST_SUCC, Job, ST_CANC, $date - (30 * 24 * 60 * 60)]);
+        DB::query($sql, [SiteFinder::getCurrentId(), Job::ST_SUCC, Job::ST_CANC, $date - (30 * 24 * 60 * 60)]);
     }
 }
 

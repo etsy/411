@@ -1,6 +1,11 @@
 {
     "name": "etsy/411",
     "description": "An Alert Management Web Application",
+    "config": {
+        "platform": {
+            "php": "7.0.0"
+        }
+    },
     "require": {
         "mtdowling/cron-expression": "^1.1",
         "php-curl-class/php-curl-class": "^4.6",

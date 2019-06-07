@@ -167,12 +167,20 @@ class Jira_Target extends Target {
         $jiracfg = Config::get('jira');
         $curl = self::getCurl();
 
-        $raw_data = $curl->get(sprintf('%s/rest/api/2/user/search?username=%%&maxResults=999999', $jiracfg['host']));
-        if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
-            return null;
-        }
+        $users = [];
+        $offset = 0;
+        do {
+            $raw_data = $curl->get(sprintf('%s/rest/api/2/user/search?username=%%&maxResults=1000&startAt=%d', $jiracfg['host'], $offset));
+            if($curl->httpStatusCode < 200 || $curl->httpStatusCode >= 300) {
+                break;
+            }
 
-        return $raw_data;
+            $cnt = count($raw_data);
+            $users = array_merge($users, $raw_data);
+            $offset += $cnt;
+        } while($cnt == 1000);
+
+        return $users;
     }
 
     /**

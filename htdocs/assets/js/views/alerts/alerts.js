@@ -304,7 +304,7 @@ define(function(require) {
                     var collection_query = {
                         assignee: parseInt(c.assignee, 10),
                         assignee_type: parseInt(c.assignee_type, 10),
-                        escalated: c.escalated || 0,
+                        escalated: c.escalated || false,
                         search_id: parseInt(c.search_id, 10),
                         state: parseInt(c.state, 10),
                     };

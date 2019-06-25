@@ -1,5 +1,5 @@
 FROM php:7-apache AS builder
-ARG COMPOSER=composer-es6x.json
+ARG COMPOSER=composer-es7x.json
 WORKDIR /app
 
 RUN apt-get update && \

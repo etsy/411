@@ -38,9 +38,8 @@ class Jira_Target extends Target {
 
         $title = sprintf('[%s] %s', $site['name'], $search['name']);
         $desc = [];
-        date_default_timezone_set('Europe/Moscow');
-        $desc[] = sprintf('Date: %s', date(DATE_RSS, $alert['alert_date']));
-
+        $desc[] = sprintf('Date: %s', gmdate(DATE_RSS, $alert['alert_date']));
+        
         // Don't show the link if this Alert isn't persisted.
         if(!$alert->isNew()) {
             $desc[] = sprintf('[Link to Alert|%s]', $site->urlFor(

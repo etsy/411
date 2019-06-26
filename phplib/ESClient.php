@@ -87,7 +87,6 @@ class ESClient {
                 'body' => [
                     'template' => '411_alerts_*',
                     'mappings' => [
-                        '_default_' => [
                             'properties' => [
                                 'alert_date' => ['type' => 'date', 'format' => 'epoch_second'],
                                 'assignee_type' => ['type' => 'long'],
@@ -109,7 +108,6 @@ class ESClient {
                                 'update_date' => ['type' => 'date', 'format' => 'epoch_second'],
                             ]
                         ]
-                    ]
                 ]
             ]);
         }

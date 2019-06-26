@@ -3,7 +3,7 @@
 namespace FOO;
 
 class ES_Search extends Elasticsearch_Search {
-    public static $TYPE = 'es';
+    public static $TYPE = '_doc';
 
     public static function getSources() {
         $sources = [];

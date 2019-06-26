@@ -1,5 +1,5 @@
 FROM php:7-apache AS builder
-ARG COMPOSER=composer-es2x.json
+ARG COMPOSER=composer-es7x.json
 WORKDIR /app
 
 RUN apt-get update && \
@@ -73,6 +73,11 @@ RUN ln -sf /data/411.conf /etc/apache2/sites-available/000-default.conf
 
 RUN ln -sf /data/mail.ini /usr/local/etc/php/conf.d/
 RUN ln -sf /data/411_cron /etc/cron.d/
+
+RUN cp /etc/exim4/passwd.client /data/passwd.client
+RUN cp /etc/exim4/update-exim4.conf.conf /data/update-exim4.conf.conf
+RUN ln -sf /data/passwd.client /etc/exim4/passwd.client
+RUN ln -sf /data/update-exim4.conf.conf /etc/exim4/update-exim4.conf.conf
 
 VOLUME /data
 EXPOSE 80

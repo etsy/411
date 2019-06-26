@@ -39,7 +39,7 @@ class Jira_Target extends Target {
         $title = sprintf('[%s] %s', $site['name'], $search['name']);
         $desc = [];
         $desc[] = sprintf('Date: %s', gmdate(DATE_RSS, $alert['alert_date']));
-
+        
         // Don't show the link if this Alert isn't persisted.
         if(!$alert->isNew()) {
             $desc[] = sprintf('[Link to Alert|%s]', $site->urlFor(

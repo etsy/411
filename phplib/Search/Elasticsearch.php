@@ -37,8 +37,15 @@ abstract class Elasticsearch_Search extends Search {
 
     public function generateAlertLink($index, $type, $id) {
         $cfg = $this->getConfig();
-        $index_pattern = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']):$cfg['index'];
-        return sprintf('%s/app/kibana#/doc/%s/%s/%s?%s', $cfg['src_url'], $index_pattern, $index, $type, http_build_query(['id' => $id]));
+
+        if($cfg['src_index_pattern_id']) {
+            $index_id = $cfg['src_index_pattern_id'];
+
+        } else {
+            $index_id = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']) : $cfg['index'];
+        }
+
+        return sprintf('%s/app/kibana#/doc/%s/%s/%s?%s', $cfg['src_url'], $index_id, $index, $type, http_build_query(['id' => $id]));
     }
 
     public function generateLink($query, $start, $end) {
@@ -47,10 +54,16 @@ abstract class Elasticsearch_Search extends Search {
             return null;
         }
 
-        $index_pattern = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']):$cfg['index'];
+        if($cfg['src_index_pattern_id']) {
+            $index_id = $cfg['src_index_pattern_id'];
+
+        } else {
+            $index_id = $cfg['date_based'] ? \ESQuery\Util::generateKibanaPattern($cfg['index']) : $cfg['index'];
+        }
+
         $parser = new \ESQuery\Parser;
         try {
-            return $parser->generateUrl($query, $start, $end, $cfg['src_url'], $index_pattern);
+            return $parser->generateUrl($query, $start, $end, $cfg['src_url'], $index_id);
         } catch(\ESQuery\Exception $e) {
             return null;
         }
